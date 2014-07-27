@@ -24,11 +24,11 @@ public class CookieUtils {
     /**
      * 添加cookie对象
      *
-     * @param request
-     * @param response
-     * @param name
-     * @param value
-     * @param expiry
+     * @param request  request
+     * @param response response
+     * @param name     name
+     * @param value    value
+     * @param expiry   expiry time
      */
     public void addCookieObj(HttpServletRequest request,
                              HttpServletResponse response, String name, Object value, int expiry) {
@@ -50,10 +50,10 @@ public class CookieUtils {
     /**
      * 获取cookie对象
      *
-     * @param request
-     * @param response
-     * @param name
-     * @return
+     * @param request  request
+     * @param response response
+     * @param name     name
+     * @return object
      */
     public Object getCookieObj(HttpServletRequest request,
                                HttpServletResponse response, String name) {
@@ -79,10 +79,10 @@ public class CookieUtils {
     /**
      * 添加cookie
      *
-     * @param request
-     * @param response
-     * @param name
-     * @param value
+     * @param request  request
+     * @param response response
+     * @param name     name
+     * @param value    value
      * @param expiry   有效时间
      */
     public void addCookie(HttpServletRequest request,
@@ -127,8 +127,9 @@ public class CookieUtils {
     /**
      * 删除cookie
      *
-     * @param request
-     * @param name
+     * @param request request
+     * @param name    name
+     * @return value
      */
     public String getCookie(HttpServletRequest request, String name) {
         String result = null;
@@ -160,9 +161,9 @@ public class CookieUtils {
     /**
      * 删除cookie
      *
-     * @param request
-     * @param response
-     * @param name
+     * @param request  request
+     * @param response response
+     * @param name     name
      */
     public void removeCookie(HttpServletRequest request,
                              HttpServletResponse response, String name) {

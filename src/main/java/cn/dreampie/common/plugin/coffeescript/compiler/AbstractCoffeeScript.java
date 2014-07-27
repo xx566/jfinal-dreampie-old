@@ -11,29 +11,29 @@ import java.io.File;
 public class AbstractCoffeeScript {
 
     /**
-     * @component
+     * context
      */
     protected BuildContext buildContext;
 
     /**
      * The source directory containing the COFFEE sources.
      *
-     * @parameter expression="${coffeescript.sourceDirectory}" default-value="${project.basedir}/src/main/coffee"
-     * @required
+     * param expression="${coffeescript.sourceDirectory}" default-value="${project.basedir}/src/main/coffee"
+     * required
      */
     protected File sourceDirectory;
 
     /**
      * List of files to include. Specified as fileset patterns which are relative to the source directory. Default value is: { "**\/*.coffee" }
      *
-     * @parameter
+     * param  include files
      */
     protected String[] includes = new String[]{"**/*.coffee"};
 
     /**
      * List of files to exclude. Specified as fileset patterns which are relative to the source directory.
      *
-     * @parameter
+     * param exclude  files
      */
     protected String[] excludes = new String[]{};
 
@@ -54,7 +54,7 @@ public class AbstractCoffeeScript {
      * Whether to skip plugin execution.
      * This makes the build more controllable from profiles.
      *
-     * @parameter expression="${coffeescript.skip}" default-value="false"
+     * param expression="${coffeescript.skip}" default-value="false"
      */
     protected boolean skip;
 

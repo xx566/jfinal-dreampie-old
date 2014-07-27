@@ -28,9 +28,9 @@ public class MyJdbcRealm extends AuthorizingRealm {
     /**
      * 登录认证
      *
-     * @param token
-     * @return
-     * @throws AuthenticationException
+     * @param token token
+     * @return authen
+     * @throws AuthenticationException  exception
      */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken userToken = (UsernamePasswordToken) token;
@@ -62,8 +62,8 @@ public class MyJdbcRealm extends AuthorizingRealm {
     /**
      * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
      *
-     * @param principals
-     * @return
+     * @param principals  user princi
+     * @return authinfo
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String loginName = ((User) principals.fromRealm(getName()).iterator().next()).get("username");
@@ -91,9 +91,9 @@ public class MyJdbcRealm extends AuthorizingRealm {
     }
 
     /**
-     * @param roleSet
-     * @param permissionSet
-     * @param roles
+     * @param roleSet roles
+     * @param permissionSet permissions
+     * @param roles roles
      */
     private void loadRole(Set<String> roleSet, Set<String> permissionSet, List<Role> roles) {
         List<Permission> permissions;
@@ -108,8 +108,8 @@ public class MyJdbcRealm extends AuthorizingRealm {
     }
 
     /**
-     * @param permissionSet
-     * @param permissions
+     * @param permissionSet permission
+     * @param permissions permissions
      */
     private void loadAuth(Set<String> permissionSet, List<Permission> permissions) {
         //遍历权限
@@ -123,6 +123,7 @@ public class MyJdbcRealm extends AuthorizingRealm {
 
     /**
      * 更新用户授权信息缓存.
+     * @param principal  principal
      */
 
     public void clearCachedAuthorizationInfo(Object principal) {

@@ -60,7 +60,7 @@ public class ThreadLocalUtil {
     /**
      * 获取返回值类型
      *
-     * @return
+     * @return type
      */
     public static ReTurnType returnType() {
         HttpServletRequest request = getRequest();

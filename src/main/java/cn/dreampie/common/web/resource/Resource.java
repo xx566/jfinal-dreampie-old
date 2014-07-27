@@ -26,7 +26,8 @@ public interface Resource {
     /**
      * Returns resource input stream.
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException exception
+     * @return inputstream
      */
     InputStream getInputStream() throws IOException;
 
@@ -35,6 +36,7 @@ public interface Resource {
      *
      * @param relativeResourcePath String relative resource path
      * @return Resource relative resource
+     * @throws java.io.IOException exception
      */
     Resource createRelative(String relativeResourcePath) throws IOException;
 

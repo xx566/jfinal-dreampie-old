@@ -81,7 +81,7 @@ public class CoffeeSource {
      * to @see #CoffeeSource(Resource) .
      *
      * @param input a File to use as input.
-     * @throws java.io.IOException
+     * @throws java.io.IOException  read file exception
      */
     public CoffeeSource(File input) throws IOException {
         this(new FileResource(input));

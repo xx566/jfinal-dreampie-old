@@ -20,7 +20,7 @@ public class EncryptionTextUtils {
     /**
      * 默认构造方法，使用默认密钥
      *
-     * @throws Exception
+     * @throws java.lang.Exception exception
      */
     public EncryptionTextUtils() throws Exception {
         this(strDefaultKey);
@@ -30,7 +30,7 @@ public class EncryptionTextUtils {
      * 指定密钥构造方法
      *
      * @param strKey 指定的密钥
-     * @throws Exception
+     * @throws Exception exception
      */
     public EncryptionTextUtils(String strKey) throws Exception {
         Security.addProvider(new com.sun.crypto.provider.SunJCE());
@@ -49,7 +49,7 @@ public class EncryptionTextUtils {
      *
      * @param arrB 需要转换的byte数组
      * @return 转换后的字符串
-     * @throws Exception
+     * @throws Exception exception
      */
     public static String byteArr2HexStr(byte[] arrB) throws Exception {
         int iLen = arrB.length;
@@ -76,7 +76,7 @@ public class EncryptionTextUtils {
      *
      * @param strIn 需要转换的字符串
      * @return 转换后的byte数组
-     * @throws Exception
+     * @throws Exception exception
      */
     public static byte[] hexStr2ByteArr(String strIn) throws Exception {
         byte[] arrB = strIn.getBytes();
@@ -96,7 +96,7 @@ public class EncryptionTextUtils {
      *
      * @param arrB 需加密的字节数组
      * @return 加密后的字节数组
-     * @throws Exception
+     * @throws Exception exception
      */
     public byte[] encrypt(byte[] arrB) throws Exception {
         return encryptCipher.doFinal(arrB);
@@ -107,7 +107,7 @@ public class EncryptionTextUtils {
      *
      * @param strIn 需加密的字符串
      * @return 加密后的字符串
-     * @throws Exception
+     * @throws Exception exception
      */
     public String encrypt(String strIn) throws Exception {
         return byteArr2HexStr(encrypt(strIn.getBytes()));
@@ -118,7 +118,7 @@ public class EncryptionTextUtils {
      *
      * @param arrB 需解密的字节数组
      * @return 解密后的字节数组
-     * @throws Exception
+     * @throws Exception exception
      */
     public byte[] decrypt(byte[] arrB) throws Exception {
         return decryptCipher.doFinal(arrB);
@@ -129,7 +129,7 @@ public class EncryptionTextUtils {
      *
      * @param strIn 需解密的字符串
      * @return 解密后的字符串
-     * @throws Exception
+     * @throws Exception exception
      */
     public String decrypt(String strIn) throws Exception {
         try {
@@ -144,7 +144,7 @@ public class EncryptionTextUtils {
      *
      * @param arrBTmp 构成该字符串的字节数组
      * @return 生成的密钥
-     * @throws Exception
+     * @throws Exception exception
      */
     private Key getKey(byte[] arrBTmp) throws Exception {
         // 创建一个空的8位字节数组（默认值为0）

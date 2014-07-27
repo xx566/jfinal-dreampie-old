@@ -23,64 +23,64 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
     /**
      * The directory for compiled CSS stylesheets.
      *
-     * @parameter expression="${coffeejs.outputDirectory}" default-value="${project.build.directory}"
-     * @required
+     * parameter expression="${coffeejs.outputDirectory}" default-value="${project.build.directory}"
+     * required
      */
     protected File outputDirectory;
 
     /**
      * When <code>true</code> the COFFEE compiler will compress the CSS stylesheets.
      *
-     * @parameter expression="${coffeejs.compress}" default-value="false"
+     * parameter expression="${coffeejs.compress}" default-value="false"
      */
     private boolean compress;
 
     /**
      * When <code>true</code> the plugin will watch for changes in COFFEE files and compile if it detects one.
      *
-     * @parameter expression="${coffeejs.watch}" default-value="false"
+     * parameter expression="${coffeejs.watch}" default-value="false"
      */
     protected boolean watch = false;
 
     /**
      * When <code>true</code> the plugin will watch for changes in COFFEE files and compile if it detects one.
      *
-     * @parameter expression="${coffeejs.watchInterval}" default-value="1000"
+     * parameter expression="${coffeejs.watchInterval}" default-value="1000"
      */
     private int watchInterval = 1000;
 
     /**
      * The character encoding the COFFEE compiler will use for writing the CSS stylesheets.
      *
-     * @parameter expression="${coffeejs.encoding}" default-value="${project.build.sourceEncoding}"
+     * parameter expression="${coffeejs.encoding}" default-value="${project.build.sourceEncoding}"
      */
     private String encoding;
 
     /**
      * When <code>true</code> forces the COFFEE compiler to always compile the COFFEE sources. By default COFFEE sources are only compiled when modified (including imports) or the CSS stylesheet does not exists.
      *
-     * @parameter expression="${coffeejs.force}" default-value="false"
+     * parameter expression="${coffeejs.force}" default-value="false"
      */
     private boolean force;
 
     /**
      * The location of the COFFEE JavasSript file.
      *
-     * @parameter
+     * parameter
      */
     private File coffeeJs;
 
     /**
      * The location of the NodeJS executable.
      *
-     * @parameter
+     * parameter
      */
     private String nodeExecutable;
 
     /**
      * The format of the output file names.
      *
-     * @parameter
+     * parameter
      */
     private String outputFileFormat;
 

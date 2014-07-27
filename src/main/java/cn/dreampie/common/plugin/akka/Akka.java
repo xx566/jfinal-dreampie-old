@@ -10,11 +10,12 @@ public class Akka {
 
     /**
      * Retrieve the application Akka Actor system.
-     * <p/>
+     *
      * Example:
      * {{{
      * val newActor = Akka.system.actorOf[Props[MyActor]]
      * }}}
+     * @return ActorSystem
      */
     public static ActorSystem system() {
         ActorSystem applicationSystem = AkkaPlugin.applicationSystem;

@@ -162,9 +162,9 @@ public class PatchcaRender extends Render {
     /**
      * 验证码验证
      *
-     * @param controller
-     * @param inputCode
-     * @return
+     * @param controller controller
+     * @param inputCode valid code
+     * @return boolean
      */
     public static boolean validate(Controller controller, String inputCode) {
         if (StrKit.isBlank(inputCode))

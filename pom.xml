@@ -4,8 +4,9 @@
     <groupId>com.github.dreampie</groupId>
     <artifactId>jfinal-dreampie</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>jfinal-dreampie jfinal plugins</name>
+    <version>1.0</version>
+    <name>jfinal-dreampie</name>
+    <description>jfinal plugins</description>
     <url>https://github.com/Dreampie/jfinal-dreampie</url>
 
     <licenses>
@@ -38,7 +39,8 @@
         <url>https://github.com/Dreampie/jfinal-dreampie.git</url>
     </scm>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
         <!-- For the Maven Jetty plugin (mvn jetty:run) -->
         <jetty.version>9.1.1.v20140108</jetty.version>
         <shiro.version>1.2.3</shiro.version>
@@ -482,6 +484,12 @@
             <groupId>org.webjars</groupId>
             <artifactId>less</artifactId>
             <version>1.7.3</version>
+        </dependency>
+        <!---->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>firebase</artifactId>
+            <version>1.0.17</version>
         </dependency>
     </dependencies>
 

@@ -15,12 +15,7 @@ public class FileUtils {
 
     /**
      * @param file 文件对象
-     * @create_time 2012-8-15 下午7:21:17
-     * @create_user wangrenhui
-     * @whattodo 删除文件
-     * @modify_time like:date1/date2
-     * @modify_user like:user1/user2
-     * @modify_content like:content1/content2
+     * @return boolean
      */
     public boolean delete(File file) {
         boolean result = true;
@@ -41,9 +36,9 @@ public class FileUtils {
     /**
      * 删除指定文件名的文件或文件夹
      *
-     * @param file
-     * @param filename
-     * @return
+     * @param file     file
+     * @param filename filename
+     * @return boolean
      */
     public boolean delete(File file, String filename) {
         boolean result = true;
@@ -72,8 +67,8 @@ public class FileUtils {
     /**
      * 删除文件
      *
-     * @param path
-     * @return
+     * @param path file path
+     * @return boolean
      */
     public boolean delete(String path) {
         if (!ValidateUtils.me().isNullOrEmpty(path)) {
@@ -85,6 +80,10 @@ public class FileUtils {
 
     /**
      * 删除指定名称的文件
+     *
+     * @param path     file path
+     * @param filename filename
+     * @return boolean
      */
     public boolean delete(String path, String filename) {
         if (!ValidateUtils.me().isNullOrEmpty(path)) {
@@ -96,12 +95,7 @@ public class FileUtils {
 
     /**
      * @param file 文件目录
-     * @create_time 2012-8-27 下午3:42:15
-     * @create_user wangrenhui
-     * @whattodo 判断该目录下是否有文件
-     * @modify_time like:date1/date2
-     * @modify_user like:user1/user2
-     * @modify_content like:content1/content2
+     * @return boolean
      */
     public boolean exist(File file) {
         if (file != null) {
@@ -116,8 +110,8 @@ public class FileUtils {
     /**
      * 存在子文件或子目录
      *
-     * @param file
-     * @return
+     * @param file file
+     * @return boolean
      */
     public boolean existChild(File file) {
         if (file.isDirectory()) {
@@ -134,8 +128,8 @@ public class FileUtils {
     /**
      * 判断文件是否存在
      *
-     * @param path
-     * @return
+     * @param path file path
+     * @return boolean
      */
 
     public boolean exist(String path) {

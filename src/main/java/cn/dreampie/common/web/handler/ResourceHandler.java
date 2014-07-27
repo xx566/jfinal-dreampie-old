@@ -31,8 +31,8 @@ public class ResourceHandler extends FakeStaticHandler {
     /**
      * 判断是否是静态的资源文件
      *
-     * @param resouceUrl
-     * @return
+     * @param resouceUrl resource url
+     * @return boolean
      */
     public boolean checkResource(String resouceUrl) {
         if (resourceUrls != null && resourceUrls.length > 0) {

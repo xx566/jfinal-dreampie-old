@@ -44,9 +44,9 @@ public class TreeUtils {
     /**
      * 无限级树形结构
      *
-     * @param params
-     * @param pid
-     * @return
+     * @param params params
+     * @param pid    pid
+     * @return list
      */
     public static List toTree(List params, long pid) {
         List nodes = Lists.newArrayList();
@@ -70,9 +70,10 @@ public class TreeUtils {
     /**
      * 两级树形数据
      *
-     * @param params
-     * @param pid
-     * @return
+     * @param params params
+     * @param pid    pid
+     * @param level  level
+     * @return list
      */
     public static List toTreeLevel(List params, long pid, int level) {
         List nodes = Lists.newArrayList();

@@ -25,11 +25,11 @@ public class QuartzFactory {
     /**
      * 定时开始任务
      *
-     * @param startTime
-     * @param id
-     * @param name
-     * @param group
-     * @param jobClass
+     * @param startTime start time
+     * @param id        quartz id
+     * @param name      name
+     * @param group     group
+     * @param jobClass  class
      */
     public void startJobOnce(String startTime, int id, String name, String group, Class<? extends Job> jobClass) {
         try {
@@ -57,11 +57,12 @@ public class QuartzFactory {
     /**
      * 定时开始任务
      *
-     * @param startTime
-     * @param id
-     * @param name
-     * @param group
-     * @param jobClass
+     * @param startTime start time
+     * @param id        quartz id
+     * @param name      name
+     * @param group     group
+     * @param cronExp   cronExp
+     * @param jobClass  class
      */
     public void startJobCron(String startTime, int id, String name, String group, String cronExp, Class<? extends Job> jobClass) {
         try {
@@ -88,9 +89,9 @@ public class QuartzFactory {
     /**
      * 停止任务
      *
-     * @param name
-     * @param group
-     * @param id
+     * @param name  name
+     * @param group group
+     * @param id    id
      */
     public void stopJob(String name, String group, int id) {
         try {

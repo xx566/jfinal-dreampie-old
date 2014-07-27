@@ -1,5 +1,5 @@
 /**
- * @create_time 2012-5-25 下午4:59:05
+ *  2012-5-25 下午4:59:05
  * @create_user wangrenhui
  * @whattodo
  * @modify_time like:date1/date2
@@ -12,15 +12,15 @@ import java.security.MessageDigest;
 
 /**
  * @author wangrenhui
- * @description 加密工具
- * @create_time 2012-5-25 下午4:59:05
+ *  加密工具
+ *  2012-5-25 下午4:59:05
  */
 public class EncriptionUtils {
     /**
      * md5加密
      *
-     * @param srcStr
-     * @return
+     * @param srcStr input string
+     * @return output encription string
      */
     public static final String encrypt(String srcStr) {
         try {
@@ -41,8 +41,8 @@ public class EncriptionUtils {
     /**
      * 字符串转换为16进制
      *
-     * @param s
-     * @return
+     * @param s hex string
+     * @return end string
      */
     public static String toHexString(String s) {
         String str = "";
@@ -56,9 +56,9 @@ public class EncriptionUtils {
     /**
      * Text加密
      *
-     * @param text
-     * @param salt
-     * @return
+     * @param text text
+     * @param salt salt
+     * @return string
      */
     public static String textEncrypt(String text, String salt) {
         try {
@@ -74,9 +74,9 @@ public class EncriptionUtils {
     /**
      * Text解密
      *
-     * @param text
-     * @param salt
-     * @return
+     * @param text  encription string
+     * @param salt salt
+     * @return string
      */
     public static String textDecrypt(String text, String salt) {
         try {

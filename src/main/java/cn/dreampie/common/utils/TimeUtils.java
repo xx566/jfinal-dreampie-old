@@ -21,8 +21,8 @@ public class TimeUtils {
     /**
      * 字符串转换为时间格式
      *
-     * @param dateStr
-     * @return
+     * @param dateStr date str
+     * @return datetime
      */
     public DateTime toDateTime(String dateStr) {
         DateTimeFormatter df = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
@@ -42,8 +42,8 @@ public class TimeUtils {
     /**
      * 时间转换为字符串
      *
-     * @param date
-     * @return
+     * @param date date
+     * @return datestr
      */
     public String toString(DateTime date) {
         DateTimeFormatter df = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
@@ -51,6 +51,12 @@ public class TimeUtils {
         return dateStr;
     }
 
+    /**
+     *
+     * @param date date
+     * @param format format
+     * @return datestr
+     */
     public String toString(DateTime date, String format) {
         if (ValidateUtils.me().isNullOrEmpty(format)) {
             format = "yyyy-MM-dd HH:mm:ss";

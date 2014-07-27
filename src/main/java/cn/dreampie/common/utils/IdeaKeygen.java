@@ -6,12 +6,7 @@ import java.util.zip.CRC32;
 
 public class IdeaKeygen
 {
-	/**
-	 * @param s
-	 * @param i
-	 * @param bytes
-	 * @return
-	 */
+
 	public static short getCRC(String s, int i, byte bytes[])
 	{
 		CRC32 crc32 = new CRC32();
@@ -35,10 +30,6 @@ public class IdeaKeygen
 		return (short) (int) crc32.getValue();
 	}
 
-	/**
-	 * @param biginteger
-	 * @return String
-	 */
 	public static String encodeGroups(BigInteger biginteger)
 	{
 		BigInteger beginner1 = BigInteger.valueOf(0x39aa400L);
@@ -57,10 +48,6 @@ public class IdeaKeygen
 		return sb.toString();
 	}
 
-	/**
-	 * @param i
-	 * @return
-	 */
 	public static String encodeGroup(int i)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -82,12 +69,6 @@ public class IdeaKeygen
 		return sb.toString();
 	}
 
-	/**
-	 * @param name
-	 * @param days
-	 * @param id
-	 * @return
-	 */
 	public static String MakeKey(String name, int days, int id)
 	{
 		id %= 100000;

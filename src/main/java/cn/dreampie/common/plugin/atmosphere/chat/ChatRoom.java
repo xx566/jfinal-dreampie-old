@@ -47,7 +47,8 @@ public class ChatRoom {
     /**
      * Invoked when the connection as been fully established and suspended, e.g ready for receiving messages.
      *
-     * @param r
+     * @param r resource
+     * @return chatprotocol
      */
     @Ready(value = Ready.DELIVER_TO.ALL, encoders = {JsonEncoder.class})
     public ChatProtocol onReady(final AtmosphereResource r) {
@@ -73,7 +74,7 @@ public class ChatRoom {
     /**
      * Invoked when the client disconnect or when an unexpected closing of the underlying connection happens.
      *
-     * @param event
+     * @param event resourceevent
      */
     @Disconnect
     public void onDisconnect(AtmosphereResourceEvent event) {
@@ -86,14 +87,6 @@ public class ChatRoom {
         }
     }
 
-    /**
-     * Simple annotated class that demonstrate how {@link org.atmosphere.config.managed.Encoder} and {@link org.atmosphere.config.managed.Decoder
-     * can be used.
-     *
-     * @param message an instance of {@link ChatProtocol }
-     * @return
-     * @throws IOException
-     */
     @Message(encoders = {JsonEncoder.class}, decoders = {ProtocolDecoder.class})
     public ChatProtocol onMessage(ChatProtocol message) throws IOException {
 

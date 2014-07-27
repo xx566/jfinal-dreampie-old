@@ -28,64 +28,64 @@ public class LessCssCompiler extends AbstractLessCss {
     /**
      * The directory for compiled CSS stylesheets.
      *
-     * @parameter expression="${lesscss.outputDirectory}" default-value="${project.build.directory}"
-     * @required
+     * parameter expression="${lesscss.outputDirectory}" default-value="${project.build.directory}"
+     * required
      */
     protected File outputDirectory;
 
     /**
      * When <code>true</code> the LESS compiler will compress the CSS stylesheets.
      *
-     * @parameter expression="${lesscss.compress}" default-value="false"
+     * parameter expression="${lesscss.compress}" default-value="false"
      */
     private boolean compress;
 
     /**
      * When <code>true</code> the plugin will watch for changes in LESS files and compile if it detects one.
      *
-     * @parameter expression="${lesscss.watch}" default-value="false"
+     * parameter expression="${lesscss.watch}" default-value="false"
      */
     protected boolean watch = false;
 
     /**
      * When <code>true</code> the plugin will watch for changes in LESS files and compile if it detects one.
      *
-     * @parameter expression="${lesscss.watchInterval}" default-value="1000"
+     * parameter expression="${lesscss.watchInterval}" default-value="1000"
      */
     private int watchInterval = 1000;
 
     /**
      * The character encoding the LESS compiler will use for writing the CSS stylesheets.
      *
-     * @parameter expression="${lesscss.encoding}" default-value="${project.build.sourceEncoding}"
+     * parameter expression="${lesscss.encoding}" default-value="${project.build.sourceEncoding}"
      */
     private String encoding;
 
     /**
      * When <code>true</code> forces the LESS compiler to always compile the LESS sources. By default LESS sources are only compiled when modified (including imports) or the CSS stylesheet does not exists.
      *
-     * @parameter expression="${lesscss.force}" default-value="false"
+     * parameter expression="${lesscss.force}" default-value="false"
      */
     private boolean force;
 
     /**
      * The location of the LESS JavasSript file.
      *
-     * @parameter
+     * parameter
      */
     private File lessJs;
 
     /**
      * The location of the NodeJS executable.
      *
-     * @parameter
+     * parameter
      */
     private String nodeExecutable;
 
     /**
      * The format of the output file names.
      *
-     * @parameter
+     * parameter
      */
     private String outputFileFormat;
 

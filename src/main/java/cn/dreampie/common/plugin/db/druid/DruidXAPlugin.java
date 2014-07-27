@@ -102,6 +102,9 @@ public class DruidXAPlugin implements IPlugin, IDataSourceProvider {
      * 防SQL注入："wall"
      * 组合使用： "stat,wall"
      * </p>
+     *
+     * @param filters filters
+     * @return Plugin
      */
     public DruidXAPlugin setFilters(String filters) {
         this.filters = filters;
@@ -226,6 +229,9 @@ public class DruidXAPlugin implements IPlugin, IDataSourceProvider {
      * Oracle - "select 1 from dual"
      * DB2 - "select 1 from sysibm.sysdummy1"
      * mysql - "select 1"
+     *
+     * @param validationQuery valid
+     * @return Plugin
      */
     public DruidXAPlugin setValidationQuery(String validationQuery) {
         this.validationQuery = validationQuery;

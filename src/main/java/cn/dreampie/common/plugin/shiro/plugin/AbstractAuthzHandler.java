@@ -28,7 +28,7 @@ abstract class AbstractAuthzHandler implements AuthzHandler {
     /**
      * 获得Shiro的Subject对象。
      *
-     * @return
+     * @return Subject
      */
     protected Subject getSubject() {
         return SecurityUtils.getSubject();

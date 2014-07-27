@@ -20,9 +20,9 @@ public class ValidateUtils {
     /**
      * 匹配正则表达式
      *
-     * @param regex
-     * @param value
-     * @return
+     * @param regex regex
+     * @param value value
+     * @return boolean
      */
     public boolean match(String regex, String value) {
         Pattern pattern = Pattern.compile(regex);
@@ -37,10 +37,10 @@ public class ValidateUtils {
     /**
      * 区分大小写
      *
-     * @param regex
-     * @param flags
-     * @param value
-     * @return
+     * @param regex regex
+     * @param flags flags
+     * @param value value
+     * @return boolean
      */
     public boolean match(String regex, int flags, String value) {
         Pattern pattern = Pattern.compile(regex, flags);
@@ -55,8 +55,8 @@ public class ValidateUtils {
     /**
      * 邮箱验证工具
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isEmail(String value) {
         String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
@@ -67,8 +67,8 @@ public class ValidateUtils {
     /**
      * 手机号码验证
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isMobile(String value) {
         String check = "^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\\d{8})$";
@@ -78,19 +78,19 @@ public class ValidateUtils {
     /**
      * 座机验证
      *
-     * @param tel
-     * @return
+     * @param value value
+     * @return boolean
      */
-    public boolean isTel(String tel) {
+    public boolean isTel(String value) {
         String check = "^\\d{3,4}-?\\d{7,9}$";
-        return match(check, Pattern.CASE_INSENSITIVE, tel);
+        return match(check, Pattern.CASE_INSENSITIVE, value);
     }
 
     /**
      * 电话号码 包括移动电话和座机
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isPhone(String value) {
         String telcheck = "^\\d{3,4}-?\\d{7,9}$";
@@ -105,7 +105,7 @@ public class ValidateUtils {
 
     /**
      * @param value 输入内容限制为英文字母 、数字和下划线
-     * @return
+     * @return boolean
      */
     public boolean isGeneral(String value) {
         String check = "^\\w+$";
@@ -120,8 +120,8 @@ public class ValidateUtils {
     /**
      * 判断是否是生日
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isBirthDay(String value) {
         String check = "(\\d{4})(/|-|\\.)(\\d{1,2})(/|-|\\.)(\\d{1,2})$";
@@ -155,8 +155,8 @@ public class ValidateUtils {
     /**
      * 身份证
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isIdentityCard(String value) {
         String check = "(^\\d{15}$)|(^\\d{17}([0-9]|X)$)";
@@ -166,8 +166,8 @@ public class ValidateUtils {
     /**
      * 邮政编码
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isZipCode(String value) {
         String check = "^[0-9]{6}$";
@@ -177,8 +177,8 @@ public class ValidateUtils {
     /**
      * 货币
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isMoney(String value) {
         String check = "^(\\d+(?:\\.\\d{1,2})?)$";
@@ -188,8 +188,8 @@ public class ValidateUtils {
     /**
      * 大于0的数字
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isNumber(String value) {
         String check = "^(\\+|\\-)?\\d+$";
@@ -204,8 +204,8 @@ public class ValidateUtils {
     /**
      * 正整数
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isPositiveNumber(String value) {
         String check = "^\\d+$";
@@ -220,8 +220,8 @@ public class ValidateUtils {
     /**
      * 中文
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isChinese(String value) {
         String check = "^[\\u2E80-\\u9FFF]+$";
@@ -236,8 +236,8 @@ public class ValidateUtils {
     /**
      * 中文字、英文字母、数字和下划线
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isString(String value) {
         String check = "^[\\u0391-\\uFFE5\\w]+$";
@@ -252,8 +252,8 @@ public class ValidateUtils {
     /**
      * UUID
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isUUID(String value) {
         String check = "^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$";
@@ -263,7 +263,8 @@ public class ValidateUtils {
     /**
      * 礼品卡前缀
      *
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isCardPrefix(String value) {
         String check = "^[A-Za-z]\\w{0,3}\\d{0,4}$";
@@ -273,8 +274,8 @@ public class ValidateUtils {
     /**
      * 礼品卡格式
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isCard(String value) {
         String check = "^[A-Za-z]\\w{3}\\d{4}$";
@@ -292,8 +293,8 @@ public class ValidateUtils {
     /**
      * 匹配是否是链接
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isUrl(String value) {
 //
@@ -360,8 +361,8 @@ public class ValidateUtils {
     /**
      * 判断
      *
-     * @param value
-     * @return
+     * @param value value
+     * @return boolean
      */
     public boolean isDateTime(String value) {
         String check = "^(\\d{4})(/|-|\\.|年)(\\d{1,2})(/|-|\\.|月)(\\d{1,2})(日)?(\\s+\\d{1,2}(:|时)\\d{1,2}(:|分)?(\\d{1,2}(秒)?)?)?$";// check = "^(\\d{4})(/|-|\\.)(\\d{1,2})(/|-|\\.)(\\d{1,2})$";

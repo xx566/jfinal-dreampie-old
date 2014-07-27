@@ -18,6 +18,9 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
 
     /**
      * 重写并过滤getParameter方法
+     *
+     * @param name name
+     * @return param
      */
     @Override
     public String getParameter(String name) {
@@ -26,6 +29,9 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
 
     /**
      * 重写并过滤getParameterValues方法
+     *
+     * @param name name
+     * @return value
      */
     @Override
     public String[] getParameterValues(String name) {
@@ -42,6 +48,8 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
 
     /**
      * 重写并过滤getParameterMap方法
+     *
+     * @return parammap
      */
     @Override
     public Map<String, String[]> getParameterMap() {
