@@ -15,62 +15,62 @@ import java.io.IOException;
 
 /**
  * @author wangrenhui
- *  Http请求过滤
- *  2012-4-28 上午9:16:23
+ *         Http请求过滤
+ *         2012-4-28 上午9:16:23
  */
 public abstract class HttpFilter implements Filter {
-    private FilterConfig config;
+  private FilterConfig config;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
-     */
-    public void init(FilterConfig config) throws ServletException {
-        this.config = config;
-        init();
+  /*
+   * (non-Javadoc)
+   *
+   * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+   */
+  public void init(FilterConfig config) throws ServletException {
+    this.config = config;
+    init();
+  }
+
+  public void init() throws ServletException {
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
+   * javax.servlet.ServletResponse, javax.servlet.FilterChain)
+   */
+  public void doFilter(ServletRequest request, ServletResponse response,
+                       FilterChain chain) {
+    try {
+      doFilter((HttpServletRequest) request,
+          (HttpServletResponse) response, chain);
+    } catch (Exception e) {
+      return;
     }
+    return;
+  }
 
-    public void init() throws ServletException {
-    }
+  public abstract void doFilter(HttpServletRequest request,
+                                HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
-     * javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest request, ServletResponse response,
-                         FilterChain chain) {
-        try {
-            doFilter((HttpServletRequest) request,
-                    (HttpServletResponse) response, chain);
-        } catch (Exception e) {
-            return;
-        }
-        return;
-    }
+  /*
+   * (non-Javadoc)
+   *
+   * @see javax.servlet.Filter#destroy()
+   */
+  public void destroy() {
+  }
 
-    public abstract void doFilter(HttpServletRequest request,
-                                  HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
+  public String getInitParameter(String name) {
+    return config.getInitParameter(name);
+  }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see javax.servlet.Filter#destroy()
-     */
-    public void destroy() {
-    }
+  public FilterConfig getFilterConfig() {
+    return config;
+  }
 
-    public String getInitParameter(String name) {
-        return config.getInitParameter(name);
-    }
-
-    public FilterConfig getFilterConfig() {
-        return config;
-    }
-
-    public ServletContext getServletContext() {
-        return config.getServletContext();
-    }
+  public ServletContext getServletContext() {
+    return config.getServletContext();
+  }
 }

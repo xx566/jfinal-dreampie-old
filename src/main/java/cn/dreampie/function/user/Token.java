@@ -7,6 +7,6 @@ import com.jfinal.ext.plugin.tablebind.TableBind;
  */
 @TableBind(tableName = "sec_token", pkName = "uuid")
 public class Token extends cn.dreampie.common.web.model.Model<Token> {
-    public static Token dao = new Token();
+  public static Token dao = new Token();
 
 }

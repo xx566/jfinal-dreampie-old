@@ -25,25 +25,25 @@ import org.apache.shiro.subject.Subject;
  * @author dafei
  */
 class GuestAuthzHandler extends AbstractAuthzHandler {
-    private static GuestAuthzHandler gah = new GuestAuthzHandler();
+  private static GuestAuthzHandler gah = new GuestAuthzHandler();
 
-    private GuestAuthzHandler() {
+  private GuestAuthzHandler() {
+  }
+
+  public static GuestAuthzHandler me() {
+    return gah;
+  }
+
+  @Override
+  public void assertAuthorized() throws AuthorizationException {
+    Subject subject = getSubject();
+
+    if (subject.getPrincipal() == null) {
+      return;
     }
-
-    public static GuestAuthzHandler me() {
-        return gah;
-    }
-
-    @Override
-    public void assertAuthorized() throws AuthorizationException {
-        Subject subject = getSubject();
-
-        if (subject.getPrincipal() == null) {
-            return;
-        }
-        throw new UnauthenticatedException("Attempting to perform a guest-only operation.  The current Subject is " +
-                "not a guest (they have been authenticated or remembered from a previous login).  Access " +
-                "denied.");
-    }
+    throw new UnauthenticatedException("Attempting to perform a guest-only operation.  The current Subject is " +
+        "not a guest (they have been authenticated or remembered from a previous login).  Access " +
+        "denied.");
+  }
 
 }

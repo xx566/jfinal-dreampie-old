@@ -19,19 +19,19 @@ import com.jfinal.plugin.IPlugin;
 
 public class SqlInXmlPlugin implements IPlugin {
 
-    public SqlInXmlPlugin() {
-    }
+  public SqlInXmlPlugin() {
+  }
 
-    @Override
-    public boolean start() {
-        SqlKit.init();
-        return true;
-    }
+  @Override
+  public boolean start() {
+    SqlKit.init();
+    return true;
+  }
 
-    @Override
-    public boolean stop() {
-        SqlKit.clearSqlMap();
-        return true;
-    }
+  @Override
+  public boolean stop() {
+    SqlKit.clearSqlMap();
+    return true;
+  }
 
 }

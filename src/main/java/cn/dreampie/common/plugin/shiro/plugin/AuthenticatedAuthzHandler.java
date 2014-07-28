@@ -26,19 +26,19 @@ import org.apache.shiro.authz.UnauthenticatedException;
  */
 class AuthenticatedAuthzHandler extends AbstractAuthzHandler {
 
-    private static AuthenticatedAuthzHandler aah = new AuthenticatedAuthzHandler();
+  private static AuthenticatedAuthzHandler aah = new AuthenticatedAuthzHandler();
 
-    private AuthenticatedAuthzHandler() {
-    }
+  private AuthenticatedAuthzHandler() {
+  }
 
-    public static AuthenticatedAuthzHandler me() {
-        return aah;
-    }
+  public static AuthenticatedAuthzHandler me() {
+    return aah;
+  }
 
-    @Override
-    public void assertAuthorized() throws AuthorizationException {
-        if (!getSubject().isAuthenticated()) {
-            throw new UnauthenticatedException("The current Subject is not authenticated.  Access denied.");
-        }
+  @Override
+  public void assertAuthorized() throws AuthorizationException {
+    if (!getSubject().isAuthenticated()) {
+      throw new UnauthenticatedException("The current Subject is not authenticated.  Access denied.");
     }
+  }
 }

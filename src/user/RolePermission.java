@@ -12,10 +12,10 @@ import java.util.List;
  */
 @TableBind(tableName = "sec_role_permission")
 public class RolePermission extends Model<RolePermission> {
-    public static RolePermission dao = new RolePermission();
+  public static RolePermission dao = new RolePermission();
 
-    public List<String> findPermissionIds(String where, Object... paras) {
-        List<String> result = Db.query("SELECT DISTINCT `rolePermission`.permission_id " + getExceptSelectSql() + getWhere(where), paras);
-        return result;
-    }
+  public List<String> findPermissionIds(String where, Object... paras) {
+    List<String> result = Db.query("SELECT DISTINCT `rolePermission`.permission_id " + getExceptSelectSql() + getWhere(where), paras);
+    return result;
+  }
 }

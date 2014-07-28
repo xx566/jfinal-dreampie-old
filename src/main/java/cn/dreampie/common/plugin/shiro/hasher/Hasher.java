@@ -7,15 +7,15 @@ package cn.dreampie.common.plugin.shiro.hasher;
  * @author wangrenhui
  */
 public enum Hasher {
-    DEFAULT("default_hasher");
+  DEFAULT("default_hasher");
 
-    private final String value;
+  private final String value;
 
-    private Hasher(String value) {
-        this.value = value;
-    }
+  private Hasher(String value) {
+    this.value = value;
+  }
 
-    public String value() {
-        return this.value;
-    }
+  public String value() {
+    return this.value;
+  }
 }

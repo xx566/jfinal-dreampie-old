@@ -25,13 +25,13 @@ import org.apache.shiro.subject.Subject;
  */
 abstract class AbstractAuthzHandler implements AuthzHandler {
 
-    /**
-     * 获得Shiro的Subject对象。
-     *
-     * @return Subject
-     */
-    protected Subject getSubject() {
-        return SecurityUtils.getSubject();
-    }
+  /**
+   * 获得Shiro的Subject对象。
+   *
+   * @return Subject
+   */
+  protected Subject getSubject() {
+    return SecurityUtils.getSubject();
+  }
 
 }

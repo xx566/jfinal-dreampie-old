@@ -30,39 +30,39 @@ import java.util.Arrays;
  */
 class RoleAuthzHandler extends AbstractAuthzHandler {
 
-    private final Annotation annotation;
+  private final Annotation annotation;
 
-    public RoleAuthzHandler(Annotation annotation) {
-        this.annotation = annotation;
+  public RoleAuthzHandler(Annotation annotation) {
+    this.annotation = annotation;
+  }
+
+  public RoleAuthzHandler(String jdbcRole) {
+    this.annotation = null;
+  }
+
+  @Override
+  public void assertAuthorized() throws AuthorizationException {
+
+    Subject subject = getSubject();
+
+    if (!(annotation instanceof RequiresRoles)) return;
+    RequiresRoles rrAnnotation = (RequiresRoles) annotation;
+    String[] roles = rrAnnotation.value();
+
+    if (roles.length == 1) {
+      subject.checkRole(roles[0]);
+      return;
     }
-
-    public RoleAuthzHandler(String jdbcRole) {
-        this.annotation = null;
+    if (Logical.AND.equals(rrAnnotation.logical())) {
+      subject.checkRoles(Arrays.asList(roles));
+      return;
     }
-
-    @Override
-    public void assertAuthorized() throws AuthorizationException {
-
-        Subject subject = getSubject();
-
-        if (!(annotation instanceof RequiresRoles)) return;
-        RequiresRoles rrAnnotation = (RequiresRoles) annotation;
-        String[] roles = rrAnnotation.value();
-
-        if (roles.length == 1) {
-            subject.checkRole(roles[0]);
-            return;
-        }
-        if (Logical.AND.equals(rrAnnotation.logical())) {
-            subject.checkRoles(Arrays.asList(roles));
-            return;
-        }
-        if (Logical.OR.equals(rrAnnotation.logical())) {
-            // Avoid processing exceptions unnecessarily - "delay" throwing the exception by calling hasRole first
-            boolean hasAtLeastOneRole = false;
-            for (String role : roles) if (subject.hasRole(role)) hasAtLeastOneRole = true;
-            // Cause the exception if none of the role match, note that the exception message will be a bit misleading
-            if (!hasAtLeastOneRole) subject.checkRole(roles[0]);
-        }
+    if (Logical.OR.equals(rrAnnotation.logical())) {
+      // Avoid processing exceptions unnecessarily - "delay" throwing the exception by calling hasRole first
+      boolean hasAtLeastOneRole = false;
+      for (String role : roles) if (subject.hasRole(role)) hasAtLeastOneRole = true;
+      // Cause the exception if none of the role match, note that the exception message will be a bit misleading
+      if (!hasAtLeastOneRole) subject.checkRole(roles[0]);
     }
+  }
 }

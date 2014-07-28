@@ -7,12 +7,12 @@ import java.util.List;
  */
 public interface TreeNode<T> {
 
-    public long getId();
+  public long getId();
 
-    public long getParentId();
+  public long getParentId();
 
-    public List<T> getChildren();
+  public List<T> getChildren();
 
-    public void setChildren(List<T> children);
+  public void setChildren(List<T> children);
 
 }

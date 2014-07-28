@@ -10,30 +10,30 @@ import java.util.Map;
  * Created by wangrenhui on 14-4-10.
  */
 public abstract class DefaultTag implements TemplateDirectiveModel {
-    public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
-        verifyParameters(params);
-        render(env, params, body);
+  public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
+    verifyParameters(params);
+    render(env, params, body);
+  }
+
+  public abstract void render(Environment env, Map params, TemplateDirectiveBody body) throws IOException, TemplateException;
+
+  protected String getParam(Map params, String name) {
+    Object value = params.get(name);
+
+    if (value instanceof SimpleScalar) {
+      return ((SimpleScalar) value).getAsString();
     }
 
-    public abstract void render(Environment env, Map params, TemplateDirectiveBody body) throws IOException, TemplateException;
+    return null;
+  }
 
-    protected String getParam(Map params, String name) {
-        Object value = params.get(name);
+  protected void verifyParameters(Map params) throws TemplateModelException {
+  }
 
-        if (value instanceof SimpleScalar) {
-            return ((SimpleScalar) value).getAsString();
-        }
-
-        return null;
+  protected void renderBody(Environment env, TemplateDirectiveBody body) throws IOException, TemplateException {
+    if (body != null) {
+      body.render(env.getOut());
     }
-
-    protected void verifyParameters(Map params) throws TemplateModelException {
-    }
-
-    protected void renderBody(Environment env, TemplateDirectiveBody body) throws IOException, TemplateException {
-        if (body != null) {
-            body.render(env.getOut());
-        }
-    }
+  }
 }
 

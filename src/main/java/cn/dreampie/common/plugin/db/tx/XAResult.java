@@ -10,57 +10,57 @@ import javax.transaction.xa.XAResource;
  */
 public class XAResult {
 
-    Config config;
-    XAResource xaResource;
-    XAConnection xaConnection;
-    Boolean autoCommit;
-    boolean removeConnection;
+  Config config;
+  XAResource xaResource;
+  XAConnection xaConnection;
+  Boolean autoCommit;
+  boolean removeConnection;
 
-    public XAResult(Config config, XAResource xaResource, XAConnection xaConnection, Boolean autoCommit, boolean removeConnection) {
-        this.config = config;
-        this.xaResource = xaResource;
-        this.xaConnection = xaConnection;
-        this.autoCommit = autoCommit;
-        this.removeConnection = removeConnection;
-    }
+  public XAResult(Config config, XAResource xaResource, XAConnection xaConnection, Boolean autoCommit, boolean removeConnection) {
+    this.config = config;
+    this.xaResource = xaResource;
+    this.xaConnection = xaConnection;
+    this.autoCommit = autoCommit;
+    this.removeConnection = removeConnection;
+  }
 
-    public Config getConfig() {
-        return config;
-    }
+  public Config getConfig() {
+    return config;
+  }
 
-    public void setConfig(Config config) {
-        this.config = config;
-    }
+  public void setConfig(Config config) {
+    this.config = config;
+  }
 
-    public XAResource getXaResource() {
-        return xaResource;
-    }
+  public XAResource getXaResource() {
+    return xaResource;
+  }
 
-    public void setXaResource(XAResource xaResource) {
-        this.xaResource = xaResource;
-    }
+  public void setXaResource(XAResource xaResource) {
+    this.xaResource = xaResource;
+  }
 
-    public XAConnection getXaConnection() {
-        return xaConnection;
-    }
+  public XAConnection getXaConnection() {
+    return xaConnection;
+  }
 
-    public void setXaConnection(XAConnection xaConnection) {
-        this.xaConnection = xaConnection;
-    }
+  public void setXaConnection(XAConnection xaConnection) {
+    this.xaConnection = xaConnection;
+  }
 
-    public Boolean getAutoCommit() {
-        return autoCommit;
-    }
+  public Boolean getAutoCommit() {
+    return autoCommit;
+  }
 
-    public void setAutoCommit(Boolean autoCommit) {
-        this.autoCommit = autoCommit;
-    }
+  public void setAutoCommit(Boolean autoCommit) {
+    this.autoCommit = autoCommit;
+  }
 
-    public boolean isRemoveConnection() {
-        return removeConnection;
-    }
+  public boolean isRemoveConnection() {
+    return removeConnection;
+  }
 
-    public void setRemoveConnection(boolean removeConnection) {
-        this.removeConnection = removeConnection;
-    }
+  public void setRemoveConnection(boolean removeConnection) {
+    this.removeConnection = removeConnection;
+  }
 }

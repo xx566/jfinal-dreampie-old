@@ -10,35 +10,35 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class AccessDeniedHandler extends FakeStaticHandler {
 
-    /**
-     * 拒绝访问的url
-     */
-    private String[] accessDeniedUrls;
+  /**
+   * 拒绝访问的url
+   */
+  private String[] accessDeniedUrls;
 
 
-    public AccessDeniedHandler(String... accessDeniedUrls) {
-        this.accessDeniedUrls = accessDeniedUrls;
+  public AccessDeniedHandler(String... accessDeniedUrls) {
+    this.accessDeniedUrls = accessDeniedUrls;
+  }
+
+  @Override
+  public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
+    if (checkView(target)) {
+      isHandled[0] = true;
+      RenderFactory.me().getErrorRender(403).setContext(request, response).render();
+      return;
     }
+    nextHandler.handle(target, request, response, isHandled);
+  }
 
-    @Override
-    public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
-        if (checkView(target)) {
-            isHandled[0] = true;
-            RenderFactory.me().getErrorRender(403).setContext(request, response).render();
-            return;
+  public boolean checkView(String viewUrl) {
+
+    if (accessDeniedUrls != null && accessDeniedUrls.length > 0) {
+      for (String url : accessDeniedUrls) {
+        if (antPathMatcher.match(url, viewUrl)) {
+          return true;
         }
-        nextHandler.handle(target, request, response, isHandled);
+      }
     }
-
-    public boolean checkView(String viewUrl) {
-
-        if (accessDeniedUrls != null && accessDeniedUrls.length > 0) {
-            for (String url : accessDeniedUrls) {
-                if (antPathMatcher.match(url, viewUrl)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+    return false;
+  }
 }

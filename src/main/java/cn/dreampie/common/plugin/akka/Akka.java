@@ -8,20 +8,21 @@ import cn.dreampie.common.util.ValidateUtils;
  */
 public class Akka {
 
-    /**
-     * Retrieve the application Akka Actor system.
-     *
-     * Example:
-     * {{{
-     * val newActor = Akka.system.actorOf[Props[MyActor]]
-     * }}}
-     * @return ActorSystem
-     */
-    public static ActorSystem system() {
-        ActorSystem applicationSystem = AkkaPlugin.applicationSystem;
-        if (ValidateUtils.me().isNullOrEmpty(applicationSystem)) {
-            throw new RuntimeException("Akka plugin is not registered.");
-        }
-        return applicationSystem;
+  /**
+   * Retrieve the application Akka Actor system.
+   * <p/>
+   * Example:
+   * {{{
+   * val newActor = Akka.system.actorOf[Props[MyActor]]
+   * }}}
+   *
+   * @return ActorSystem
+   */
+  public static ActorSystem system() {
+    ActorSystem applicationSystem = AkkaPlugin.applicationSystem;
+    if (ValidateUtils.me().isNullOrEmpty(applicationSystem)) {
+      throw new RuntimeException("Akka plugin is not registered.");
     }
+    return applicationSystem;
+  }
 }

@@ -11,13 +11,13 @@ import java.util.Observer;
  */
 public class LessExecuteListener implements Observer {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public void update(Observable o, Object arg) {
-        LessExecuteThread run = new LessExecuteThread();
-        run.addObserver(this);
-        new Thread(run).start();
-        logger.error("LessExecuteThread is start");
-    }
+  @Override
+  public void update(Observable o, Object arg) {
+    LessExecuteThread run = new LessExecuteThread();
+    run.addObserver(this);
+    new Thread(run).start();
+    logger.error("LessExecuteThread is start");
+  }
 }

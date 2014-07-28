@@ -27,17 +27,17 @@ import java.util.List;
 
 public class WobbleRippleFilterFactory extends RippleFilterFactory {
 
-    protected WobbleImageOp wobble;
+  protected WobbleImageOp wobble;
 
-    public WobbleRippleFilterFactory() {
-        wobble = new WobbleImageOp();
-    }
+  public WobbleRippleFilterFactory() {
+    wobble = new WobbleImageOp();
+  }
 
-    @Override
-    protected List<BufferedImageOp> getPreRippleFilters() {
-        List<BufferedImageOp> list = new ArrayList<BufferedImageOp>();
-        list.add(wobble);
-        return list;
-    }
+  @Override
+  protected List<BufferedImageOp> getPreRippleFilters() {
+    List<BufferedImageOp> list = new ArrayList<BufferedImageOp>();
+    list.add(wobble);
+    return list;
+  }
 
 }

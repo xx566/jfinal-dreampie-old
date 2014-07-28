@@ -14,65 +14,65 @@ import java.util.List;
  */
 @TableBind(tableName = "sec_role")
 public class Role extends Model<Role> implements TreeNode<Role> {
-    public static Role dao = new Role();
+  public static Role dao = new Role();
 
-    @Override
-    public long getId() {
+  @Override
+  public long getId() {
 //        return this.id;
-        return this.getLong("id");
-    }
+    return this.getLong("id");
+  }
 
-    @Override
-    public long getParentId() {
+  @Override
+  public long getParentId() {
 //        return this.parentId;
-        return this.getLong("pid");
+    return this.getLong("pid");
+  }
+
+
+  @Override
+  public List<Role> getChildren() {
+    return this.get("children");
+  }
+
+  @Override
+  public void setChildren(List<Role> children) {
+    this.put("children", children);
+  }
+
+
+  public void initPermissiones() {
+    this.put("permissiones", Permission.dao.findByRole("", this.getInt("id")));
+  }
+
+  public List<Permission> getPermissiones() {
+    return this.get("permissiones");
+  }
+
+  public Role addPermission(Permission permission) {
+    if (ValidateUtils.me().isNullOrEmpty(permission)) {
+      throw new NullPointerException("操作权限不存在");
     }
+    RolePermission rolePermission = new RolePermission();
+    rolePermission.set("role_id", this.get("id"));
+    rolePermission.set("permission_id", permission.get("id"));
+    rolePermission.save();
 
+    return this;
+  }
 
-    @Override
-    public List<Role> getChildren() {
-        return this.get("children");
-    }
+  public List<Role> findUserBy(String where, Object... paras) {
+    List<Role> result = find(getSelectSql() + SqlKit.sql("role.findUserByExceptSelect") + blank + getWhere(where), paras);
+    return result;
+  }
 
-    @Override
-    public void setChildren(List<Role> children) {
-        this.put("children", children);
-    }
+  public List<Role> findChildrenById(String where, Object... paras) {
+    List<Role> result = find(getSelectSql() + SqlKit.sql("role.findChildrenByExceptSelect") + blank + getWhere(where), paras);
+    return result;
+  }
 
-
-    public void initPermissiones() {
-        this.put("permissiones", Permission.dao.findByRole("", this.getInt("id")));
-    }
-
-    public List<Permission> getPermissiones() {
-        return this.get("permissiones");
-    }
-
-    public Role addPermission(Permission permission) {
-        if (ValidateUtils.me().isNullOrEmpty(permission)) {
-            throw new NullPointerException("操作权限不存在");
-        }
-        RolePermission rolePermission = new RolePermission();
-        rolePermission.set("role_id", this.get("id"));
-        rolePermission.set("permission_id", permission.get("id"));
-        rolePermission.save();
-
-        return this;
-    }
-
-    public List<Role> findUserBy(String where, Object... paras) {
-        List<Role> result = find(getSelectSql() + SqlKit.sql("role.findUserByExceptSelect") + blank + getWhere(where), paras);
-        return result;
-    }
-
-    public List<Role> findChildrenById(String where, Object... paras) {
-        List<Role> result = find(getSelectSql() + SqlKit.sql("role.findChildrenByExceptSelect") + blank + getWhere(where), paras);
-        return result;
-    }
-
-    public List<Long> findChildrenIdsById(String where, Object... paras) {
-        List<Long> result = Db.query("SELECT `role`.id " + SqlKit.sql("role.findChildrenByExceptSelect") + blank + getWhere(where), paras);
-        return result;
-    }
+  public List<Long> findChildrenIdsById(String where, Object... paras) {
+    List<Long> result = Db.query("SELECT `role`.id " + SqlKit.sql("role.findChildrenByExceptSelect") + blank + getWhere(where), paras);
+    return result;
+  }
 
 }

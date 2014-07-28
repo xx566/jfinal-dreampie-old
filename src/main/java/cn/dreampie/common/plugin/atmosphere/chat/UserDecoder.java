@@ -23,8 +23,8 @@ import org.atmosphere.config.managed.Decoder;
  */
 public class UserDecoder implements Decoder<String, UserMessage> {
 
-    @Override
-    public UserMessage decode(String s) {
-        return JSON.parseObject(s, UserMessage.class);
-    }
+  @Override
+  public UserMessage decode(String s) {
+    return JSON.parseObject(s, UserMessage.class);
+  }
 }

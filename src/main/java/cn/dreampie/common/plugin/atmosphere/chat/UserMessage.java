@@ -17,34 +17,34 @@ package cn.dreampie.common.plugin.atmosphere.chat;
 
 public class UserMessage {
 
-    private String message;
-    private String author;
-    private String receiver;
+  private String message;
+  private String author;
+  private String receiver;
 
-    public UserMessage() {
-    }
+  public UserMessage() {
+  }
 
-    public String getMessage() {
-        return message;
-    }
+  public String getMessage() {
+    return message;
+  }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-    public String getAuthor() {
-        return author;
-    }
+  public String getAuthor() {
+    return author;
+  }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 
-    public String getReceiver() {
-        return receiver;
-    }
+  public String getReceiver() {
+    return receiver;
+  }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
+  public void setReceiver(String receiver) {
+    this.receiver = receiver;
+  }
 }

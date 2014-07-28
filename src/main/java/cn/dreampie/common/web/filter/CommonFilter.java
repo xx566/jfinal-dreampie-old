@@ -12,14 +12,14 @@ import java.io.IOException;
  * Created by wangrenhui on 13-12-31.
  */
 public class CommonFilter extends HttpFilter {
-    /**
-     * 过滤字符和数据本地化存储
-     *
-     * @param request request
-     * @param response response
-     * @param chain chain
-     */
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+  /**
+   * 过滤字符和数据本地化存储
+   *
+   * @param request  request
+   * @param response response
+   * @param chain    chain
+   */
+  public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 //        request.setCharacterEncoding(AppConstants.DEFAULT_ENCODING);
 //        response.setCharacterEncoding(AppConstants.DEFAULT_ENCODING);
@@ -33,9 +33,9 @@ public class CommonFilter extends HttpFilter {
 //    }
 ////    response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
 //    response.setHeader("Access-Control-Allow-Credentials", "true");
-        //请求数据本地化
-        ThreadLocalUtil.init(request, response);
+    //请求数据本地化
+    ThreadLocalUtil.init(request, response);
 
-        chain.doFilter(request, response);
-    }
+    chain.doFilter(request, response);
+  }
 }

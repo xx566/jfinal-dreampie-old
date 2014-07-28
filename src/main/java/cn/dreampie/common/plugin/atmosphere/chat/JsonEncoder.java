@@ -23,14 +23,14 @@ import org.atmosphere.config.managed.Encoder;
  */
 public class JsonEncoder implements Encoder<JsonEncoder.Encodable, String> {
 
-    @Override
-    public String encode(Encodable m) {
-        return JSON.toJSONString(m);
-    }
+  @Override
+  public String encode(Encodable m) {
+    return JSON.toJSONString(m);
+  }
 
-    /**
-     * Marker interface for json.
-     */
-    public static interface Encodable {
-    }
+  /**
+   * Marker interface for json.
+   */
+  public static interface Encodable {
+  }
 }

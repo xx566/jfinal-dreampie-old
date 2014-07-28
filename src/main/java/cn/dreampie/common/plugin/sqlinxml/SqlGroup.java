@@ -24,13 +24,13 @@ import java.util.List;
 
 @XmlRootElement
 class SqlGroup {
-    @XmlAttribute
-    String name;
-    @XmlElement(name = "sql")
-    List<SqlItem> sqlItems = Lists.newArrayList();
+  @XmlAttribute
+  String name;
+  @XmlElement(name = "sql")
+  List<SqlItem> sqlItems = Lists.newArrayList();
 
-    void addSqlgroup(SqlItem sqlGroup) {
-        sqlItems.add(sqlGroup);
-    }
+  void addSqlgroup(SqlItem sqlGroup) {
+    sqlItems.add(sqlGroup);
+  }
 
 }

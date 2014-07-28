@@ -9,8 +9,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface CacheNameRemove {
-    String name();
+  String name();
 
-    String[] keys() default {};
+  String[] keys() default {};
 }
 

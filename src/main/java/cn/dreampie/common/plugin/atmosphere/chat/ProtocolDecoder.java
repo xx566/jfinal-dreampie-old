@@ -22,8 +22,8 @@ import org.atmosphere.config.managed.Decoder;
  * Decode a String into a {@link ChatProtocol}.
  */
 public class ProtocolDecoder implements Decoder<String, ChatProtocol> {
-    @Override
-    public ChatProtocol decode(String s) {
-        return JSON.parseObject(s, ChatProtocol.class);
-    }
+  @Override
+  public ChatProtocol decode(String s) {
+    return JSON.parseObject(s, ChatProtocol.class);
+  }
 }

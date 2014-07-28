@@ -1,2 +1,3 @@
-define ['angular', 'controllers/base'], ->
-  angular.module('sevless' , ['controllers'])
+define ['angular', 'controller'], ->
+  'use strict'
+  angular.module('app', ['controllers'])

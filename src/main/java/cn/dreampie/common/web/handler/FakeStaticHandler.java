@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class FakeStaticHandler extends Handler {
 
-    public static AntPathMatcher antPathMatcher = new AntPathMatcher();
+  public static AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    @Override
-    public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
-        target = target.replace(";JSESSIONID", "?JSESSIONID");
-        //i18n不支持json
-        if (!ThreadLocalUtil.isJson())
-            request.setAttribute("i18n", I18N.me());
+  @Override
+  public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
+    target = target.replace(";JSESSIONID", "?JSESSIONID");
+    //i18n不支持json
+    if (!ThreadLocalUtil.isJson())
+      request.setAttribute("i18n", I18N.me());
 
-        nextHandler.handle(target, request, response, isHandled);
-    }
+    nextHandler.handle(target, request, response, isHandled);
+  }
 }

@@ -21,10 +21,10 @@ import javax.xml.bind.annotation.XmlValue;
 
 @XmlRootElement
 class SqlItem {
-    @XmlAttribute
-    String id;
+  @XmlAttribute
+  String id;
 
-    @XmlValue
-    String value;
+  @XmlValue
+  String value;
 
 }

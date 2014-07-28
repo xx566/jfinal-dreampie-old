@@ -14,10 +14,10 @@ import java.io.IOException;
  * Created by wangrenhui on 2014/7/11.
  */
 public class CoffeeScriptPlugin implements IPlugin {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Override
-    public boolean start() {
+  @Override
+  public boolean start() {
 //        CoffeeScriptCompiler coffeeScriptCompiler = new CoffeeScriptCompiler();
 //        coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
 //        coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
@@ -32,34 +32,34 @@ public class CoffeeScriptPlugin implements IPlugin {
 //        } catch (CoffeeException e) {
 //            e.printStackTrace();
 //        }
-        CoffeeExecuteThread run = new CoffeeExecuteThread();
-        CoffeeExecuteListener listen = new CoffeeExecuteListener();
-        run.addObserver(listen);
-        new Thread(run).start();
-        return true;
-    }
+    CoffeeExecuteThread run = new CoffeeExecuteThread();
+    CoffeeExecuteListener listen = new CoffeeExecuteListener();
+    run.addObserver(listen);
+    new Thread(run).start();
+    return true;
+  }
 
-    @Override
-    public boolean stop() {
-        return false;
-    }
+  @Override
+  public boolean stop() {
+    return false;
+  }
 
-    public static void main(String[] args) throws IOException, CoffeeException {
-        CoffeeCompiler coffeeCompiler = new CoffeeCompiler();
-        String js = coffeeCompiler.compile("alert '测试'");
+  public static void main(String[] args) throws IOException, CoffeeException {
+    CoffeeCompiler coffeeCompiler = new CoffeeCompiler();
+    String js = coffeeCompiler.compile("alert '测试'");
 //        System.out.println(js);
 
-        coffeeCompiler = new CoffeeCompiler();
-        js = coffeeCompiler.compile(new File(PathKit.getWebRootPath() + "/src/main/webapp/javascript/app/main.coffee"));
+    coffeeCompiler = new CoffeeCompiler();
+    js = coffeeCompiler.compile(new File(PathKit.getWebRootPath() + "/src/main/webapp/javascript/app/main.coffee"));
 //        System.out.println(js);
 
-        CoffeeScriptCompiler coffeeScriptCompiler = new CoffeeScriptCompiler();
-        coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
-        coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/src/main/webapp/javascript/"));
+    CoffeeScriptCompiler coffeeScriptCompiler = new CoffeeScriptCompiler();
+    coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
+    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/src/main/webapp/javascript/"));
 //        coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getRootClassPath() + "/javascript/"));
-        coffeeScriptCompiler.setForce(true);
-        coffeeScriptCompiler.setArgs("--bare");
-        coffeeScriptCompiler.setWatch(true);
-        coffeeScriptCompiler.execute();
-    }
+    coffeeScriptCompiler.setForce(true);
+    coffeeScriptCompiler.setArgs("--bare");
+    coffeeScriptCompiler.setWatch(true);
+    coffeeScriptCompiler.execute();
+  }
 }

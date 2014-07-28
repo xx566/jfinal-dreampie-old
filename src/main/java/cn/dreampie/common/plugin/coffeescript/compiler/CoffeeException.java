@@ -20,15 +20,15 @@ import org.mozilla.javascript.JavaScriptException;
 
 public class CoffeeException extends RuntimeException {
 
-    CoffeeException(JavaScriptException e) {
-        super(e.getValue().toString(), e);
-    }
+  CoffeeException(JavaScriptException e) {
+    super(e.getValue().toString(), e);
+  }
 
-    public CoffeeException(String message) {
-        super(message);
-    }
+  public CoffeeException(String message) {
+    super(message);
+  }
 
-    public CoffeeException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public CoffeeException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

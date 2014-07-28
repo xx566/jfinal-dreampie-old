@@ -8,6 +8,6 @@ import com.jfinal.ext.plugin.tablebind.TableBind;
  */
 @TableBind(tableName = "sec_token", pkName = "uuid")
 public class Token extends Model<Token> {
-    public static Token dao = new Token();
+  public static Token dao = new Token();
 
 }

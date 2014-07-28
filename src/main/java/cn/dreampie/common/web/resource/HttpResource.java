@@ -12,51 +12,51 @@ import java.net.URLConnection;
  */
 public class HttpResource implements Resource {
 
-    URI url;
+  URI url;
 
-    public HttpResource(String url) throws URISyntaxException {
-        this.url = new URI(url);
-    }
+  public HttpResource(String url) throws URISyntaxException {
+    this.url = new URI(url);
+  }
 
-    public HttpResource(URI url) {
-        this.url = url;
-    }
+  public HttpResource(URI url) {
+    this.url = url;
+  }
 
-    public boolean exists() {
-        try {
-            URL u = url.toURL();
-            URLConnection connection = u.openConnection();
-            connection.connect();
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+  public boolean exists() {
+    try {
+      URL u = url.toURL();
+      URLConnection connection = u.openConnection();
+      connection.connect();
+      return true;
+    } catch (IOException e) {
+      return false;
     }
+  }
 
-    public long lastModified() {
-        try {
-            URL u = url.toURL();
-            URLConnection connection = u.openConnection();
-            return connection.getLastModified();
-        } catch (IOException e) {
-            return 0;
-        }
+  public long lastModified() {
+    try {
+      URL u = url.toURL();
+      URLConnection connection = u.openConnection();
+      return connection.getLastModified();
+    } catch (IOException e) {
+      return 0;
     }
+  }
 
-    public InputStream getInputStream() throws IOException {
-        return url.toURL().openStream();
-    }
+  public InputStream getInputStream() throws IOException {
+    return url.toURL().openStream();
+  }
 
-    public Resource createRelative(String relativeResourcePath) throws IOException {
-        try {
-            return new HttpResource(url.resolve(new URI(relativeResourcePath)));
-        } catch (URISyntaxException e) {
-            throw (IOException) new IOException("Could not resolve " + url + " against " + relativeResourcePath).initCause(e);
-        }
+  public Resource createRelative(String relativeResourcePath) throws IOException {
+    try {
+      return new HttpResource(url.resolve(new URI(relativeResourcePath)));
+    } catch (URISyntaxException e) {
+      throw (IOException) new IOException("Could not resolve " + url + " against " + relativeResourcePath).initCause(e);
     }
+  }
 
-    public String getName() {
-        return url.toASCIIString();
-    }
+  public String getName() {
+    return url.toASCIIString();
+  }
 }
 

@@ -12,33 +12,33 @@ import java.util.List;
  */
 @TableBind(tableName = "sec_permission")
 public class Permission extends Model<Permission> implements TreeNode<Permission> {
-    public static Permission dao = new Permission();
+  public static Permission dao = new Permission();
 
-    @Override
-    public long getId() {
+  @Override
+  public long getId() {
 //        return this.id;
-        return this.getLong("id");
-    }
+    return this.getLong("id");
+  }
 
-    @Override
-    public long getParentId() {
+  @Override
+  public long getParentId() {
 //        return this.parentId;
-        return this.getLong("pid");
-    }
+    return this.getLong("pid");
+  }
 
-    @Override
-    public List<Permission> getChildren() {
-        return this.get("children");
-    }
+  @Override
+  public List<Permission> getChildren() {
+    return this.get("children");
+  }
 
-    @Override
-    public void setChildren(List<Permission> children) {
-        this.put("children", children);
-    }
+  @Override
+  public void setChildren(List<Permission> children) {
+    this.put("children", children);
+  }
 
-    public List<Permission> findByRole(String where, Object... paras) {
+  public List<Permission> findByRole(String where, Object... paras) {
 
-        List<Permission> result = find(getSelectSql() + SqlKit.sql("permission.findRoleByExceptSelect") + blank + getWhere(where), paras);
-        return result;
-    }
+    List<Permission> result = find(getSelectSql() + SqlKit.sql("permission.findRoleByExceptSelect") + blank + getWhere(where), paras);
+    return result;
+  }
 }

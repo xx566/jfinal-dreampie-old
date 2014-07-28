@@ -12,10 +12,10 @@ import java.util.List;
 @XmlRootElement
 public class SqlRoot {
 
-    @XmlElement(name = "sqlGroup")
-    List<SqlGroup> sqlGroups = Lists.newArrayList();
+  @XmlElement(name = "sqlGroup")
+  List<SqlGroup> sqlGroups = Lists.newArrayList();
 
-    void addSqlRoot(SqlGroup sqlGroup) {
-        sqlGroups.add(sqlGroup);
-    }
+  void addSqlRoot(SqlGroup sqlGroup) {
+    sqlGroups.add(sqlGroup);
+  }
 }
