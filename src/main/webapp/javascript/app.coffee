@@ -1,3 +1,3 @@
-define ['angular', 'controller'], ->
+define ['angular', 'angular-route', 'controller'], ->
   'use strict'
-  angular.module('app', ['controllers'])
+  angular.module('app', ['ngRoute', 'controllers'])
