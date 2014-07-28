@@ -13,7 +13,7 @@ public class User extends cn.dreampie.common.web.model.Model<User> {
     public static User dao = new User();
 
     public User addUserInfo(UserInfo userInfo) {
-        if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(userInfo)) {
+        if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(userInfo)) {
             userInfo = new UserInfo();
             userInfo.set("user_id", this.get("id"));
         }
@@ -23,9 +23,9 @@ public class User extends cn.dreampie.common.web.model.Model<User> {
     }
 
     public User addRole(Role role) {
-        if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role)) {
+        if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role)) {
             role = Role.dao.findFirstBy("`role`.value='R_USER'");
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role)) {
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role)) {
                 throw new NullPointerException("角色不存在");
             }
         }
@@ -45,7 +45,7 @@ public class User extends cn.dreampie.common.web.model.Model<User> {
     }
 
     public Follower getFollowing() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         if (this.get("following") == null) {
             Follower following = Follower.dao.findFirstBy("`follower`.user_id =" + user.get("id") + " AND `follower`.link_id =" + this.get("id"));
             if (following != null) {

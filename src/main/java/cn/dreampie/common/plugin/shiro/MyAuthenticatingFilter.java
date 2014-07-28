@@ -23,7 +23,7 @@ package cn.dreampie.common.plugin.shiro;
 
 import cn.dreampie.common.config.AppConstants;
 import cn.dreampie.common.plugin.shiro.exception.IncorrectCaptchaException;
-import cn.dreampie.common.utils.security.EncriptionUtils;
+import cn.dreampie.common.util.security.EncriptionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;

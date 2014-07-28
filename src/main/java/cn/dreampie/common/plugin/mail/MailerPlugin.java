@@ -1,8 +1,8 @@
 package cn.dreampie.common.plugin.mail;
 
 import cn.dreampie.common.exception.ValidateException;
-import cn.dreampie.common.utils.PropertiesUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.PropertiesUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import com.jfinal.plugin.IPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

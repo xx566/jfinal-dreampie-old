@@ -1,7 +1,7 @@
 package cn.dreampie.common.plugin.db;
 
-import cn.dreampie.common.utils.FileUtils;
-import cn.dreampie.common.utils.PropertiesUtils;
+import cn.dreampie.common.util.FileUtils;
+import cn.dreampie.common.util.PropertiesUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.jfinal.kit.PathKit;

@@ -1,6 +1,6 @@
 package cn.dreampie.common.web.render;
 
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import com.jfinal.render.Render;
 import com.jfinal.render.RenderException;
 

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by wangrenhui on 14-1-3.
  */
 @TableBind(tableName = "sec_role")
-public class Role extends cn.dreampie.common.web.model.Model<Role> implements cn.dreampie.common.utils.tree.TreeNode<Role> {
+public class Role extends cn.dreampie.common.web.model.Model<Role> implements cn.dreampie.common.util.tree.TreeNode<Role> {
     public static Role dao = new Role();
 
     @Override
@@ -45,7 +45,7 @@ public class Role extends cn.dreampie.common.web.model.Model<Role> implements cn
     }
 
     public Role addPermission(Permission permission) {
-        if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(permission)) {
+        if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(permission)) {
             throw new NullPointerException("操作权限不存在");
         }
         RolePermission rolePermission = new RolePermission();

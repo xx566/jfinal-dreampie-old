@@ -8,7 +8,7 @@ import java.util.List;
  * Created by wangrenhui on 14-1-3.
  */
 @TableBind(tableName = "sec_permission")
-public class Permission extends cn.dreampie.common.web.model.Model<Permission> implements cn.dreampie.common.utils.tree.TreeNode<Permission> {
+public class Permission extends cn.dreampie.common.web.model.Model<Permission> implements cn.dreampie.common.util.tree.TreeNode<Permission> {
     public static Permission dao = new Permission();
 
     @Override

@@ -10,7 +10,7 @@ import cn.dreampie.common.plugin.patchca.service.ConfigurableCaptchaService;
 import cn.dreampie.common.plugin.patchca.text.renderer.BestFitTextRenderer;
 import cn.dreampie.common.plugin.patchca.text.renderer.TextRenderer;
 import cn.dreampie.common.plugin.patchca.word.RandomWordFactory;
-import cn.dreampie.common.utils.security.EncriptionUtils;
+import cn.dreampie.common.util.security.EncriptionUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.kit.StrKit;
 import com.jfinal.render.Render;

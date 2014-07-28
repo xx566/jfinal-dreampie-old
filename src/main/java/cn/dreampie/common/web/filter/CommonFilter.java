@@ -1,11 +1,6 @@
 package cn.dreampie.common.web.filter;
 
-import cn.dreampie.common.config.AppConstants;
-import cn.dreampie.common.utils.SubjectUtils;
 import cn.dreampie.common.web.thread.ThreadLocalUtil;
-import cn.dreampie.function.user.User;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

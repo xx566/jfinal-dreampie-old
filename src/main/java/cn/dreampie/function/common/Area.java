@@ -9,7 +9,7 @@ import java.util.List;
  * Created by wangrenhui on 14-4-17.
  */
 @TableBind(tableName = "com_area")
-public class Area extends cn.dreampie.common.web.model.Model<Area> implements cn.dreampie.common.utils.tree.TreeNode<Area> {
+public class Area extends cn.dreampie.common.web.model.Model<Area> implements cn.dreampie.common.util.tree.TreeNode<Area> {
     private List<Area> children = Lists.newArrayList();
 
     public static Area dao = new Area();

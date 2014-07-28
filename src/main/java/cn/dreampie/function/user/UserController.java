@@ -17,12 +17,12 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
     }
 
     public void search() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         keepPara("user_search");
 
         String where = " `user`.deleted_at is null AND `user`.id <> " + user.get("id");
         String user_search = getPara("user_search");
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(user_search)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(user_search)) {
             where += " AND (INSTR(`user`.username,'" + user_search + "')>0 OR  INSTR(`user`.full_name,'" + user_search + "')>0 "
                     + " OR  INSTR(`province`.name,'" + user_search + "')>0 "
                     + " OR  INSTR(`city`.name,'" + user_search + "')>0 OR  INSTR(`county`.name,'" + user_search + "')>0 "
@@ -47,7 +47,7 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
 //        }
 
         Page<User> users = User.dao.paginateInfoBy(getParaToInt(0, 1), getParaToInt("pageSize", 15), where);
-        Map userGroup = cn.dreampie.common.utils.SortUtils.me().sort(users.getList(), "last_name");
+        Map userGroup = cn.dreampie.common.util.SortUtils.me().sort(users.getList(), "last_name");
 
         setAttr("users", users);
         setAttr("userGroup", userGroup);
@@ -55,13 +55,13 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
     }
 
     public void following() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         keepPara("user_search");
 
         //只能查询当前用户以下的角色
         String where = " `follower`.user_id = " + user.get("id");
         String user_search = getPara("user_search");
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(user_search)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(user_search)) {
             where += " AND (INSTR(`follower`.intro,'" + user_search + "')>0 "
                     + "OR INSTR(`follower`.created_at,'" + user_search + "')>0 OR INSTR(`user`.full_name,'" + user_search + "')>0 "
                     + "OR  INSTR(`user`.mobile,'" + user_search + "')>0 OR  INSTR(`province`.name,'" + user_search + "')>0 "
@@ -86,7 +86,7 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
 //        }
 
         Page<Follower> followers = Follower.dao.paginateFollowingInfoBy(getParaToInt(0, 1), getParaToInt("pageSize", 15), where);
-        Map userGroup = cn.dreampie.common.utils.SortUtils.me().sort(followers.getList(), "last_name");
+        Map userGroup = cn.dreampie.common.util.SortUtils.me().sort(followers.getList(), "last_name");
 
         setAttr("users", followers);
         setAttr("userGroup", userGroup);
@@ -94,13 +94,13 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
     }
 
     public void follower() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         keepPara("user_search");
 
         //只能查询当前用户以下的角色
         String where = " `follower`.link_id = " + user.get("id");
         String user_search = getPara("user_search");
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(user_search)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(user_search)) {
             where += " AND (INSTR(`follower`.intro,'" + user_search + "')>0 "
                     + "OR INSTR(`follower`.created_at,'" + user_search + "')>0 OR INSTR(`user`.full_name,'" + user_search + "')>0 "
                     + "OR  INSTR(`user`.mobile,'" + user_search + "')>0 OR  INSTR(`province`.name,'" + user_search + "')>0 "
@@ -125,7 +125,7 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
 //        }
 
         Page<Follower> followers = Follower.dao.paginateFollowerInfoBy(getParaToInt(0, 1), getParaToInt("pageSize", 15), where);
-        Map userGroup = cn.dreampie.common.utils.SortUtils.me().sort(followers.getList(), "last_name");
+        Map userGroup = cn.dreampie.common.util.SortUtils.me().sort(followers.getList(), "last_name");
 
         setAttr("users", followers);
         setAttr("userGroup", userGroup);
@@ -136,7 +136,7 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
     public void addFollowing() {
         keepModel(Follower.class);
 
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         Follower follower = getModel(Follower.class);
         follower.set("user_id", user.get("id"));
         follower.set("created_at", new Date());
@@ -188,7 +188,7 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
         upUser.set("salt", passwordInfo.getSalt());
 
         if (upUser.update()) {
-            cn.dreampie.common.utils.SubjectUtils.me().getSubject().logout();
+            cn.dreampie.common.util.SubjectUtils.me().getSubject().logout();
             setAttr("username", upUser.get("username"));
             setAttr("state", "success");
         } else
@@ -197,8 +197,8 @@ public class UserController extends cn.dreampie.common.web.controller.Controller
     }
 
     public void center() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(user)) {
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(user)) {
             setAttr("user", user);
         }
         dynaRender("/view/user/center.ftl");

@@ -11,7 +11,7 @@ public class Follower extends cn.dreampie.common.web.model.Model<Follower> {
     public static Follower dao = new Follower();
 
     public boolean getFollowed() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         if (this.get("followed") == null) {
             Follower following = Follower.dao.findFirstBy("`follower`.user_id =" + user.get("id") + " AND `follower`.link_id =" + this.get("id"));
             if (following != null) {

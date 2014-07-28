@@ -1,6 +1,6 @@
 package cn.dreampie.common.plugin.quartz;
 
-import cn.dreampie.common.utils.PropertiesUtils;
+import cn.dreampie.common.util.PropertiesUtils;
 import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.jfinal.plugin.druid.DruidPlugin;

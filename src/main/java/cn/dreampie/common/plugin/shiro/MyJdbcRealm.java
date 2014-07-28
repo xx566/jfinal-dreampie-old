@@ -1,8 +1,8 @@
 package cn.dreampie.common.plugin.shiro;
 
 import cn.dreampie.common.config.AppConstants;
-import cn.dreampie.common.utils.SubjectUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import cn.dreampie.function.user.Permission;
 import cn.dreampie.function.user.Role;
 import cn.dreampie.function.user.User;

@@ -1,7 +1,7 @@
 package cn.dreampie.common.plugin.mail;
 
 import cn.dreampie.common.plugin.akka.Akka;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import org.apache.commons.mail.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

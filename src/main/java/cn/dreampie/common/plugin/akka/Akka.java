@@ -1,7 +1,7 @@
 package cn.dreampie.common.plugin.akka;
 
 import akka.actor.ActorSystem;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.ValidateUtils;
 
 /**
  * Created by wangrenhui on 14-5-6.

@@ -2,8 +2,8 @@ package cn.dreampie.common.web.controller;
 
 import cn.dreampie.common.config.AppConstants;
 import cn.dreampie.common.config.ReTurnType;
-import cn.dreampie.common.utils.SubjectUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import cn.dreampie.common.web.thread.ThreadLocalUtil;
 import cn.dreampie.function.user.User;
 import com.jfinal.core.Controller;

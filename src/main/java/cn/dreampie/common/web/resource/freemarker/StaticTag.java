@@ -1,6 +1,6 @@
 package cn.dreampie.common.web.resource.freemarker;
 
-import cn.dreampie.common.utils.PropertiesUtils;
+import cn.dreampie.common.util.PropertiesUtils;
 import freemarker.core.Environment;
 import freemarker.log.Logger;
 import freemarker.template.TemplateDirectiveBody;

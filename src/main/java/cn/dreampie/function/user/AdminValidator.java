@@ -15,19 +15,19 @@ public class AdminValidator {
         @Override
         protected void validate(Controller c) {
 
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("user.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("user.id"));
             if (idEmpty) addError("user_idMsg", "账户参数异常");
-            if (!idEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("user.id")))
+            if (!idEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("user.id")))
                 addError("user_idMsg", "账户参数异常");
 
             User u = User.dao.findFirstBy("`user`.id=" + c.getPara("user.id"));
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(u))
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(u))
                 addError("user_idMsg", "账户不存在");
 
-            if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(u)) {
+            if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(u)) {
                 UserRole uRole = UserRole.dao.findFirstBy("`userRole`.user_id=" + u.get("id"));
 
-                User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+                User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
 
                 //查询当前用户的角色
                 UserRole userRole = UserRole.dao.findFirstBy("`userRole`.user_id=" + user.get("id"));
@@ -58,25 +58,25 @@ public class AdminValidator {
         @Override
         protected void validate(Controller c) {
 
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("userRole.user_id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("userRole.user_id"));
             if (idEmpty) addError("user_idMsg", "账户参数异常");
-            if (!idEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("userRole.user_id")))
+            if (!idEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("userRole.user_id")))
                 addError("user_idMsg", "账户参数异常");
 
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(User.dao.findFirstBy("`user`.id=" + c.getPara("userRole.user_id"))))
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(User.dao.findFirstBy("`user`.id=" + c.getPara("userRole.user_id"))))
                 addError("user_idMsg", "账户不存在");
 
-            boolean roleidEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("userRole.role_id"));
+            boolean roleidEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("userRole.role_id"));
             if (roleidEmpty) addError("role_idMsg", "请选择一个角色");
-            if (!roleidEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("userRole.role_id")))
+            if (!roleidEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("userRole.role_id")))
                 addError("role_idMsg", "角色参数异常");
 
             if (!roleidEmpty) {
                 Role newRole = Role.dao.findFirstBy("`role`.id='" + c.getPara("userRole.role_id") + "'");
-                if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(newRole)) {
+                if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(newRole)) {
                     addError("role_idMsg", "角色不存在");
                 } else {
-                    User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+                    User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
 
                     //查询当前用户的角色
                     UserRole userRole = UserRole.dao.findFirstBy("`userRole`.user_id=" + user.get("id"));
@@ -104,19 +104,19 @@ public class AdminValidator {
 
     public static class UpdatePwdValidator extends Validator {
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("user.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("user.id"));
             if (idEmpty) addError("user_idMsg", "账户参数异常");
-            if (!idEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("user.id")))
+            if (!idEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("user.id")))
                 addError("user_idMsg", "账户参数异常");
 
             User u = User.dao.findFirstBy("`user`.id=" + c.getPara("user.id"));
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(u))
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(u))
                 addError("user_idMsg", "账户不存在");
 
-            if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(u)) {
+            if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(u)) {
                 UserRole uRole = UserRole.dao.findFirstBy("`userRole`.user_id=" + u.get("id"));
 
-                User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+                User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
 
                 //查询当前用户的角色
                 UserRole userRole = UserRole.dao.findFirstBy("`userRole`.user_id=" + user.get("id"));
@@ -129,9 +129,9 @@ public class AdminValidator {
 
             }
 
-            boolean passwordEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("user.password"));
+            boolean passwordEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("user.password"));
             if (passwordEmpty) addError("user_passwordMsg", "密码不能为空");
-            if (!passwordEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPassword(c.getPara("user.password")))
+            if (!passwordEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPassword(c.getPara("user.password")))
                 addError("user_passwordMsg", "密码为英文字母 、数字和下划线长度为5-18");
 
         }
@@ -149,25 +149,25 @@ public class AdminValidator {
 
     public static class RoleUpdateValidator extends Validator {
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
             if (idEmpty) addError("role_idMsg", "角色编号异常");
-            if (!idEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("role.id")))
+            if (!idEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("role.id")))
                 addError("role_idMsg", "角色编号异常");
 
             if (!idEmpty) {
-                if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(Role.dao.findFirstBy("`role`.id='" + c.getPara("role.id") + "'"))) {
+                if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(Role.dao.findFirstBy("`role`.id='" + c.getPara("role.id") + "'"))) {
                     addError("role_idMsg", "角色不存在");
                 }
             }
 
-            boolean nameEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.name"));
+            boolean nameEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.name"));
             if (nameEmpty) addError("role_nameMsg", "角色名称不能为空");
-            if (!nameEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.name"), 2, 10))
+            if (!nameEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.name"), 2, 10))
                 addError("role_nameMsg", "角色名称长度2-10");
 
-            boolean valueEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.value"));
+            boolean valueEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.value"));
             if (valueEmpty) addError("role_valueMsg", "角色名称不能为空");
-            if (!valueEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.value"), 2, 20))
+            if (!valueEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.value"), 2, 20))
                 addError("role_valueMsg", "角色名称长度2-20");
 
             if (!valueEmpty) {
@@ -176,9 +176,9 @@ public class AdminValidator {
             }
 
 
-            boolean introEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.intro"));
+            boolean introEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.intro"));
             if (introEmpty) addError("role_introMsg", "角色描述不能为空");
-            if (!introEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.intro"), 3, 240))
+            if (!introEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.intro"), 3, 240))
                 addError("role_introMsg", "角色描述长度3-240");
         }
 
@@ -196,28 +196,28 @@ public class AdminValidator {
 
     public static class RoleSaveValidator extends Validator {
         protected void validate(Controller c) {
-            boolean pidEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.pid"));
+            boolean pidEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.pid"));
             if (pidEmpty) addError("role_pidMsg", "父级id不能为空");
-            if (!pidEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("role.pid")))
+            if (!pidEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("role.pid")))
                 addError("role_pidMsg", "父级id必须为整数");
 
-            boolean nameEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.name"));
+            boolean nameEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.name"));
             if (nameEmpty) addError("role_nameMsg", "角色名称不能为空");
-            if (!nameEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.name"), 2, 10))
+            if (!nameEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.name"), 2, 10))
                 addError("role_nameMsg", "角色名称长度2-10");
 
-            boolean valueEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.value"));
+            boolean valueEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.value"));
             if (valueEmpty) addError("role_valueMsg", "角色名称不能为空");
-            if (!valueEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.value"), 2, 20))
+            if (!valueEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.value"), 2, 20))
                 addError("role_valueMsg", "角色名称长度2-20");
             if (!valueEmpty) {
                 Role role = Role.dao.findFirstBy("`role`.value='" + c.getPara("role.value") + "'");
                 if (role != null) addError("role_valueMsg", "角色标识已存在");
             }
 
-            boolean introEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.intro"));
+            boolean introEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.intro"));
             if (introEmpty) addError("role_introMsg", "角色描述不能为空");
-            if (!introEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("role.intro"), 3, 240))
+            if (!introEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("role.intro"), 3, 240))
                 addError("role_introMsg", "角色描述长度3-240");
         }
 
@@ -236,13 +236,13 @@ public class AdminValidator {
     public static class RolePermsValidator extends Validator {
 
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
             if (idEmpty) addError("role_idMsg", "角色参数异常");
-            boolean idNum = cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("role.id"));
+            boolean idNum = cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("role.id"));
             if (!idEmpty && !idNum) addError("role_idMsg", "角色参数异常");
             if (!idEmpty && idNum) {
                 Role role = Role.dao.findById(c.getPara("role.id"));
-                if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role)) addError("role_idMsg", "角色不存在");
+                if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role)) addError("role_idMsg", "角色不存在");
             }
 
         }
@@ -262,17 +262,17 @@ public class AdminValidator {
     public static class RoleDeleteValidator extends Validator {
 
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("role.id"));
             if (idEmpty) addError("role_idMsg", "角色参数异常");
-            boolean idNum = cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("role.id"));
+            boolean idNum = cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("role.id"));
             if (!idEmpty && !idNum) addError("role_idMsg", "角色参数异常");
             if (!idEmpty && idNum) {
                 Role role = Role.dao.findById(c.getPara("role.id"));
-                boolean roleEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role);
+                boolean roleEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role);
                 if (roleEmpty) addError("role_idMsg", "角色不存在");
                 if (!roleEmpty) {
 
-                    if (cn.dreampie.common.utils.SubjectUtils.me().wasBaseRole(role.getStr("value"))) {
+                    if (cn.dreampie.common.util.SubjectUtils.me().wasBaseRole(role.getStr("value"))) {
                         addError("role_idMsg", "基础角色不能删除");
                     } else {
 
@@ -280,7 +280,7 @@ public class AdminValidator {
                         if (childrenCount > 0) addError("role_idMsg", "删除当前角色，必须先删除子角色");
 
                         List<String> userIds = UserRole.dao.findUserIds("`userRole`.role_id=" + c.getPara("role.id"));
-                        boolean userIdsEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(userIds);
+                        boolean userIdsEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(userIds);
                         if (!userIdsEmpty) addError("role_idMsg", "该角色下有用户存在");
                     }
                 }
@@ -302,13 +302,13 @@ public class AdminValidator {
     public static class PermDeleteValidator extends Validator {
 
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.id"));
             if (idEmpty) addError("permission_idMsg", "权限id不能为空");
-            boolean idNum = cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("permission.id"));
+            boolean idNum = cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("permission.id"));
             if (!idEmpty && !idNum) addError("permission_idMsg", "权限id必须为正整数");
             if (!idEmpty && idNum) {
                 Permission permission = Permission.dao.findById(c.getPara("permission.id"));
-                if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(permission)) addError("permission_idMsg", "权限不存在");
+                if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(permission)) addError("permission_idMsg", "权限不存在");
                 long childrenCount = Permission.dao.countBy("`permission`.pid=" + c.getPara("permission.id"));
                 if (childrenCount > 0) addError("permission_idMsg", "删除当前权限，必须先删除子权限");
 
@@ -329,18 +329,18 @@ public class AdminValidator {
 
     public static class PermSaveValidator extends Validator {
         protected void validate(Controller c) {
-            boolean pidEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.pid"));
+            boolean pidEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.pid"));
             if (pidEmpty) addError("permission_pidMsg", "父级id不能为空");
-            if (!pidEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("permission.pid")))
+            if (!pidEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("permission.pid")))
                 addError("permission_pidMsg", "父级id必须为整数");
-            boolean nameEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.name"));
+            boolean nameEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.name"));
             if (nameEmpty) addError("permission_nameMsg", "权限名称不能为空");
-            if (!nameEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.name"), 2, 10))
+            if (!nameEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.name"), 2, 10))
                 addError("permission_nameMsg", "权限名称长度2-10");
 
-            boolean valueEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.value"));
+            boolean valueEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.value"));
             if (valueEmpty) addError("permission_valueMsg", "权限名称不能为空");
-            if (!valueEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.value"), 2, 20))
+            if (!valueEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.value"), 2, 20))
                 addError("permission_valueMsg", "权限名称长度2-20");
 
             if (!valueEmpty) {
@@ -348,14 +348,14 @@ public class AdminValidator {
                 if (permission != null) addError("permission_valueMsg", "权限标识已存在");
             }
 
-            boolean urlEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.url"));
+            boolean urlEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.url"));
             if (urlEmpty) addError("permission_urlMsg", "权限url不能为空");
-            if (!urlEmpty && !cn.dreampie.common.utils.ValidateUtils.me().match("^[\\w/\\*]+$", c.getPara("permission.url")))
+            if (!urlEmpty && !cn.dreampie.common.util.ValidateUtils.me().match("^[\\w/\\*]+$", c.getPara("permission.url")))
                 addError("permission_urlMsg", "权限url必须英文字母 、数字、*、下划线和右斜线");
 
-            boolean introEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.intro"));
+            boolean introEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.intro"));
             if (introEmpty) addError("permission_introMsg", "权限描述不能为空");
-            if (!introEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.intro"), 3, 240))
+            if (!introEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.intro"), 3, 240))
                 addError("permission_introMsg", "权限描述长度3-240");
         }
 
@@ -373,20 +373,20 @@ public class AdminValidator {
 
     public static class PermUpdateValidator extends Validator {
         protected void validate(Controller c) {
-            boolean idEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.id"));
+            boolean idEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.id"));
             if (idEmpty) addError("permission_idMsg", "id不能为空");
-            if (!idEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(c.getPara("permission.id")))
+            if (!idEmpty && !cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(c.getPara("permission.id")))
                 addError("permission_idMsg", "id必须为整数");
 
-            boolean nameEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.name"));
+            boolean nameEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.name"));
             if (nameEmpty) addError("permission_nameMsg", "权限名称不能为空");
-            if (!nameEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.name"), 2, 10))
+            if (!nameEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.name"), 2, 10))
                 addError("permission_nameMsg", "权限名称长度2-10");
 
 
-            boolean valueEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.value"));
+            boolean valueEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.value"));
             if (valueEmpty) addError("permission_valueMsg", "权限名称不能为空");
-            if (!valueEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.value"), 2, 20))
+            if (!valueEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.value"), 2, 20))
                 addError("permission_valueMsg", "权限名称长度2-20");
 
             if (!valueEmpty) {
@@ -394,14 +394,14 @@ public class AdminValidator {
                 if (permission != null) addError("permission_valueMsg", "权限标识已存在");
             }
 
-            boolean urlEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.url"));
+            boolean urlEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.url"));
             if (urlEmpty) addError("permission_urlMsg", "权限url不能为空");
-            if (!urlEmpty && !cn.dreampie.common.utils.ValidateUtils.me().match("^[\\w/\\*]+$", c.getPara("permission.url")))
+            if (!urlEmpty && !cn.dreampie.common.util.ValidateUtils.me().match("^[\\w/\\*]+$", c.getPara("permission.url")))
                 addError("permission_urlMsg", "权限url必须英文字母 、数字、*、下划线和右斜线");
 
-            boolean introEmpty = cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.intro"));
+            boolean introEmpty = cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(c.getPara("permission.intro"));
             if (introEmpty) addError("permission_introMsg", "权限描述不能为空");
-            if (!introEmpty && !cn.dreampie.common.utils.ValidateUtils.me().isLength(c.getPara("permission.intro"), 3, 240))
+            if (!introEmpty && !cn.dreampie.common.util.ValidateUtils.me().isLength(c.getPara("permission.intro"), 3, 240))
                 addError("permission_introMsg", "权限描述长度3-240");
         }
 

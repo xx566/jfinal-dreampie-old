@@ -1,8 +1,8 @@
 package cn.dreampie.function.user;
 
 import cn.dreampie.common.plugin.sqlinxml.SqlKit;
-import cn.dreampie.common.utils.SubjectUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import cn.dreampie.common.web.model.Model;
 import com.jfinal.ext.plugin.tablebind.TableBind;
 import com.jfinal.plugin.activerecord.Page;

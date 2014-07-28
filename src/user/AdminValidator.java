@@ -1,8 +1,8 @@
 package cn.dreampie.function.user;
 
 import cn.dreampie.common.config.ReTurnType;
-import cn.dreampie.common.utils.SubjectUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import cn.dreampie.common.web.thread.ThreadLocalUtil;
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;

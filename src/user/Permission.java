@@ -1,7 +1,7 @@
 package cn.dreampie.function.user;
 
 import cn.dreampie.common.plugin.sqlinxml.SqlKit;
-import cn.dreampie.common.utils.tree.TreeNode;
+import cn.dreampie.common.util.tree.TreeNode;
 import cn.dreampie.common.web.model.Model;
 import com.jfinal.ext.plugin.tablebind.TableBind;
 

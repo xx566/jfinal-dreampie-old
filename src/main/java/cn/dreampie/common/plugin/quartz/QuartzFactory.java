@@ -1,6 +1,6 @@
 package cn.dreampie.common.plugin.quartz;
 
-import cn.dreampie.common.utils.TimeUtils;
+import cn.dreampie.common.util.TimeUtils;
 import org.quartz.*;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;

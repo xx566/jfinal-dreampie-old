@@ -21,7 +21,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
 
     @CacheName(cn.dreampie.common.config.AppConstants.DEFAULT_CACHENAME)
     public void user() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         keepPara("user_search");
 
         //查询当前用户的角色
@@ -43,7 +43,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         //只能查询当前用户以下的角色
         String where = " `user`.id <> " + user.get("id") + " AND `userRole`.role_id in (" + roleIds + ")";
         String user_search = getPara("user_search");
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(user_search)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(user_search)) {
             where += " AND (INSTR(`user`.username,'" + user_search + "')>0 OR  INSTR(`user`.full_name,'" + user_search + "')>0 "
                     + "OR  INSTR(`user`.mobile,'" + user_search + "')>0 OR  INSTR(`province`.name,'" + user_search + "')>0 "
                     + "OR  INSTR(`city`.name,'" + user_search + "')>0 OR  INSTR(`county`.name,'" + user_search + "')>0 "
@@ -69,7 +69,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
 
 
         Page<User> users = User.dao.paginateInfoBy(getParaToInt(0, 1), getParaToInt("pageSize", 15), where);
-        Map userGroup = cn.dreampie.common.utils.SortUtils.me().sort(users.getList(), "last_name");
+        Map userGroup = cn.dreampie.common.util.SortUtils.me().sort(users.getList(), "last_name");
 
         setAttr("roles", roles);
         setAttr("users", users);
@@ -107,7 +107,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         boolean result = true;
         List<UserRole> aroles = UserRole.dao.findBy("`userRole`.user_id=" + userRole.get("user_id"));
         boolean mustAdd = true;
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(aroles)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(aroles)) {
             //delete
             for (UserRole ar : aroles) {
                 if (ar.get("role_id") != userRole.get("role_id")) {
@@ -149,7 +149,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
 
     @CacheName(cn.dreampie.common.config.AppConstants.DEFAULT_CACHENAME)
     public void role() {
-        User user = cn.dreampie.common.utils.SubjectUtils.me().getUser();
+        User user = cn.dreampie.common.util.SubjectUtils.me().getUser();
         keepPara("user_search");
 
         //查询当前用户的角色
@@ -157,13 +157,13 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         //当前用户的子集角色
         List<Role> roles = Role.dao.findChildrenById("`role`.deleted_at is null", userRole.get("role_id"));
         roles.add(0, user.getRole());
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(roles))
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(roles))
             setAttr("role", user.getRole());
 
 
         List<Permission> authories = Permission.dao.findBy("`permission`.deleted_at is NULL");
-        setAttr("rolestree", cn.dreampie.common.utils.tree.TreeUtils.toTree(roles));
-        setAttr("permissionestree", cn.dreampie.common.utils.tree.TreeUtils.toTreeLevel(authories, 2));
+        setAttr("rolestree", cn.dreampie.common.util.tree.TreeUtils.toTree(roles));
+        setAttr("permissionestree", cn.dreampie.common.util.tree.TreeUtils.toTreeLevel(authories, 2));
 
         dynaRender("/view/admin/role.ftl");
     }
@@ -188,13 +188,13 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         } else
             parent = Role.dao.findById(role.getParentId());
         boolean result = false;
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(parent)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(parent)) {
             Role.dao.updateBy("`role`.left_code=`role`.left_code+2", "`role`.left_code>=" + parent.get("right_code"));
             Role.dao.updateBy("`role`.right_code=`role`.right_code+2", "`role`.right_code>=" + parent.get("right_code"));
             role.set("left_code", parent.getLong("right_code"));
             role.set("right_code", parent.getLong("right_code") + 1);
             role.set("created_at", new Date());
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role.get("id"))) {
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role.get("id"))) {
                 role.remove("id");
             }
             result = role.save();
@@ -212,7 +212,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
     @Before({AdminValidator.RoleUpdateValidator.class, Tx.class})
     public void roleUpdate() {
         Role role = getModel(Role.class);
-        if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role.get("pid"))) {
+        if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role.get("pid"))) {
             role.remove("pid");
         }
         role.set("updated_at", new Date());
@@ -231,7 +231,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         Integer id = getParaToInt("role.id");
         Role role = Role.dao.findById(id);
         boolean result = false;
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(role)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(role)) {
             Role.dao.updateBy("`role`.left_code=`role`.left_code-2", "`role`.left_code>=" + role.get("left_code"));
             Role.dao.updateBy("`role`.right_code=`role`.right_code-2", "`role`.right_code>=" + role.get("right_code"));
 
@@ -259,13 +259,13 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         } else
             parent = Permission.dao.findById(permission.getParentId());
         boolean result = false;
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(parent)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(parent)) {
             Permission.dao.updateBy("`permission`.left_code=`permission`.left_code+2", "`permission`.left_code>=" + parent.get("right_code"));
             Permission.dao.updateBy("`permission`.right_code=`permission`.right_code+2", "`permission`.right_code>=" + parent.get("right_code"));
             permission.set("left_code", parent.getLong("right_code"));
             permission.set("right_code", parent.getLong("right_code") + 1);
             permission.set("created_at", new Date());
-            if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(permission.get("id"))) {
+            if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(permission.get("id"))) {
                 permission.remove("id");
             }
             result = permission.save();
@@ -284,7 +284,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
     @Before({AdminValidator.PermUpdateValidator.class, Tx.class})
     public void permUpdate() {
         Permission permission = getModel(Permission.class);
-        if (cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(permission.get("pid"))) {
+        if (cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(permission.get("pid"))) {
             permission.remove("pid");
         }
         permission.set("updated_at", new Date());
@@ -303,7 +303,7 @@ public class AdminController extends cn.dreampie.common.web.controller.Controlle
         Integer id = getParaToInt("permission.id");
         Permission permission = Permission.dao.findById(id);
         boolean result = false;
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(permission)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(permission)) {
             Permission.dao.updateBy("`permission`.left_code=`permission`.left_code-2", "`permission`.left_code>=" + permission.get("left_code"));
             Permission.dao.updateBy("`permission`.right_code=`permission`.right_code-2", "`permission`.right_code>=" + permission.get("right_code"));
             result = permission.delete();

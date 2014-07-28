@@ -21,7 +21,7 @@ public class StateController extends cn.dreampie.common.web.controller.Controlle
     public void one() {
         String type = getPara("state.type");
         String value = getPara("state.value");
-        if (!cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(type) && !cn.dreampie.common.utils.ValidateUtils.me().isNullOrEmpty(value) && cn.dreampie.common.utils.ValidateUtils.me().isPositiveNumber(value)) {
+        if (!cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(type) && !cn.dreampie.common.util.ValidateUtils.me().isNullOrEmpty(value) && cn.dreampie.common.util.ValidateUtils.me().isPositiveNumber(value)) {
             setAttr("state", State.dao.findFirstBy("`state`.type=? AND `state`.value=?", type, value));
         }
         dynaRender("/view/index.ftl");

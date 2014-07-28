@@ -2,8 +2,8 @@ package cn.dreampie.function.user;
 
 import cn.dreampie.common.plugin.shiro.hasher.Hasher;
 import cn.dreampie.common.plugin.shiro.hasher.HasherUtils;
-import cn.dreampie.common.utils.SubjectUtils;
-import cn.dreampie.common.utils.ValidateUtils;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.util.ValidateUtils;
 import cn.dreampie.common.web.thread.ThreadLocalUtil;
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;
