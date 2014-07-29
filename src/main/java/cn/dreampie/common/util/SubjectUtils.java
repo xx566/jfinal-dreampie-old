@@ -64,11 +64,11 @@ public class SubjectUtils {
    * @param user     完整用户对象
    * @return bolean
    */
-  public boolean login(String username, String password, User user) {
+  public <T extends User> boolean login(String username, String password, T user) {
     return login(username, password, false, user);
   }
 
-  public boolean login(String username, String password, boolean rememberMe, User user) {
+  public <T extends User> boolean login(String username, String password, boolean rememberMe, T user) {
     UsernamePasswordToken token = new UsernamePasswordToken(username, password);
     try {
       token.setRememberMe(rememberMe);
@@ -118,5 +118,13 @@ public class SubjectUtils {
       return true;
     }
     return false;
+  }
+
+  public static String[] getBaseRole() {
+    return baseRole;
+  }
+
+  public static void setBaseRole(String[] baseRole) {
+    SubjectUtils.baseRole = baseRole;
   }
 }
