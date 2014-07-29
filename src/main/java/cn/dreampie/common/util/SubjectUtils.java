@@ -42,6 +42,11 @@ public class SubjectUtils {
     }
   }
 
+  /**
+   * 获取用户对象
+   *
+   * @return
+   */
   public User getUser() {
     Session session = getSession();
     Object user = session.getAttribute(AppConstants.CURRENT_USER);
@@ -51,23 +56,37 @@ public class SubjectUtils {
       return (User) user;
   }
 
-  public boolean login(String username, String password) {
-    return login(username, password, false);
+  /**
+   * login user
+   *
+   * @param username 用户名
+   * @param password 密码
+   * @param user     完整用户对象
+   * @return bolean
+   */
+  public boolean login(String username, String password, User user) {
+    return login(username, password, false, user);
   }
 
-  public boolean login(String username, String password, boolean rememberMe) {
+  public boolean login(String username, String password, boolean rememberMe, User user) {
     UsernamePasswordToken token = new UsernamePasswordToken(username, password);
     try {
       token.setRememberMe(rememberMe);
       SecurityUtils.getSubject().login(token);
       Session session = getSession();
-      session.setAttribute(AppConstants.CURRENT_USER, User.dao.findBy("username=?", username));
+      session.setAttribute(AppConstants.CURRENT_USER, user);
       return true;
     } catch (AuthenticationException e) {
       return false;
     }
   }
 
+  /**
+   * 验证验证码
+   *
+   * @param captchaToken token
+   * @return boolean
+   */
   public boolean doCaptcha(String captchaToken) {
     Session session = getSession();
     if (session.getAttribute(AppConstants.CAPTCHA_NAME) != null) {
@@ -80,6 +99,11 @@ public class SubjectUtils {
     return false;
   }
 
+  /**
+   * 判断是否已经登录
+   *
+   * @return boolean
+   */
   public boolean wasLogin() {
     Subject subject = getSubject();
     if (subject != null && subject.getPrincipal() != null && subject.isAuthenticated()) {
