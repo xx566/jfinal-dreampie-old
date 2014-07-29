@@ -61,6 +61,6 @@ derby.log
 .lib
 sbt
 
-log
+*.log
 logs
 overlays
