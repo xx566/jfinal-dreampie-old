@@ -1,4 +1,4 @@
-package cn.dreampie.common.web.model;
+package cn.dreampie.common.model;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;

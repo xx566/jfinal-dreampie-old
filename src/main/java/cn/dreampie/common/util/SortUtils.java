@@ -1,6 +1,6 @@
 package cn.dreampie.common.util;
 
-import cn.dreampie.common.web.model.Model;
+import cn.dreampie.common.model.Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
