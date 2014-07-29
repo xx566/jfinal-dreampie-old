@@ -47,13 +47,13 @@ public class SubjectUtils {
    *
    * @return
    */
-  public User getUser() {
+  public <T extends User> T getUser() {
     Session session = getSession();
     Object user = session.getAttribute(AppConstants.CURRENT_USER);
     if (ValidateUtils.me().isNullOrEmpty(user))
       return null;
     else
-      return (User) user;
+      return (T) user;
   }
 
   /**

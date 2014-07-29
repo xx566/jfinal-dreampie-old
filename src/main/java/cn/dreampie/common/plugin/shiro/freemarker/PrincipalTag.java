@@ -63,7 +63,7 @@ public class PrincipalTag extends SecureTag {
         String property = getProperty(params);
 
         if (property == null) {
-          result = ((User) principal).get("full_name");
+          result = ((User<?>) principal).get("full_name");
         } else {
           result = getPrincipalProperty(principal, property);
         }

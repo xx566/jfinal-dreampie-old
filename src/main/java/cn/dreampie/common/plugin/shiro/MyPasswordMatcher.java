@@ -29,7 +29,7 @@ public class MyPasswordMatcher extends PasswordMatcher {
 //        logger.debug("username:" + ((UsernamePasswordToken) token).getUsername() + ",password:" + getSubmittedPassword(token) + " - " + infoCredentials + " valid " + tokenCredentials);
 //        return infoCredentials.equals(tokenCredentials);
     boolean match = false;
-    String hasher = ((User) info.getPrincipals().getPrimaryPrincipal()).get("hasher");
+    String hasher = ((User<?>) info.getPrincipals().getPrimaryPrincipal()).get("hasher");
 
     String default_hasher = Hasher.DEFAULT.value();
     if (default_hasher.equals(hasher)) {
