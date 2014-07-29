@@ -17,7 +17,7 @@ package cn.dreampie.common.plugin.shiro.plugin;
 
 import cn.dreampie.common.config.AppConstants;
 import cn.dreampie.common.util.SubjectUtils;
-import cn.dreampie.function.user.User;
+import cn.dreampie.common.model.User;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
 import org.apache.shiro.authz.AuthorizationException;

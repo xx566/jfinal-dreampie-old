@@ -3,7 +3,7 @@ package cn.dreampie.common.util;
 
 import cn.dreampie.common.config.AppConstants;
 import cn.dreampie.common.util.security.EncriptionUtils;
-import cn.dreampie.function.user.User;
+import cn.dreampie.common.model.User;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

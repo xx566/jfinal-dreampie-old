@@ -1,6 +1,6 @@
 package cn.dreampie.common.plugin.shiro.freemarker;
 
-import cn.dreampie.function.user.User;
+import cn.dreampie.common.model.User;
 import freemarker.core.Environment;
 import freemarker.log.Logger;
 import freemarker.template.TemplateDirectiveBody;
