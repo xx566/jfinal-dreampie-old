@@ -4,7 +4,7 @@
     <groupId>cn.dreampie</groupId>
     <artifactId>jfinal-dreampie</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>0.1</version>
     <name>jfinal-dreampie</name>
     <description>jfinal plugins</description>
     <url>https://github.com/Dreampie/jfinal-dreampie</url>
@@ -34,9 +34,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:dreampie/dreampie.git</connection>
-        <developerConnection>scm:git:git@github.com:dreampie/dreampie.git</developerConnection>
-        <url>https://github.com/Dreampie/jfinal-dreampie.git</url>
+        <connection>scm:git:git@github.com:Dreampie/jfinal-dreampie.git</connection>
+        <developerConnection>scm:git:git@github.com:Dreampie/jfinal-dreampie.git</developerConnection>
+        <url>git@github.com:Dreampie/jfinal-dreampie.git</url>
     </scm>
     <properties>
         <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -419,7 +419,7 @@
         </snapshotRepository>
         <repository>
             <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
     </distributionManagement>
     <build>
@@ -442,9 +442,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9.1</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <charset>UTF-8</charset>
+                    <encoding>UTF-8</encoding>
+                    <docencoding>UTF-8</docencoding>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -466,17 +473,17 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.2</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.sonatype.plugins</groupId>-->
+            <!--<artifactId>nexus-staging-maven-plugin</artifactId>-->
+            <!--<version>1.6.2</version>-->
+            <!--<extensions>true</extensions>-->
+            <!--<configuration>-->
+            <!--<serverId>ossrh</serverId>-->
+            <!--<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+            <!--<autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
