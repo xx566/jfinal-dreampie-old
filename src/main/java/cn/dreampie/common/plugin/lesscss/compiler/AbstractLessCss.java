@@ -17,7 +17,7 @@ public class AbstractLessCss {
 
   /**
    * The source directory containing the LESS sources.
-   * <p/>
+   *
    * parameter expression="${lesscss.sourceDirectory}" default-value="${project.basedir}/src/main/less"
    * required
    */
@@ -25,14 +25,14 @@ public class AbstractLessCss {
 
   /**
    * List of files to include. Specified as fileset patterns which are relative to the source directory. Default value is: { "**\/*.less" }
-   * <p/>
+   *
    * parameter
    */
   protected String[] includes = new String[]{"**/*.less"};
 
   /**
    * List of files to exclude. Specified as fileset patterns which are relative to the source directory.
-   * <p/>
+   *
    * parameter
    */
   protected String[] excludes = new String[]{};
@@ -53,7 +53,7 @@ public class AbstractLessCss {
   /**
    * Whether to skip plugin execution.
    * This makes the build more controllable from profiles.
-   * <p/>
+   *
    * parameter expression="${lesscss.skip}" default-value="false"
    */
   protected boolean skip;

@@ -10,7 +10,7 @@ public class Akka {
 
   /**
    * Retrieve the application Akka Actor system.
-   * <p/>
+   *
    * Example:
    * {{{
    * val newActor = Akka.system.actorOf[Props[MyActor]]
