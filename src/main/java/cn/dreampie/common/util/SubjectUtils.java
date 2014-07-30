@@ -45,7 +45,7 @@ public class SubjectUtils {
   /**
    * 获取用户对象
    *
-   * @return
+   * @return T
    */
   public <T extends User> T getUser() {
     Session session = getSession();
