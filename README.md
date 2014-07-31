@@ -29,7 +29,7 @@ public @interface CacheNameRemove {
 }
 
 //根据key值来移除基于某个特定方法的缓存，而不是移除整个controller下的缓存
-
+### cache
 String controllerKey = ai.getControllerKey();
     if (!ValidateUtils.me().isNullOrEmpty(removeCacheName)) {
       String keyPrefix = null;
@@ -43,9 +43,12 @@ String controllerKey = ai.getControllerKey();
         removeByCacheKey(removeCacheName, keyPrefix);
       }
     }
+    
 2.增加Slf4jLogger实现，然日志配置能基于任何Slf4j下的log实现，如logback
 
-public class Slf4jLogFactory implements ILoggerFactory
+public class Slf4jLogFactory implements ILoggerFactory{
+}
+
 3.基础model实现，实现基础的常用的部分功能用于复用
 
  public List<M> findAll() {
