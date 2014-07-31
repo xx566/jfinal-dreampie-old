@@ -15,7 +15,7 @@ jfinal好用的插件正在开发，下载源码https://github.com/Dreampie/jfin
 jfinal-dreampie是一个基于jfinal的开源框架库，主要集成或调优功能如下（由于篇幅原因部分源码未贴出，可以到github下载源码）:
 
 1.缓存维护更细粒度
-
+``` java
  @CacheNameRemove(name = AppConstants.DEFAULT_CACHENAME)
 
 
@@ -27,7 +27,7 @@ public @interface CacheNameRemove {
 
   String[] keys() default {};
 }
-
+```
 //根据key值来移除基于某个特定方法的缓存，而不是移除整个controller下的缓存
 ### cache
 String controllerKey = ai.getControllerKey();
