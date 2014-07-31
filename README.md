@@ -15,8 +15,8 @@ jfinal好用的插件正在开发，下载源码https://github.com/Dreampie/jfin
 jfinal-dreampie是一个基于jfinal的开源框架库，主要集成或调优功能如下（由于篇幅原因部分源码未贴出，可以到github下载源码）:
 
 1.缓存维护更细粒度
-``` java
- @CacheNameRemove(name = AppConstants.DEFAULT_CACHENAME)
+```java
+@CacheNameRemove(name = AppConstants.DEFAULT_CACHENAME)
 
 
 @Inherited
@@ -27,9 +27,8 @@ public @interface CacheNameRemove {
 
   String[] keys() default {};
 }
-```
 //根据key值来移除基于某个特定方法的缓存，而不是移除整个controller下的缓存
-### cache
+
 String controllerKey = ai.getControllerKey();
     if (!ValidateUtils.me().isNullOrEmpty(removeCacheName)) {
       String keyPrefix = null;
@@ -43,14 +42,17 @@ String controllerKey = ai.getControllerKey();
         removeByCacheKey(removeCacheName, keyPrefix);
       }
     }
-    
+```
+
 2.增加Slf4jLogger实现，然日志配置能基于任何Slf4j下的log实现，如logback
 
+```java
 public class Slf4jLogFactory implements ILoggerFactory{
 }
-
+```
 3.基础model实现，实现基础的常用的部分功能用于复用
 
+``` java
  public List<M> findAll() {
     return find(getSelectSql() + getExceptSelectSql());
   }
@@ -98,8 +100,9 @@ public class Slf4jLogFactory implements ILoggerFactory{
   public boolean dropBy(String where, Object... paras) {
     return Db.update(getDropSql() + getWhere(where), paras) > 0;
   }
+```
 4.akka异步执行框架
-
+```java
 public class AkkaPlugin implements IPlugin
 
 
@@ -110,25 +113,30 @@ Akka.system().scheduler().scheduleOnce(Duration.create(1000, TimeUnit.MILLISECON
             //do Something
           }
         }, Akka.system().dispatcher());
+```
 5.atmosphere  chat demo
-
+``` java
 @ManagedService(path = "/im/{room: [a-zA-Z][a-zA-Z_0-9]*}")
 public class ChatRoom {
 }
+```
 6.coffeescript  compiler plugin,编译coffeescript代码，并监控文件改动重新编译
-
+``` java
 public class CoffeeScriptPlugin implements IPlugin {
 }
+```
 7.Flyway 数据库自动脚本升级 Plugin，用于自动生成或升级数据库，避免不断使用数据库工具修改数据导致的版本问题
-
+``` java
 public class FlywayPlugin implements IPlugin {
 }
+```
 8.lesscss compiler plugin，编译less代码，并监控文件改动重新编译
-
+``` java
 public class LessCssPlugin implements IPlugin {
 }
+```
 9.mailer 邮件发送plugin，使用akka异步发送邮件
-
+``` java
  Akka.system().scheduler().scheduleOnce(Duration.create(1000, TimeUnit.MILLISECONDS),
         new Runnable() {
           @Override
@@ -162,31 +170,37 @@ public class LessCssPlugin implements IPlugin {
             }
           }
         }, Akka.system().dispatcher());
+```
 10.自定义验证码，可以自定义使用字符或者数字，颜色和样式可以自调
 
-
+``` java
 public class PatchcaRender extends Render {
   private static final String CODE_CHAR = "0123456789";
 }
+```
 11.QuartzPlugin使用quartz执行定时任务，参照部分网络实例，简易实现
 
-
-QuartzFactory.me().startJobOnce(TimeUtils.me().toString(DateTime.now()), ++jobId, "stati", this.getClass().getSimpleName(), OrderDataJob.class, param);
+``` java
+QuartzFactory.me().startJobOnce(TimeUtils.me().toString(DateTime.now()), ++jobId, "stati",this.getClass().getSimpleName(), OrderDataJob.class, param);
+```
 12.shiro权限框架，基于数据库url配置过滤，验证码验证
-
+``` java
 
 //读取数据库权限只需实现该接口
 public interface JdbcAuthzService {
   public Map<String, AuthzHandler> getJdbcAuthz();
 }
+```
+
 13.shiro的freemarker标签库
 
-
+``` java
 <@shiro.hasPermission name="P_USER">
-                <li><a href="/admin/user">${i18n.getText("admin.user")}</a></li>
-            </@shiro.hasPermission>
+   <li><a href="/admin/user">${i18n.getText("admin.user")}</a></li>
+</@shiro.hasPermission>
+```
 14.xss过滤的StringEscapeUtils过滤器实现
-
+``` java
 public class AttackHandler extends Handler {
   @Override
   public void handle(String target, HttpServletRequest request, HttpServletResponse response, boolean[] isHandled) {
@@ -194,8 +208,9 @@ public class AttackHandler extends Handler {
     nextHandler.handle(target, request, response, isHandled);
   }
 }
+```
 15.json数据请求时，返回的error信息使用json字符串
-
+``` java
 public class JsonErrorRenderFactory implements IErrorRenderFactory {
   public Render getRender(int errorCode, String view) {
     if (ThreadLocalUtil.isJson())
@@ -204,7 +219,7 @@ public class JsonErrorRenderFactory implements IErrorRenderFactory {
       return new ErrorRender(errorCode, view);
   }
 }
-
+```
 
 
 如有问题请及时联系我 在线访问：http://www.dreampie.cn
