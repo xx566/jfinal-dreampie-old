@@ -4,7 +4,12 @@ dreampie
 dreampie.cn
 
 
-jfinal好用的插件正在开发，下载源码https://github.com/Dreampie/jfinal-dreampie，maven引入方式：http://search.maven.org/ 输入jfinal-dreampie搜索，demo:(Angularjs前端+jfinal-dreampie插件) https://github.com/Dreampie/icedog，剥离框架前的源码https://github.com/Dreampie/dreampie
+jfinal好用的插件正在开发，
+
+下载源码:https://github.com/Dreampie/jfinal-dreampie,
+maven引入方式：http://search.maven.org/ 输入jfinal-dreampie搜索,d
+emo:(Angularjs前端+jfinal-dreampie插件):https://github.com/Dreampie/icedog,
+剥离框架前的源码:https://github.com/Dreampie/dreampie
 
 
 部分代码正在调试和开发中，欢迎大家使用
