@@ -15,6 +15,6 @@ shiro+权限系统+freemarker-shiro标签支持，以及其他改进
 
 使用方式：
 
-实例项目:https://github.com/Dreampie/icedog.git
+实例项目:https://github.com/Dreampie/icedog.git,剥离框架前的源码https://github.com/Dreampie/dreampie.git
 
 如有问题请及时联系我 在线访问：http://www.dreampie.cn
