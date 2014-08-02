@@ -45,7 +45,8 @@ public class SubjectUtils {
   /**
    * 获取用户对象
    *
-   * @return T
+   * @param <T> User
+   * @return T User
    */
   public <T extends User> T getUser() {
     Session session = getSession();
@@ -62,6 +63,7 @@ public class SubjectUtils {
    * @param username 用户名
    * @param password 密码
    * @param user     完整用户对象
+   * @param <T>      User
    * @return bolean
    */
   public <T extends User> boolean login(String username, String password, T user) {

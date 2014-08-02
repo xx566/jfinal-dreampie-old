@@ -15,6 +15,12 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
   private Logger logger = LoggerFactory.getLogger(getClass());
   private int restartInterval = 10000;
 
+  private CoffeeScriptCompiler coffeeScriptCompiler;
+
+  public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler) {
+    this.coffeeScriptCompiler = coffeeScriptCompiler;
+  }
+
   // 此方法一经调用，等待restartInterval时间之后可以通知观察者，在本例中是监听线程
   public void doBusiness() {
     logger.error("CoffeeExecuteThread is dead");
@@ -32,15 +38,6 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
 
   @Override
   public void run() {
-    CoffeeScriptCompiler coffeeScriptCompiler = new CoffeeScriptCompiler();
-    coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
-    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
-    coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
-//        coffeeScriptCompiler.setForce(true);
-//        coffeeScriptCompiler.setCompress(true);
-    coffeeScriptCompiler.setCoffeeJs(new File(PathKit.getRootClassPath() + "/lib/coffee-script-1.7.1.min.js"));
-    coffeeScriptCompiler.setArgs("--bare");
-    coffeeScriptCompiler.setWatch(true);
     try {
       coffeeScriptCompiler.execute();
     } catch (CoffeeException e) {

@@ -22,22 +22,28 @@ public class LessCssPlugin implements IPlugin {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
+  private LessCssCompiler lessCssCompiler;
+
+  public LessCssPlugin() {
+    lessCssCompiler = new LessCssCompiler();
+    lessCssCompiler.setBuildContext(ThreadBuildContext.getContext());
+    lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/style/"));
+    lessCssCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/style/"));
+//        lessCssCompiler.setForce(true);
+//        lessCssCompiler.setCompress(true);
+    lessCssCompiler.setWatch(true);
+  }
+
+  public LessCssPlugin(LessCssCompiler lessCssCompiler) {
+    this.lessCssCompiler = lessCssCompiler;
+  }
+
   @Override
   public boolean start() {
-//        LessCssCompiler lessCssCompiler = new LessCssCompiler();
-//        lessCssCompiler.setBuildContext(ThreadBuildContext.getContext());
-//        lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/css/"));
-//        lessCssCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/css/"));
-////        lessCssCompiler.setForce(true);
-////        lessCssCompiler.setCompress(true);
-//        lessCssCompiler.setWatch(true);
-//        try {
-//            lessCssCompiler.execute();
-//        } catch (LessCssException e) {
-//            e.printStackTrace();
-//        }
-    LessExecuteThread run = new LessExecuteThread();
-    LessExecuteListener listen = new LessExecuteListener();
+
+
+    LessExecuteThread run = new LessExecuteThread(lessCssCompiler);
+    LessExecuteListener listen = new LessExecuteListener(run);
     run.addObserver(listen);
     new Thread(run).start();
     return true;

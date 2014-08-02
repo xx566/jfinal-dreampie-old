@@ -16,24 +16,28 @@ import java.io.IOException;
 public class CoffeeScriptPlugin implements IPlugin {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
+  private CoffeeScriptCompiler coffeeScriptCompiler;
+
+  public CoffeeScriptPlugin() {
+    coffeeScriptCompiler = new CoffeeScriptCompiler();
+    coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
+    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
+    coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
+//        coffeeScriptCompiler.setForce(true);
+//        coffeeScriptCompiler.setCompress(true);
+    coffeeScriptCompiler.setCoffeeJs(new File(PathKit.getRootClassPath() + "/lib/coffee-script-1.7.1.min.js"));
+    coffeeScriptCompiler.setArgs("--bare");
+    coffeeScriptCompiler.setWatch(true);
+  }
+
+  public CoffeeScriptPlugin(CoffeeScriptCompiler coffeeScriptCompiler) {
+    this.coffeeScriptCompiler = coffeeScriptCompiler;
+  }
+
   @Override
   public boolean start() {
-//        CoffeeScriptCompiler coffeeScriptCompiler = new CoffeeScriptCompiler();
-//        coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
-//        coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
-//        coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
-////        coffeeScriptCompiler.setForce(true);
-////        coffeeScriptCompiler.setCompress(true);
-//        coffeeScriptCompiler.setCoffeeJs(new File(PathKit.getRootClassPath() + "/libs/coffee-script-1.7.1.min.js"));
-//        coffeeScriptCompiler.setArgs("--bare");
-//        coffeeScriptCompiler.setWatch(true);
-//        try {
-//            coffeeScriptCompiler.execute();
-//        } catch (CoffeeException e) {
-//            e.printStackTrace();
-//        }
-    CoffeeExecuteThread run = new CoffeeExecuteThread();
-    CoffeeExecuteListener listen = new CoffeeExecuteListener();
+    CoffeeExecuteThread run = new CoffeeExecuteThread(coffeeScriptCompiler);
+    CoffeeExecuteListener listen = new CoffeeExecuteListener(run);
     run.addObserver(listen);
     new Thread(run).start();
     return true;
@@ -62,4 +66,5 @@ public class CoffeeScriptPlugin implements IPlugin {
     coffeeScriptCompiler.setWatch(true);
     coffeeScriptCompiler.execute();
   }
+
 }

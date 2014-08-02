@@ -13,11 +13,16 @@ public class CoffeeExecuteListener implements Observer {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
 
+  private CoffeeExecuteThread coffeeExecuteThread;
+
+  public CoffeeExecuteListener(CoffeeExecuteThread coffeeExecuteThread) {
+    this.coffeeExecuteThread = coffeeExecuteThread;
+  }
+
   @Override
   public void update(Observable o, Object arg) {
-    CoffeeExecuteThread run = new CoffeeExecuteThread();
-    run.addObserver(this);
-    new Thread(run).start();
+    coffeeExecuteThread.addObserver(this);
+    new Thread(coffeeExecuteThread).start();
     logger.info("CoffeeExecuteThread is start");
   }
 }

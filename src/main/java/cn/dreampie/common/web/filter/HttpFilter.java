@@ -43,16 +43,16 @@ public abstract class HttpFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response,
                        FilterChain chain) {
     try {
-      doFilter((HttpServletRequest) request,
-          (HttpServletResponse) response, chain);
+      if (request instanceof HttpServletRequest) {
+        doFilter((HttpServletRequest) request, (HttpServletResponse) response, chain);
+      }
     } catch (Exception e) {
       return;
     }
     return;
   }
 
-  public abstract void doFilter(HttpServletRequest request,
-                                HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
+  public abstract void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException;
 
   /*
    * (non-Javadoc)
