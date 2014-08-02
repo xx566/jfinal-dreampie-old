@@ -226,5 +226,48 @@ public class JsonErrorRenderFactory implements IErrorRenderFactory {
 }
 ```
 
-
+16.自动绑定多数据源的tablebind
+``` java
+AutoMultiSourceTableBindPlugin tableBindDefault = new AutoMultiSourceTableBindPlugin(druidDefault, SimpleNameStyles.LOWER);
+//让default数据源排除shop目录下的model，因为该目录的model属于custom数据源
+tableBindDefault.addExcludePaths("cn.dreampie.function.shop");
+ 
+ AutoMultiSourceTableBindPlugin tableBindCustom = new AutoMultiSourceTableBindPlugin(druidCustom, SimpleNameStyles.LOWER);
+//让custom只扫描shop目录，注意当使用includepaths是只会扫描配置的路径，如果没有使用includepaths会扫描全路径
+tableBindCustom.addIncludePaths("cn.dreampie.function.shop");
+```
+17.http压缩请求数据的gzipFilter，可测试
+```xml
+<!--gzip compress filter-->
+<filter>
+  <filter-name>gzipFilter</filter-name>
+  <filter-class>cn.dreampie.common.web.filter.gzip.GZIPFilter</filter-class>
+</filter>
+<filter-mapping>
+  <filter-name>gzipFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  <dispatcher>REQUEST</dispatcher>
+  <dispatcher>FORWARD</dispatcher>
+  <dispatcher>INCLUDE</dispatcher>
+  <dispatcher>ERROR</dispatcher>
+</filter-mapping>
+<!--gzip compress filter-->
+```
+18.http缓存cacheFilter，和gzipFilter共同用于提高用户性能
+```xml
+<!-- cache filter-->
+  <filter>
+    <filter-name>cacheFilter</filter-name>
+    <filter-class>cn.dreampie.common.web.filter.cache.CacheFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>cacheFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <!--cache filter-->
+```
 如有问题请及时联系我 在线访问：http://www.dreampie.cn

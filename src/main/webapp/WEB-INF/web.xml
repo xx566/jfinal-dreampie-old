@@ -33,7 +33,6 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
     <dispatcher>ERROR</dispatcher>
-
   </filter-mapping>
   <!--gzip compress filter-->
 
