@@ -295,7 +295,11 @@
       <artifactId>lesscss</artifactId>
       <version>1.7.0.1.1</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-servlets</artifactId>
+      <version>9.2.2.v20140723</version>
+    </dependency>
     <!--webjars-->
     <!--http://angular-ui.github.io/bootstrap/-->
     <!--<dependency>-->

@@ -21,6 +21,7 @@ public class GZIPFilter extends HttpFilter {
 
   public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
     request.setCharacterEncoding("UTF-8");
+    response.setCharacterEncoding("UTF-8");
     String ae = request.getHeader("accept-encoding");
     //check if browser support gzip
     if (ae != null && ae.indexOf("gzip") != -1) {
