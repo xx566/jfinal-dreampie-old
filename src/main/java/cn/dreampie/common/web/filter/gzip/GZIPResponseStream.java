@@ -43,8 +43,7 @@ public class GZIPResponseStream extends ServletOutputStream {
     byte[] bytes = baos.toByteArray();
 
 
-    response.addHeader("Content-Length", 
-                       Integer.toString(bytes.length)); 
+    response.addHeader("Content-Length", Integer.toString(bytes.length));
     response.addHeader("Content-Encoding", "gzip");
     output.write(bytes);
     output.flush();
