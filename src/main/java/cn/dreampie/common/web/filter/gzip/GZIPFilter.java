@@ -9,19 +9,22 @@
 package cn.dreampie.common.web.filter.gzip;
 
 import cn.dreampie.common.web.filter.HttpFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class GZIPFilter extends HttpFilter {
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
   public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
     String ae = request.getHeader("accept-encoding");
     //check if browser support gzip
     if (ae != null && ae.indexOf("gzip") != -1) {
-      System.out.println("GZIP supported, compressing.");
+      logger.debug("GZIP supported, compressing.");
       GZIPResponseWrapper wrappedResponse =
           new GZIPResponseWrapper(response);
       chain.doFilter(request, wrappedResponse);
