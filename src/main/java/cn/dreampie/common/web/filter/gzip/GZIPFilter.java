@@ -20,13 +20,12 @@ public class GZIPFilter extends HttpFilter {
   private Logger logger = LoggerFactory.getLogger(getClass());
 
   public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-
+    request.setCharacterEncoding("UTF-8");
     String ae = request.getHeader("accept-encoding");
     //check if browser support gzip
     if (ae != null && ae.indexOf("gzip") != -1) {
       logger.debug("GZIP supported, compressing.");
-      GZIPResponseWrapper wrappedResponse =
-          new GZIPResponseWrapper(response);
+      GZIPResponseWrapper wrappedResponse = new GZIPResponseWrapper(response);
       chain.doFilter(request, wrappedResponse);
       wrappedResponse.finishResponse();
       return;

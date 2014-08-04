@@ -44,8 +44,7 @@ public class CacheFilter implements Filter {
       }
       id = id + ldata.toString();
     }
-    File tempDir = (File) sc.getAttribute(
-        "javax.servlet.context.tempdir");
+    File tempDir = (File) sc.getAttribute("javax.servlet.context.tempdir");
 
     // get possible cache
     String temp = tempDir.getAbsolutePath();
