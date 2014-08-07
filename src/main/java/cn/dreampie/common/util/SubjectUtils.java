@@ -50,7 +50,7 @@ public class SubjectUtils {
    */
   public <T extends User> T getUser() {
     Session session = getSession();
-    Object user = session.getAttribute(AppConstants.CURRENT_USER);
+    Object user = getSubject().getPrincipals().getPrimaryPrincipal();
     if (ValidateUtils.me().isNullOrEmpty(user))
       return null;
     else

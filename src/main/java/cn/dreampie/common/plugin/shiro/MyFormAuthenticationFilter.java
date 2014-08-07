@@ -258,7 +258,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
 
   protected boolean onLoginSuccess(AuthenticationToken token, Subject subject,
                                    ServletRequest request, ServletResponse response) throws Exception {
-    setUserAttribute(request, response);
+//    setUserAttribute(request, response);
     clearFailureAttribute(request, response);
     issueSuccessRedirect(request, response);
     //we handled the success redirect directly, prevent the chain from continuing:
@@ -285,7 +285,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
     session.removeAttribute(getFailureKeyAttribute());
     session.removeAttribute(AppConstants.LOGIN_USER_NAME);
   }
-
+  @Deprecated
   protected void setUserAttribute(ServletRequest request, ServletResponse response) {
     Session session = getSubject(request, response).getSession();
     session.setAttribute(AppConstants.CURRENT_USER, session.getAttribute(AppConstants.TEMP_USER));
