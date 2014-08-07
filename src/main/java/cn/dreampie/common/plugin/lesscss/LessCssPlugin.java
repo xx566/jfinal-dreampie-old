@@ -21,6 +21,7 @@ import java.util.Arrays;
 public class LessCssPlugin implements IPlugin {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
+  //restart thread  timeout
   private int restartInterval = 10000;
   private LessCssCompiler lessCssCompiler;
 

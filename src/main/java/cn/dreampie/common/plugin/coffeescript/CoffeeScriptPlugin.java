@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class CoffeeScriptPlugin implements IPlugin {
   private Logger logger = LoggerFactory.getLogger(getClass());
+  //restart thread  timeout
   private int restartInterval = 10000;
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
