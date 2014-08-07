@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class CoffeeScriptPlugin implements IPlugin {
   private Logger logger = LoggerFactory.getLogger(getClass());
-
+  private int restartInterval = 10000;
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
   public CoffeeScriptPlugin() {
@@ -28,15 +28,21 @@ public class CoffeeScriptPlugin implements IPlugin {
     coffeeScriptCompiler.setCoffeeJs(new File(PathKit.getRootClassPath() + "/lib/coffee-script-1.7.1.min.js"));
     coffeeScriptCompiler.setArgs("--bare");
     coffeeScriptCompiler.setWatch(true);
+
   }
 
   public CoffeeScriptPlugin(CoffeeScriptCompiler coffeeScriptCompiler) {
     this.coffeeScriptCompiler = coffeeScriptCompiler;
   }
 
+  public CoffeeScriptPlugin(int restartInterval, CoffeeScriptCompiler coffeeScriptCompiler) {
+    this.restartInterval = restartInterval;
+    this.coffeeScriptCompiler = coffeeScriptCompiler;
+  }
+
   @Override
   public boolean start() {
-    CoffeeExecuteThread run = new CoffeeExecuteThread(coffeeScriptCompiler);
+    CoffeeExecuteThread run = new CoffeeExecuteThread(coffeeScriptCompiler, restartInterval);
     CoffeeExecuteListener listen = new CoffeeExecuteListener(run);
     run.addObserver(listen);
     new Thread(run).start();

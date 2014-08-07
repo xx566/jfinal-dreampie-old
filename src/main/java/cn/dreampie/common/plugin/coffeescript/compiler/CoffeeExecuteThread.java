@@ -17,8 +17,9 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
 
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
-  public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler) {
+  public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler,int restartInterval) {
     this.coffeeScriptCompiler = coffeeScriptCompiler;
+    this.restartInterval=restartInterval;
   }
 
   // 此方法一经调用，等待restartInterval时间之后可以通知观察者，在本例中是监听线程
@@ -27,7 +28,7 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
     try {
       Thread.sleep(restartInterval);
     } catch (InterruptedException e) {
-      logger.error(e.getMessage());
+      e.printStackTrace();
     }
 
     if (true) {
@@ -41,7 +42,7 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
     try {
       coffeeScriptCompiler.execute();
     } catch (CoffeeException e) {
-      logger.error(e.getMessage());
+      e.printStackTrace();
       doBusiness();
     }
   }

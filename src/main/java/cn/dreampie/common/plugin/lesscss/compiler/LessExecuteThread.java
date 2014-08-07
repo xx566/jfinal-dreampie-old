@@ -19,8 +19,9 @@ public class LessExecuteThread extends Observable implements Runnable {
 
   private LessCssCompiler lessCssCompiler;
 
-  public LessExecuteThread(LessCssCompiler lessCssCompiler) {
+  public LessExecuteThread(LessCssCompiler lessCssCompiler, int restartInterval) {
     this.lessCssCompiler = lessCssCompiler;
+    this.restartInterval = restartInterval;
   }
 
   // 此方法一经调用，等待restartInterval时间之后可以通知观察者，在本例中是监听线程
@@ -29,7 +30,7 @@ public class LessExecuteThread extends Observable implements Runnable {
     try {
       Thread.sleep(restartInterval);
     } catch (InterruptedException e) {
-      logger.error(e.getMessage());
+      e.printStackTrace();
     }
 
     if (true) {
@@ -43,7 +44,7 @@ public class LessExecuteThread extends Observable implements Runnable {
     try {
       lessCssCompiler.execute();
     } catch (LessCssException e) {
-      logger.error(e.getMessage());
+      e.printStackTrace();
       doBusiness();
     }
   }

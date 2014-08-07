@@ -21,7 +21,7 @@ import java.util.Arrays;
 public class LessCssPlugin implements IPlugin {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
-
+  private int restartInterval = 10000;
   private LessCssCompiler lessCssCompiler;
 
   public LessCssPlugin() {
@@ -38,11 +38,16 @@ public class LessCssPlugin implements IPlugin {
     this.lessCssCompiler = lessCssCompiler;
   }
 
+  public LessCssPlugin(int restartInterval, LessCssCompiler lessCssCompiler) {
+    this.restartInterval = restartInterval;
+    this.lessCssCompiler = lessCssCompiler;
+  }
+
   @Override
   public boolean start() {
 
 
-    LessExecuteThread run = new LessExecuteThread(lessCssCompiler);
+    LessExecuteThread run = new LessExecuteThread(lessCssCompiler,restartInterval);
     LessExecuteListener listen = new LessExecuteListener(run);
     run.addObserver(listen);
     new Thread(run).start();
