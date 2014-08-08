@@ -112,7 +112,12 @@ public class CoffeeCompiler {
   }
 
   private void init() throws IOException {
-    InputStream inputStream = coffeeJs.openConnection().getInputStream();
+    InputStream inputStream = null;
+    if (!FileUtils.toFile(coffeeJs).exists()) {
+      logger.info("coffee-script file not found");
+      inputStream = this.getClass().getResourceAsStream("/lib/coffee-script-1.7.1.min.js");
+    } else
+      inputStream = coffeeJs.openConnection().getInputStream();
     try {
       try {
         Reader reader = new InputStreamReader(inputStream, "UTF-8");
