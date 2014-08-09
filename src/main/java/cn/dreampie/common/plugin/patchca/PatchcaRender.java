@@ -54,14 +54,14 @@ public class PatchcaRender extends Render {
   private TextRenderer textRenderer = null;
 
   public PatchcaRender() {
-    this(MIN_NUM, MAX_NUM, WIDTH, HEIGHT);
+    this(MIN_NUM, MAX_NUM, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE);
   }
 
   public PatchcaRender(int num) {
-    this(num, num, WIDTH, HEIGHT);
+    this(num, num, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE);
   }
 
-  public PatchcaRender(int minnum, int maxnum, int width, int height) {
+  public PatchcaRender(int minnum, int maxnum, int width, int height, int fontmin, int fontmax) {
     if (minnum <= 0) {
       minnum = MIN_NUM;
     }
@@ -73,6 +73,14 @@ public class PatchcaRender extends Render {
     }
     if (height <= 0) {
       height = HEIGHT;
+    }
+
+    if (fontmin <= 0) {
+      fontmin = FONT_MIN_SIZE;
+    }
+
+    if (fontmax <= 0) {
+      fontmax = FONT_MAX_SIZE;
     }
     configurableCaptchaService = new ConfigurableCaptchaService();
 
@@ -89,8 +97,8 @@ public class PatchcaRender extends Render {
 
     // 随机字体生成器
     fontFactory = new RandomFontFactory();
-    fontFactory.setMaxSize(FONT_MAX_SIZE);
-    fontFactory.setMinSize(FONT_MIN_SIZE);
+    fontFactory.setMaxSize(fontmin);
+    fontFactory.setMinSize(fontmax);
     configurableCaptchaService.setFontFactory(fontFactory);
 
     // 随机字符生成器,去除掉容易混淆的字母和数字,如o和0等
