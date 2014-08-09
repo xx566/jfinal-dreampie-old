@@ -16,6 +16,8 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.render.Render;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -29,6 +31,8 @@ import java.util.ArrayList;
  * Created by wangrenhui on 13-12-31.
  */
 public class PatchcaRender extends Render {
+
+  private Logger logger = LoggerFactory.getLogger(getClass());
   private static final String CODE_CHAR = "0123456789";
   private static final int MIN_NUM = 4;
   private static final int MAX_NUM = 4;
@@ -134,7 +138,9 @@ public class PatchcaRender extends Render {
     Captcha captcha = configurableCaptchaService.getCaptcha();
     // 取得验证码字符串放入Session
     String captchaCode = captcha.getChallenge();
-
+    if (logger.isDebugEnabled()) {
+      logger.debug("captcha:" + captchaCode);
+    }
     //System.out.println(validationCode);
     Session session = SecurityUtils.getSubject().getSession();
     session.setAttribute(AppConstants.CAPTCHA_NAME, EncriptionUtils.encrypt(captchaCode));

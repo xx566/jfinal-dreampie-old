@@ -18,6 +18,8 @@
  */
 package cn.dreampie.common.plugin.shiro;
 
+import cn.dreampie.common.web.thread.ThreadLocalUtil;
+import com.jfinal.kit.JsonKit;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
@@ -28,6 +30,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -75,7 +81,29 @@ public class MyLogoutFilter extends AdviceFilter {
     } catch (SessionException ise) {
       log.debug("Encountered session exception during logout.  This can generally safely be ignored.", ise);
     }
-    issueRedirect(request, response, redirectUrl);
+    if (ThreadLocalUtil.isJson()) {
+      Map<String, Object> parameterMap = new HashMap<String, Object>();
+      Enumeration<String> attrNames = request.getAttributeNames();
+      String name = "";
+      while (attrNames.hasMoreElements()) {
+        name = attrNames.nextElement();
+        parameterMap.put(name, request.getAttribute(name));
+      }
+
+      PrintWriter writer = null;
+      try {
+        response.setCharacterEncoding("UTF-8");
+        writer = response.getWriter();
+        writer.write(JsonKit.toJson(parameterMap));
+        writer.flush();
+      } catch (IOException e) {
+        throw new IOException(e);
+      } finally {
+        if (writer != null)
+          writer.close();
+      }
+    } else
+      issueRedirect(request, response, redirectUrl);
     return false;
   }
 
@@ -109,10 +137,10 @@ public class MyLogoutFilter extends AdviceFilter {
    * Returns the redirect URL to send the user after logout.  This default implementation ignores the arguments and
    * returns the static configured {@link #getRedirectUrl() redirectUrl} property, but this method may be overridden
    * by subclasses to dynamically construct the URL based on the request or subject if necessary.
-   *
+   * 
    * Note: the Subject is <em>not</em> yet logged out at the time this method is invoked.  You may access the Subject's
    * session if one is available and if necessary.
-   *
+   * 
    * Tip: if you need to access the Subject's session, consider using the
    * {@code Subject.}{@link org.apache.shiro.subject.Subject#getSession(boolean) getSession(false)} method to ensure a new session isn't created unnecessarily.
    * If a session would be created, it will be immediately stopped after logout, not providing any value and

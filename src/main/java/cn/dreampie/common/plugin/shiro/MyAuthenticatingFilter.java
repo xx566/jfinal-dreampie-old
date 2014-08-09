@@ -47,6 +47,7 @@ import java.util.Arrays;
  */
 public abstract class MyAuthenticatingFilter extends MyAuthenticationFilter {
   public static final String PERMISSIVE = "permissive";
+  public static final String DEFAULT_CAPTCHA_PARAM = "captcha";
 
   //TODO - complete JavaDoc
 
@@ -168,7 +169,7 @@ public abstract class MyAuthenticatingFilter extends MyAuthenticationFilter {
   }
 
   protected String getCaptcha(ServletRequest request) {
-    return WebUtils.getCleanParam(request, AppConstants.CAPTCHA_NAME);
+    return WebUtils.getCleanParam(request, DEFAULT_CAPTCHA_PARAM);
   }
 
   // 创建 Token
@@ -187,8 +188,8 @@ public abstract class MyAuthenticatingFilter extends MyAuthenticationFilter {
     if (session == null) {
       throw new UnknownSessionException("Unable found required Session");
     } else {
-      if (session.getAttribute(AppConstants.CAPTCHA_NAME) != null) {
-        String captcha = session.getAttribute(AppConstants.CAPTCHA_NAME).toString();
+      if (session.getAttribute(DEFAULT_CAPTCHA_PARAM) != null) {
+        String captcha = session.getAttribute(DEFAULT_CAPTCHA_PARAM).toString();
         // String captcha = CookieUtils.getCookie(request, AppConstants.CAPTCHA_NAME);
         if (token.getCaptcha() != null &&
             captcha.equalsIgnoreCase(EncriptionUtils.encrypt(token.getCaptcha()))) {

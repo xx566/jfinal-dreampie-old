@@ -19,6 +19,8 @@
 package cn.dreampie.common.plugin.shiro;
 
 import cn.dreampie.common.config.AppConstants;
+import cn.dreampie.common.util.SubjectUtils;
+import cn.dreampie.common.web.thread.ThreadLocalUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.session.Session;
@@ -36,7 +38,7 @@ import java.util.Map;
 /**
  * Requires the requesting user to be authenticated for the request to continue, and if they are not, forces the user
  * to login via by redirecting them to the {@link #setLoginUrl(String) loginUrl} you configure.
- *
+ * 
  * <p>This filter constructs a {@link org.apache.shiro.authc.UsernamePasswordToken UsernamePasswordToken} with the values found in</p>
  * {@link #setUsernameParam(String) username}, {@link #setPasswordParam(String) password},
  * and {@link #setRememberMeParam(String) rememberMe} request parameters.  It then calls
@@ -45,12 +47,12 @@ import java.util.Map;
  * {@link #isLoginSubmission(javax.servlet.ServletRequest, javax.servlet.ServletResponse) isLoginSubmission(request,response)}
  * is <code>true</code>, which by default occurs when the request is for the {@link #setLoginUrl(String) loginUrl} and
  * is a POST request.
- *
+ * 
  * <p>If the login attempt fails, the resulting <code>AuthenticationException</code> fully qualified class name will</p>
  * be set as a request attribute under the {@link #setFailureKeyAttribute(String) failureKeyAttribute} key.  This
  * FQCN can be used as an i18n key or lookup mechanism to explain to the user why their login attempt failed
  * (e.g. no user, incorrect password, etc).
- *
+ * 
  * <p>If you would prefer to handle the authentication validation and login in your own code, consider using the</p>
  * {@link org.apache.shiro.web.filter.authc.PassThruAuthenticationFilter} instead, which allows requests to the
  * {@link #loginUrl} to pass through to your application's code directly.
@@ -187,7 +189,7 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
   /**
    * Sets the request parameter name to look for when acquiring the rememberMe boolean value.  Unless overridden
    * by calling this method, the default is <code>rememberMe</code>.
-   *
+   * 
    * RememberMe will be <code>true</code> if the parameter value equals any of those supported by
    * {@link org.apache.shiro.web.util.WebUtils#isTrue(javax.servlet.ServletRequest, String) WebUtils.isTrue(request,value)}, <code>false</code>
    * otherwise.
@@ -269,22 +271,36 @@ public class MyFormAuthenticationFilter extends MyAuthenticatingFilter {
                                    ServletRequest request, ServletResponse response) throws Exception {
     setFailureAttribute(request, response, e);
     issueFailureRedirect(request, response);
-    //login failed, let request continue back to the login page:
-    return true;
+    if (ThreadLocalUtil.isJson()) {
+      return false;
+    } else {
+      //login failed, let request continue back to the login page:
+      return true;
+    }
   }
 
   protected void setFailureAttribute(ServletRequest request, ServletResponse response, AuthenticationException ae) {
     String className = ae.getClass().getSimpleName();
-    Session session = getSubject(request, response).getSession();
-    session.setAttribute(getFailureKeyAttribute(), className);
-    session.setAttribute(AppConstants.LOGIN_USER_NAME, getUsername(request));
+    if (ThreadLocalUtil.isJson()) {
+      request.setAttribute(getFailureKeyAttribute(), className);
+    } else {
+      Session session = getSubject(request, response).getSession();
+      session.setAttribute(getFailureKeyAttribute(), className);
+      session.setAttribute(AppConstants.LOGIN_USER_NAME, getUsername(request));
+    }
   }
 
   protected void clearFailureAttribute(ServletRequest request, ServletResponse response) {
-    Session session = getSubject(request, response).getSession();
-    session.removeAttribute(getFailureKeyAttribute());
-    session.removeAttribute(AppConstants.LOGIN_USER_NAME);
+    if (ThreadLocalUtil.isJson()) {
+      request.setAttribute("user", SubjectUtils.me().getUser());
+      request.removeAttribute(getFailureKeyAttribute());
+    } else {
+      Session session = getSubject(request, response).getSession();
+      session.removeAttribute(getFailureKeyAttribute());
+      session.removeAttribute(AppConstants.LOGIN_USER_NAME);
+    }
   }
+
   @Deprecated
   protected void setUserAttribute(ServletRequest request, ServletResponse response) {
     Session session = getSubject(request, response).getSession();

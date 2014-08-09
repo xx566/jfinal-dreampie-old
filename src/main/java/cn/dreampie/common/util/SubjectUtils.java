@@ -53,8 +53,12 @@ public class SubjectUtils {
     Object user = getSubject().getPrincipals().getPrimaryPrincipal();
     if (ValidateUtils.me().isNullOrEmpty(user))
       return null;
-    else
+    else {
+      T u = (T) user;
+      u.remove("password","hasher","salt");
+      u.removeNullValueAttrs();
       return (T) user;
+    }
   }
 
   /**
@@ -75,8 +79,6 @@ public class SubjectUtils {
     try {
       token.setRememberMe(rememberMe);
       SecurityUtils.getSubject().login(token);
-      Session session = getSession();
-      session.setAttribute(AppConstants.CURRENT_USER, user);
       return true;
     } catch (AuthenticationException e) {
       return false;
