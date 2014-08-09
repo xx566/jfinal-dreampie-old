@@ -61,6 +61,10 @@ public class PatchcaRender extends Render {
     this(num, num, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE);
   }
 
+  public PatchcaRender(int minnum, int maxnum, int width, int height, int fontsize) {
+    this(minnum, maxnum, width, height, fontsize, fontsize);
+  }
+
   public PatchcaRender(int minnum, int maxnum, int width, int height, int fontmin, int fontmax) {
     if (minnum <= 0) {
       minnum = MIN_NUM;
