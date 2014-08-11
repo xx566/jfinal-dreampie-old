@@ -91,7 +91,7 @@ public class PatchcaRender extends Render {
       fontmax = FONT_MAX_SIZE;
     }
 
-    if (code.isEmpty()) {
+    if (!(code != null && !code.isEmpty())) {
       code = CODE_CHAR;
     }
 
