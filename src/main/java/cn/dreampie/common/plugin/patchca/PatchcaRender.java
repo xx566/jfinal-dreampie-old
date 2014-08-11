@@ -26,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by wangrenhui on 13-12-31.
@@ -45,8 +46,7 @@ public class PatchcaRender extends Render {
   private static final int WIDTH = 118;
   private static final int HEIGHT = 41;
 
-  private static boolean use_code = true;
-
+  private String captchaName = AppConstants.CAPTCHA_NAME;
   private ConfigurableCaptchaService configurableCaptchaService = null;
   private ColorFactory colorFactory = null;
   private RandomFontFactory fontFactory = null;
@@ -54,18 +54,22 @@ public class PatchcaRender extends Render {
   private TextRenderer textRenderer = null;
 
   public PatchcaRender() {
-    this(MIN_NUM, MAX_NUM, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE);
+    this(MIN_NUM, MAX_NUM, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE, null);
   }
 
   public PatchcaRender(int num) {
-    this(num, num, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE);
+    this(num, num, WIDTH, HEIGHT, FONT_MIN_SIZE, FONT_MAX_SIZE, null);
   }
 
   public PatchcaRender(int minnum, int maxnum, int width, int height, int fontsize) {
-    this(minnum, maxnum, width, height, fontsize, fontsize);
+    this(minnum, maxnum, width, height, fontsize, fontsize, null);
   }
 
-  public PatchcaRender(int minnum, int maxnum, int width, int height, int fontmin, int fontmax) {
+  public PatchcaRender(int minnum, int maxnum, int width, int height, int fontsize, String code) {
+    this(minnum, maxnum, width, height, fontsize, fontsize, code);
+  }
+
+  public PatchcaRender(int minnum, int maxnum, int width, int height, int fontmin, int fontmax, String code) {
     if (minnum <= 0) {
       minnum = MIN_NUM;
     }
@@ -86,6 +90,11 @@ public class PatchcaRender extends Render {
     if (fontmax <= 0) {
       fontmax = FONT_MAX_SIZE;
     }
+
+    if (code.isEmpty()) {
+      code = CODE_CHAR;
+    }
+
     configurableCaptchaService = new ConfigurableCaptchaService();
 
     // 颜色创建工厂,使用一定范围内的随机色
@@ -107,7 +116,7 @@ public class PatchcaRender extends Render {
 
     // 随机字符生成器,去除掉容易混淆的字母和数字,如o和0等
     wordFactory = new RandomWordFactory();
-    wordFactory.setCharacters(CODE_CHAR);
+    wordFactory.setCharacters(code);
     wordFactory.setMaxLength(maxnum);
     wordFactory.setMinLength(minnum);
     configurableCaptchaService.setWordFactory(wordFactory);
@@ -155,7 +164,8 @@ public class PatchcaRender extends Render {
     }
     //System.out.println(validationCode);
     Session session = SecurityUtils.getSubject().getSession();
-    session.setAttribute(AppConstants.CAPTCHA_NAME, EncriptionUtils.encrypt(captchaCode));
+    session.setAttribute(captchaName, EncriptionUtils.encrypt(captchaCode));
+    session.setAttribute(captchaName + "_time", new Date().getTime());
 //    CookieUtils.addCookie(request, response, AppConstants.CAPTCHA_NAME, EncriptionUtils.encrypt(captchaCode), -1);
     // 取得验证码图片并输出
     BufferedImage bufferedImage = captcha.getImage();
@@ -177,25 +187,12 @@ public class PatchcaRender extends Render {
 
   }
 
-  /**
-   * 验证码验证
-   *
-   * @param controller controller
-   * @param inputCode  valid code
-   * @return boolean
-   */
-  public static boolean validate(Controller controller, String inputCode) {
-    if (StrKit.isBlank(inputCode))
-      return false;
-    try {
-      if (use_code) {
-        inputCode = inputCode.toUpperCase();
-        inputCode = EncriptionUtils.encrypt(inputCode);
-        return inputCode.equals(controller.getCookie(AppConstants.CAPTCHA_NAME));
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return false;
+  public String getCaptchaName() {
+    return captchaName;
   }
+
+  public void setCaptchaName(String captchaName) {
+    this.captchaName = captchaName;
+  }
+
 }
