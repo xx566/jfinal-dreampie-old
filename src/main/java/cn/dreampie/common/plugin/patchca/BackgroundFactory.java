@@ -11,6 +11,14 @@ import java.util.Random;
  */
 class SimpleBackgroundFactory implements BackgroundFactory {
   private Random random = new Random();
+  private float alpha = 1.0f;
+
+  SimpleBackgroundFactory() {
+  }
+
+  SimpleBackgroundFactory(float alpha) {
+    this.alpha = alpha;
+  }
 
   public void fillBackground(BufferedImage image) {
     Graphics2D graphics = (Graphics2D) image.getGraphics();
@@ -18,7 +26,8 @@ class SimpleBackgroundFactory implements BackgroundFactory {
     // 验证码图片的宽高
     int imgWidth = image.getWidth();
     int imgHeight = image.getHeight();
-
+    // 1.0f为透明度 ，值从0-1.0，依次变得不透明
+    graphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
     // 填充为白色背景
     graphics.setColor(Color.WHITE);
     graphics.fillRect(0, 0, imgWidth, imgHeight);

@@ -47,6 +47,7 @@ public class PatchcaRender extends Render {
   private static final int HEIGHT = 41;
 
   private String captchaName = AppConstants.CAPTCHA_NAME;
+  private float alpha = 1.0f;
   private ConfigurableCaptchaService configurableCaptchaService = null;
   private ColorFactory colorFactory = null;
   private RandomFontFactory fontFactory = null;
@@ -122,7 +123,7 @@ public class PatchcaRender extends Render {
     configurableCaptchaService.setWordFactory(wordFactory);
 
     // 自定义验证码图片背景
-    SimpleBackgroundFactory backgroundFactory = new SimpleBackgroundFactory();
+    SimpleBackgroundFactory backgroundFactory = new SimpleBackgroundFactory(alpha);
     configurableCaptchaService.setBackgroundFactory(backgroundFactory);
 
     // 图片滤镜设置
@@ -195,4 +196,11 @@ public class PatchcaRender extends Render {
     this.captchaName = captchaName;
   }
 
+  public float getAlpha() {
+    return alpha;
+  }
+
+  public void setAlpha(float alpha) {
+    this.alpha = alpha;
+  }
 }
