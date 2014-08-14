@@ -13,7 +13,7 @@ maven引入方式：http://search.maven.org/ 输入jfinal-dreampie搜索:
    <dependency>
       <groupId>cn.dreampie</groupId>
       <artifactId>jfinal-dreampie</artifactId>
-      <version>0.2</version>
+      <version>0.2.1</version>
     </dependency>
 </dependencies>
 ```
