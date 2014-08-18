@@ -28,7 +28,7 @@ public class LessCssPlugin implements IPlugin {
   public LessCssPlugin() {
     lessCssCompiler = new LessCssCompiler();
     lessCssCompiler.setBuildContext(ThreadBuildContext.getContext());
-    lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/style/"));
+    lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/lesscss/"));
     lessCssCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/style/"));
 //        lessCssCompiler.setForce(true);
 //        lessCssCompiler.setCompress(true);

@@ -22,7 +22,7 @@ public class CoffeeScriptPlugin implements IPlugin {
   public CoffeeScriptPlugin() {
     coffeeScriptCompiler = new CoffeeScriptCompiler();
     coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
-    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
+    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/coffeescript/"));
     coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
 //        coffeeScriptCompiler.setForce(true);
 //        coffeeScriptCompiler.setCompress(true);
