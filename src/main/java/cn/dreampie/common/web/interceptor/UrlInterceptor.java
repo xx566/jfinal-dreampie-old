@@ -21,12 +21,14 @@ public class UrlInterceptor implements Interceptor {
         + request.getServerName() + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort())
         + request.getContextPath());
 
-    if (!ThreadLocalUtil.isAjax()) {
+    ai.invoke();
+
+    if (!ThreadLocalUtil.isJson(controller)) {
       //local 数据
       controller.setAttr("_localParas", request.getQueryString());
       controller.setAttr("_localUri", ai.getActionKey());
     }
-    ai.invoke();
+
     controller.keepPara("_webRootPath", "_localParas", "_localUri");
     //i18n
     String tmp = controller.getCookie(Const.I18N_LOCALE);

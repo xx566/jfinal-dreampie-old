@@ -1,7 +1,9 @@
 package cn.dreampie.common.web.thread;
 
 import cn.dreampie.common.config.ReTurnType;
+import com.jfinal.core.Controller;
 import com.jfinal.log.Logger;
+import com.jfinal.render.JsonRender;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -86,6 +88,13 @@ public class ThreadLocalUtil {
 
   public static boolean isJson() {
     if (returnType() == ReTurnType.JSON) {
+      return true;
+    }
+    return false;
+  }
+
+  public static boolean isJson(Controller controller) {
+    if (controller.getRender() instanceof JsonRender) {
       return true;
     }
     return false;
