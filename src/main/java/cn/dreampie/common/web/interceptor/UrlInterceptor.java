@@ -20,7 +20,6 @@ public class UrlInterceptor implements Interceptor {
     controller.setAttr("_webRootPath", request.getScheme() + "://"
         + request.getServerName() + (request.getServerPort() == 80 ? "" : ":" + request.getServerPort())
         + request.getContextPath());
-    controller.keepPara("_webRootPath");
 
     ai.invoke();
 
@@ -28,9 +27,9 @@ public class UrlInterceptor implements Interceptor {
       //local 数据
       controller.setAttr("_localParas", request.getQueryString());
       controller.setAttr("_localUri", ai.getActionKey());
-      controller.keepPara("_localParas", "_localUri");
     }
 
+    controller.keepPara("_webRootPath", "_localParas", "_localUri");
     //i18n
 //    String tmp = controller.getCookie(Const.I18N_LOCALE);
 //    String i18n = controller.getRequest().getLocale().toString();
