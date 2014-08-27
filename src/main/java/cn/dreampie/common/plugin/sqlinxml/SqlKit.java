@@ -152,13 +152,7 @@ public class SqlKit {
       SqlRoot root = JaxbKit.unmarshal(xmlfile, SqlRoot.class);
       for (SqlGroup sqlGroup : root.sqlGroups) {
 
-        String name = sqlGroup.name;
-        if (name == null || name.trim().equals("")) {
-          name = xmlfile.getName();
-        }
-        for (SqlItem sqlItem : sqlGroup.sqlItems) {
-          sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
-        }
+        getSql(xmlfile.getName(), sqlGroup);
       }
     }
   }
@@ -168,14 +162,19 @@ public class SqlKit {
       SqlRoot root = JaxbKit.unmarshal(streams.get(filename), SqlRoot.class);
       for (SqlGroup sqlGroup : root.sqlGroups) {
 
-        String name = sqlGroup.name;
-        if (name == null || name.trim().equals("")) {
-          name = filename;
-        }
-        for (SqlItem sqlItem : sqlGroup.sqlItems) {
-          sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
-        }
+        getSql(filename, sqlGroup);
       }
+    }
+  }
+
+
+  private static void getSql(String filename, SqlGroup sqlGroup) {
+    String name = sqlGroup.name;
+    if (name == null || name.trim().equals("")) {
+      name = filename;
+    }
+    for (SqlItem sqlItem : sqlGroup.sqlItems) {
+      sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
     }
   }
 }
