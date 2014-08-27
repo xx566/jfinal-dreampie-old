@@ -49,7 +49,6 @@
     <jbpm.version>6.1.0.CR1</jbpm.version>
     <slf4j.version>1.7.5</slf4j.version>
     <logback.version>1.0.13</logback.version>
-    <mysql.version>5.1.26</mysql.version>
     <h2.version>1.4.180</h2.version>
     <junit.version>4.10</junit.version>
     <jfinal.version>1.8</jfinal.version>
@@ -242,25 +241,7 @@
       <artifactId>fastjson</artifactId>
       <version>1.1.41</version>
     </dependency>
-    <dependency>
-      <groupId>org.atmosphere</groupId>
-      <artifactId>atmosphere-runtime</artifactId>
-      <version>${atmosphere.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.specs</groupId>
-      <artifactId>geronimo-servlet_3.0_spec</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <!-- This is ONLY required if you use Atmosphere's annotation. If you use
-                atmosphere.xml, not required -->
-    <dependency>
-      <groupId>eu.infomas</groupId>
-      <artifactId>annotation-detector</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-
+    <!--file io-->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-io</artifactId>
@@ -292,19 +273,6 @@
       <artifactId>lesscss</artifactId>
       <version>1.7.0.1.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-servlets</artifactId>
-      <version>9.2.2.v20140723</version>
-    </dependency>
-    <!--webjars-->
-    <!--http://angular-ui.github.io/bootstrap/-->
-    <!--<dependency>-->
-    <!--<groupId>org.atmosphere.client</groupId>-->
-    <!--<artifactId>jquery</artifactId>-->
-    <!--<version>2.2.1</version>-->
-    <!--<type>war</type>-->
-    <!--</dependency>-->
     <!--动态javascript-->
     <dependency>
       <groupId>org.webjars</groupId>
