@@ -24,9 +24,10 @@ public class AutoMultiSourceTableBindPlugin extends ActiveRecordPlugin {
   private List<Class<? extends Model>> excludeClasses = Lists.newArrayList();
   private List<Class<? extends Model>> includeClasses = Lists.newArrayList();
   private List<String> includeClassPaths = Lists.newArrayList();
-  private List<String> includeJars = Lists.newArrayList();
+  private List<String> excludeClassPaths = Lists.newArrayList();
+  //  private List<String> includeJars = Lists.newArrayList();
   private boolean autoScan = false;
-  private boolean includeAllJarsInLib;
+  //  private boolean includeAllJarsInLib;
   private INameStyle nameStyle;
 
   public AutoMultiSourceTableBindPlugin(DataSource dataSource) {
@@ -69,6 +70,13 @@ public class AutoMultiSourceTableBindPlugin extends ActiveRecordPlugin {
     return this;
   }
 
+  public AutoMultiSourceTableBindPlugin addExcludePaths(String... paths) {
+    for (String path : paths) {
+      excludeClassPaths.add(path);
+    }
+    return this;
+  }
+
   @SuppressWarnings({"rawtypes", "unchecked"})
   public AutoMultiSourceTableBindPlugin addIncludeClasses(Class<? extends Model>... clazzes) {
     for (Class<? extends Model> clazz : clazzes) {
@@ -92,39 +100,42 @@ public class AutoMultiSourceTableBindPlugin extends ActiveRecordPlugin {
     return this;
   }
 
-  public AutoMultiSourceTableBindPlugin addExcludePaths(String... paths) {
-    List<Class<? extends Model>> clazzes = ClassSearcherExt.of(Model.class).classpaths(paths).search();
-    for (Class<? extends Model> clazz : clazzes) {
-      excludeClasses.add(clazz);
-    }
-    return this;
-  }
-
-  public AutoMultiSourceTableBindPlugin addJars(List<String> jars) {
-    if (jars != null) {
-      includeJars.addAll(jars);
-    }
-    return this;
-  }
-
-  public AutoMultiSourceTableBindPlugin addJars(String... jars) {
-    if (jars != null) {
-      for (String jar : jars) {
-        includeJars.add(jar);
-      }
-    }
-    return this;
-  }
+//  public AutoMultiSourceTableBindPlugin addJars(List<String> jars) {
+//    if (jars != null) {
+//      includeJars.addAll(jars);
+//    }
+//    return this;
+//  }
+//
+//  public AutoMultiSourceTableBindPlugin addJars(String... jars) {
+//    if (jars != null) {
+//      for (String jar : jars) {
+//        includeJars.add(jar);
+//      }
+//    }
+//    return this;
+//  }
 
   @SuppressWarnings({"unchecked", "rawtypes"})
   @Override
   public boolean start() {
     if (includeClasses.size() <= 0) {
-      includeClasses = ClassSearcherExt.of(Model.class).classpaths(includeClassPaths).injars(includeJars).includeAllJarsInLib(includeAllJarsInLib).search();
+//      includeClasses = ClassSearcherExt.of(Model.class).includepaths(includeClassPaths).injars(includeJars).includeAllJarsInLib(includeAllJarsInLib).search();
+      includeClasses = ClassSearcherExt.of(Model.class).includepaths(includeClassPaths).search();
     }
     TableBind tb = null;
     for (Class modelClass : includeClasses) {
-      if (excludeClasses.contains(modelClass)) {
+      boolean isexclude = false;
+      if (excludeClassPaths.size() > 0) {
+        for (String excludepath : excludeClassPaths) {
+          log.error(modelClass.getName());
+          if (modelClass.getName().startsWith(excludepath)) {
+            isexclude = true;
+            break;
+          }
+        }
+      }
+      if (isexclude || excludeClasses.contains(modelClass)) {
         continue;
       }
       tb = (TableBind) modelClass.getAnnotation(TableBind.class);
@@ -160,8 +171,8 @@ public class AutoMultiSourceTableBindPlugin extends ActiveRecordPlugin {
     return this;
   }
 
-  public AutoMultiSourceTableBindPlugin includeAllJarsInLib(boolean includeAllJarsInLib) {
-    this.includeAllJarsInLib = includeAllJarsInLib;
-    return this;
-  }
+//  public AutoMultiSourceTableBindPlugin includeAllJarsInLib(boolean includeAllJarsInLib) {
+//    this.includeAllJarsInLib = includeAllJarsInLib;
+//    return this;
+//  }
 }

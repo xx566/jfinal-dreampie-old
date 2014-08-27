@@ -2,12 +2,12 @@ package cn.dreampie.common.plugin.tablebind;
 
 import com.google.common.collect.Lists;
 import com.jfinal.ext.kit.Reflect;
-import com.jfinal.kit.PathKit;
 import com.jfinal.log.Logger;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -20,8 +20,7 @@ public class ClassSearcherExt {
 
   protected static final Logger LOG = Logger.getLogger(ClassSearcherExt.class);
 
-  private List<String> classpaths = Lists.newArrayList();
-
+  private List<String> includepaths = Lists.newArrayList();
 
   @SuppressWarnings("unchecked")
   private static <T> List<Class<? extends T>> extraction(Class<T> clazz, List<String> classFileList) {
@@ -51,6 +50,40 @@ public class ClassSearcherExt {
      * 算法简述： 从某个给定的需查找的文件夹出发，搜索该文件夹的所有子文件夹及文件， 若为文件，则进行匹配，匹配成功则加入结果集，若为子文件夹，则进队列。 队列不空，重复上述操作，队列为空，程序结束，返回结果。
      */
     List<String> classFiles = Lists.newArrayList();
+    //判断class路径
+    URL baseURL = ClassSearcherExt.class.getResource(File.separator + baseDirName.replaceAll("\\.", "/"));
+    if (baseURL != null) {
+      // 得到协议的名称
+      String protocol = baseURL.getProtocol();
+      String basePath = baseURL.getFile();
+
+      // 如果是以文件的形式保存在服务器上
+//      if ("file".equals(protocol)) {
+//      } else
+      if ("jar".equals(protocol)) {
+        String[] paths = basePath.split("!/");
+        // 获取jar
+        try {
+          classFiles = findJarFile(paths[0].replace("file:", ""), paths[1]);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        classFiles = findPathFiles(basePath, targetFileName);
+      }
+    }
+    return classFiles;
+  }
+
+  /**
+   * 查找根目录下的文件
+   *
+   * @param baseDirName    路径
+   * @param targetFileName 文件匹配
+   * @return
+   */
+  private static List<String> findPathFiles(String baseDirName, String targetFileName) {
+    List<String> classFiles = Lists.newArrayList();
     String tempName = null;
     // 判断目录是否存在
     File baseDir = new File(baseDirName);
@@ -58,15 +91,16 @@ public class ClassSearcherExt {
       LOG.error("search error：" + baseDirName + "is not a dir！");
     } else {
       String[] filelist = baseDir.list();
+      String classname = null;
+      String tem = null;
       for (int i = 0; i < filelist.length; i++) {
         File readfile = new File(baseDirName + File.separator + filelist[i]);
         if (readfile.isDirectory()) {
-          classFiles.addAll(findFiles(baseDirName + File.separator + filelist[i], targetFileName));
+          classFiles.addAll(findPathFiles(baseDirName + File.separator + filelist[i], targetFileName));
         } else {
           tempName = readfile.getName();
           if (ClassSearcherExt.wildcardMatch(targetFileName, tempName)) {
-            String classname;
-            String tem = readfile.getAbsoluteFile().toString().replaceAll("\\\\", "/");
+            tem = readfile.getAbsoluteFile().toString().replaceAll("\\\\", "/");
             classname = tem.substring(tem.indexOf("/classes") + "/classes".length() + 1,
                 tem.indexOf(".class"));
             classFiles.add(classname.replaceAll("/", "."));
@@ -116,13 +150,13 @@ public class ClassSearcherExt {
     return strIndex == strLength;
   }
 
-  private String classpath = PathKit.getRootClassPath();
+//  private String classpath = PathKit.getRootClassPath();
 
-  private boolean includeAllJarsInLib = false;
+//  private boolean includeAllJarsInLib = false;
+//
+//  private List<String> includeJars = Lists.newArrayList();
 
-  private List<String> includeJars = Lists.newArrayList();
-
-  private String libDir = PathKit.getWebRootPath() + File.separator + "WEB-INF" + File.separator + "lib";
+//  private String libDir = PathKit.getWebRootPath() + File.separator + "WEB-INF" + File.separator + "lib";
 
   private Class target;
 
@@ -130,48 +164,40 @@ public class ClassSearcherExt {
     this.target = target;
   }
 
-  public ClassSearcherExt injars(List<String> jars) {
-    if (jars != null) {
-      this.includeJars.addAll(jars);
-    }
-    return this;
-  }
+//  public ClassSearcherExt injars(List<String> jars) {
+//    if (jars != null) {
+//      this.includeJars.addAll(jars);
+//    }
+//    return this;
+//  }
+//
+//  public ClassSearcherExt inJars(String... jars) {
+//    if (jars != null) {
+//      for (String jar : jars) {
+//        this.includeJars.add(jar);
+//      }
+//    }
+//    return this;
+//  }
 
-  public ClassSearcherExt inJars(String... jars) {
-    if (jars != null) {
-      for (String jar : jars) {
-        this.includeJars.add(jar);
+//  public ClassSearcherExt classpath(String classpath) {
+//    this.classpath = classpath;
+//    return this;
+//  }
+
+  public ClassSearcherExt includepaths(String... classpaths) {
+    if (classpaths != null) {
+      for (String classpath : classpaths) {
+        this.includepaths.add(classpath);
       }
     }
     return this;
   }
 
-  public ClassSearcherExt classpath(String classpath) {
-    this.classpath = classpath;
-    return this;
-  }
-
-  public ClassSearcherExt classpaths(String... classpaths) {
-    String rootPath = classpath;
-    if (!rootPath.endsWith("/")) {
-      rootPath += "/";
-    }
+  public ClassSearcherExt includepaths(List<String> classpaths) {
     if (classpaths != null) {
       for (String classpath : classpaths) {
-        this.classpaths.add(rootPath + classpath.replaceAll("\\.", "/"));
-      }
-    }
-    return this;
-  }
-
-  public ClassSearcherExt classpaths(List<String> classpaths) {
-    String rootPath = classpath;
-    if (!rootPath.endsWith("/")) {
-      rootPath += "/";
-    }
-    if (classpaths != null) {
-      for (String classpath : classpaths) {
-        this.classpaths.add(rootPath + classpath.replaceAll("\\.", "/"));
+        this.includepaths.add(classpath);
       }
     }
     return this;
@@ -179,15 +205,15 @@ public class ClassSearcherExt {
 
 
   public <T> List<Class<? extends T>> search() {
-    if (classpaths.size() <= 0) {
-      List<String> classFileList = findFiles(classpath, "*.class");
-      classFileList.addAll(findjarFiles(libDir, includeJars));
+    if (includepaths.size() <= 0) {
+      List<String> classFileList = findPathFiles(this.getClass().getResource(File.separator).getPath(), "*.class");
+//      classFileList.addAll(findjarFiles(libDir, includeJars, null));
       return extraction(target, classFileList);
     } else {
       List<String> classFileList = Lists.newArrayList();
-      for (String classpath : classpaths) {
+      for (String classpath : includepaths) {
         classFileList.addAll(findFiles(classpath, "*.class"));
-        classFileList.addAll(findjarFiles(libDir, includeJars));
+//        classFileList.addAll(findjarFiles(libDir, includeJars, null));
       }
       return extraction(target, classFileList);
     }
@@ -198,9 +224,9 @@ public class ClassSearcherExt {
    *
    * @param baseDirName jar路径
    * @param includeJars
-   * @param jarFileURL  jar文件地址 <a href="http://my.oschina.net/u/556800" target="_blank" rel="nofollow">@return</a>
+   * @param includeJars jar文件地址 <a href="http://my.oschina.net/u/556800" target="_blank" rel="nofollow">@return</a>
    */
-  private List<String> findjarFiles(String baseDirName, final List<String> includeJars) {
+  private List<String> findjarFiles(String baseDirName, final List<String> includeJars, String packageName) {
     List<String> classFiles = Lists.newArrayList();
     try {
       // 判断目录是否存在
@@ -211,21 +237,11 @@ public class ClassSearcherExt {
         String[] filelist = baseDir.list(new FilenameFilter() {
           @Override
           public boolean accept(File dir, String name) {
-            return includeAllJarsInLib || includeJars.contains(name);
+            return includeJars.contains(name);
           }
         });
         for (int i = 0; i < filelist.length; i++) {
-          JarFile localJarFile = new JarFile(new File(baseDirName + File.separator + filelist[i]));
-          Enumeration<JarEntry> entries = localJarFile.entries();
-          while (entries.hasMoreElements()) {
-            JarEntry jarEntry = entries.nextElement();
-            String entryName = jarEntry.getName();
-            if (!jarEntry.isDirectory() && entryName.endsWith(".class")) {
-              String className = entryName.replaceAll("/", ".").substring(0, entryName.length() - 6);
-              classFiles.add(className);
-            }
-          }
-          localJarFile.close();
+          classFiles.addAll(findJarFile(baseDirName + File.separator + filelist[i], packageName));
         }
       }
 
@@ -236,14 +252,44 @@ public class ClassSearcherExt {
 
   }
 
-  public ClassSearcherExt includeAllJarsInLib(boolean includeAllJarsInLib) {
-    this.includeAllJarsInLib = includeAllJarsInLib;
-    return this;
+  /**
+   * find jar file
+   *
+   * @param filePath    文件路径
+   * @param packageName 包名
+   * @return list
+   * @throws IOException 文件读取异常
+   */
+  private static List<String> findJarFile(String filePath, String packageName) throws IOException {
+    List<String> classFiles = Lists.newArrayList();
+    JarFile localJarFile = new JarFile(new File(filePath));
+    classFiles = findInJar(localJarFile, packageName);
+    localJarFile.close();
+    return classFiles;
   }
 
-  public ClassSearcherExt libDir(String libDir) {
-    this.libDir = libDir;
-    return this;
+  private static List<String> findInJar(JarFile localJarFile, String packageName) {
+    List<String> classFiles = Lists.newArrayList();
+    Enumeration<JarEntry> entries = localJarFile.entries();
+    while (entries.hasMoreElements()) {
+      JarEntry jarEntry = entries.nextElement();
+      String entryName = jarEntry.getName();
+      if (!jarEntry.isDirectory() && (packageName == null || entryName.startsWith(packageName)) && entryName.endsWith(".class")) {
+        String className = entryName.replaceAll("/", ".").substring(0, entryName.length() - 6);
+        classFiles.add(className);
+      }
+    }
+    return classFiles;
   }
+
+//  public ClassSearcherExt includeAllJarsInLib(boolean includeAllJarsInLib) {
+//    this.includeAllJarsInLib = includeAllJarsInLib;
+//    return this;
+//  }
+//
+//  public ClassSearcherExt libDir(String libDir) {
+//    this.libDir = libDir;
+//    return this;
+//  }
 
 }
