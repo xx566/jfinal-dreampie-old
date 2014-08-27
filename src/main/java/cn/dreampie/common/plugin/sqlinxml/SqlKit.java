@@ -15,15 +15,20 @@
  */
 package cn.dreampie.common.plugin.sqlinxml;
 
-import com.jfinal.ext.kit.JaxbKit;
+import cn.dreampie.common.util.JaxbKit;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.jfinal.log.Logger;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.stream.Stream;
 
 public class SqlKit {
 
@@ -46,6 +51,35 @@ public class SqlKit {
     sqlMap = new HashMap<String, String>();
     //加载sql文件
     loadFileList(SqlKit.class.getClassLoader().getResource("").getFile());
+    LOG.debug("sqlMap" + sqlMap);
+  }
+
+  static void init(String... paths) {
+    sqlMap = new HashMap<String, String>();
+
+    for (String path : paths) {
+      if (!path.startsWith("/")) {
+        path += "/" + path;
+      }
+
+      URL baseURL = SqlKit.class.getClassLoader().getResource(path);
+      if (baseURL != null) {
+        String protocol = baseURL.getProtocol();
+        String basePath = baseURL.getFile();
+        if ("jar".equals(protocol)) {
+          String[] pathurls = basePath.split("!/");
+          // 获取jar
+          try {
+            loadJarFileList(pathurls[0].replace("file:", ""), pathurls[1]);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        } else {
+          //加载sql文件
+          loadFileList(basePath);
+        }
+      }
+    }
     LOG.debug("sqlMap" + sqlMap);
   }
 
@@ -77,6 +111,37 @@ public class SqlKit {
     loadFiles(files);
   }
 
+
+  /**
+   * find jar file
+   *
+   * @param filePath    文件路径
+   * @param packageName 包名
+   * @return list
+   * @throws IOException 文件读取异常
+   */
+  private static void loadJarFileList(String filePath, String packageName) throws IOException {
+    Map<String, InputStream> sqlFiles = Maps.newHashMap();
+    JarFile localJarFile = new JarFile(new File(filePath));
+    sqlFiles = findInJar(localJarFile, packageName);
+    //加载sql文件
+    loadStreamFiles(sqlFiles);
+    localJarFile.close();
+  }
+
+  private static Map<String, InputStream> findInJar(JarFile localJarFile, String packageName) {
+    Map<String, InputStream> sqlFiles = Maps.newHashMap();
+    Enumeration<JarEntry> entries = localJarFile.entries();
+    while (entries.hasMoreElements()) {
+      JarEntry jarEntry = entries.nextElement();
+      String entryName = jarEntry.getName();
+      if (!jarEntry.isDirectory() && (packageName == null || entryName.startsWith(packageName)) && entryName.endsWith("sql.xml")) {
+        sqlFiles.put(entryName.substring(entryName.lastIndexOf("/") + 1), SqlKit.class.getResourceAsStream(File.separator + entryName));
+      }
+    }
+    return sqlFiles;
+  }
+
   /**
    * 加载xml文件
    *
@@ -90,6 +155,22 @@ public class SqlKit {
         String name = sqlGroup.name;
         if (name == null || name.trim().equals("")) {
           name = xmlfile.getName();
+        }
+        for (SqlItem sqlItem : sqlGroup.sqlItems) {
+          sqlMap.put(name + "." + sqlItem.id, sqlItem.value);
+        }
+      }
+    }
+  }
+
+  private static void loadStreamFiles(Map<String, InputStream> streams) {
+    for (String filename : streams.keySet()) {
+      SqlRoot root = JaxbKit.unmarshal(streams.get(filename), SqlRoot.class);
+      for (SqlGroup sqlGroup : root.sqlGroups) {
+
+        String name = sqlGroup.name;
+        if (name == null || name.trim().equals("")) {
+          name = filename;
         }
         for (SqlItem sqlItem : sqlGroup.sqlItems) {
           sqlMap.put(name + "." + sqlItem.id, sqlItem.value);

@@ -19,12 +19,21 @@ import com.jfinal.plugin.IPlugin;
 
 public class SqlInXmlPlugin implements IPlugin {
 
+  private String[] paths = null;
+
   public SqlInXmlPlugin() {
+  }
+
+  public SqlInXmlPlugin(String...paths) {
+    this.paths = paths;
   }
 
   @Override
   public boolean start() {
-    SqlKit.init();
+    if (paths != null)
+      SqlKit.init(paths);
+    else
+      SqlKit.init();
     return true;
   }
 
