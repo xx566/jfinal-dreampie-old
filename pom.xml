@@ -51,9 +51,6 @@
     <logback.version>1.0.13</logback.version>
     <mysql.version>5.1.26</mysql.version>
     <h2.version>1.4.180</h2.version>
-    <hibernate.version>4.2.0.Final</hibernate.version>
-    <hibernate.core.version>4.2.0.Final</hibernate.core.version>
-    <btm.version>2.1.4</btm.version>
     <junit.version>4.10</junit.version>
     <jfinal.version>1.8</jfinal.version>
     <jfinal-ext.version>3.1.0</jfinal-ext.version>
