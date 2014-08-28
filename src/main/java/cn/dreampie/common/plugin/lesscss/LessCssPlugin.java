@@ -48,7 +48,7 @@ public class LessCssPlugin implements IPlugin {
   public boolean start() {
 
 
-    LessExecuteThread run = new LessExecuteThread(lessCssCompiler,restartInterval);
+    LessExecuteThread run = new LessExecuteThread(lessCssCompiler, restartInterval);
     LessExecuteListener listen = new LessExecuteListener(run);
     run.addObserver(listen);
     new Thread(run).start();

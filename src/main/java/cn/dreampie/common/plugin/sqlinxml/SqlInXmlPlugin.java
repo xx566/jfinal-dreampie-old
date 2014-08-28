@@ -24,7 +24,7 @@ public class SqlInXmlPlugin implements IPlugin {
   public SqlInXmlPlugin() {
   }
 
-  public SqlInXmlPlugin(String...paths) {
+  public SqlInXmlPlugin(String... paths) {
     this.paths = paths;
   }
 

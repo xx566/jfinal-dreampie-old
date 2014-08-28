@@ -8,9 +8,10 @@
  */
 package cn.dreampie.common.web.filter.cache;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class CacheResponseStream extends ServletOutputStream {
   protected boolean closed = false;
@@ -19,7 +20,7 @@ public class CacheResponseStream extends ServletOutputStream {
   protected OutputStream cache = null;
 
   public CacheResponseStream(HttpServletResponse response,
-      OutputStream cache) throws IOException {
+                             OutputStream cache) throws IOException {
     super();
     closed = false;
     this.response = response;
@@ -29,7 +30,7 @@ public class CacheResponseStream extends ServletOutputStream {
   public void close() throws IOException {
     if (closed) {
       throw new IOException(
-        "This output stream has already been closed");
+          "This output stream has already been closed");
     }
     cache.close();
     closed = true;
@@ -38,7 +39,7 @@ public class CacheResponseStream extends ServletOutputStream {
   public void flush() throws IOException {
     if (closed) {
       throw new IOException(
-        "Cannot flush a closed output stream");
+          "Cannot flush a closed output stream");
     }
     cache.flush();
   }
@@ -46,9 +47,9 @@ public class CacheResponseStream extends ServletOutputStream {
   public void write(int b) throws IOException {
     if (closed) {
       throw new IOException(
-        "Cannot write to a closed output stream");
+          "Cannot write to a closed output stream");
     }
-    cache.write((byte)b);
+    cache.write((byte) b);
   }
 
   public void write(byte b[]) throws IOException {
@@ -56,10 +57,10 @@ public class CacheResponseStream extends ServletOutputStream {
   }
 
   public void write(byte b[], int off, int len)
-    throws IOException {
+      throws IOException {
     if (closed) {
       throw new IOException(
-       "Cannot write to a closed output stream");
+          "Cannot write to a closed output stream");
     }
     cache.write(b, off, len);
   }
@@ -67,7 +68,7 @@ public class CacheResponseStream extends ServletOutputStream {
   public boolean closed() {
     return (this.closed);
   }
-  
+
   public void reset() {
     //noop
   }

@@ -3,7 +3,6 @@ package cn.dreampie.common.web.interceptor;
 import cn.dreampie.common.web.thread.ThreadLocalUtil;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.core.ActionInvocation;
-import com.jfinal.core.Const;
 import com.jfinal.core.Controller;
 
 import javax.servlet.http.HttpServletRequest;

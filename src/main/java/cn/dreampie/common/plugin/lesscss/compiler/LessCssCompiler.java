@@ -1,21 +1,16 @@
 package cn.dreampie.common.plugin.lesscss.compiler;
 
-import akka.actor.Cancellable;
-import cn.dreampie.common.plugin.akka.Akka;
 import org.codehaus.plexus.util.StringUtils;
 import org.lesscss.LessCompiler;
 import org.lesscss.LessException;
 import org.lesscss.LessSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.plexus.build.incremental.BuildContext;
-import scala.concurrent.duration.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by wangrenhui on 2014/7/11.
@@ -27,7 +22,7 @@ public class LessCssCompiler extends AbstractLessCss {
   private Object lessCompiler;
   /**
    * The directory for compiled CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${lesscss.outputDirectory}" default-value="${project.build.directory}"
    * required
    */
@@ -35,56 +30,56 @@ public class LessCssCompiler extends AbstractLessCss {
 
   /**
    * When <code>true</code> the LESS compiler will compress the CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${lesscss.compress}" default-value="false"
    */
   private boolean compress;
 
   /**
    * When <code>true</code> the plugin will watch for changes in LESS files and compile if it detects one.
-   *
+   * <p/>
    * parameter expression="${lesscss.watch}" default-value="false"
    */
   protected boolean watch = false;
 
   /**
    * When <code>true</code> the plugin will watch for changes in LESS files and compile if it detects one.
-   *
+   * <p/>
    * parameter expression="${lesscss.watchInterval}" default-value="1000"
    */
   private int watchInterval = 1000;
 
   /**
    * The character encoding the LESS compiler will use for writing the CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${lesscss.encoding}" default-value="${project.build.sourceEncoding}"
    */
   private String encoding;
 
   /**
    * When <code>true</code> forces the LESS compiler to always compile the LESS sources. By default LESS sources are only compiled when modified (including imports) or the CSS stylesheet does not exists.
-   *
+   * <p/>
    * parameter expression="${lesscss.force}" default-value="false"
    */
   private boolean force;
 
   /**
    * The location of the LESS JavasSript file.
-   *
+   * <p/>
    * parameter
    */
   private File lessJs;
 
   /**
    * The location of the NodeJS executable.
-   *
+   * <p/>
    * parameter
    */
   private String nodeExecutable;
 
   /**
    * The format of the output file names.
-   *
+   * <p/>
    * parameter
    */
   private String outputFileFormat;

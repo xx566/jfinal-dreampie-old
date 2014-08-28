@@ -1,17 +1,13 @@
 package cn.dreampie.common.plugin.coffeescript.compiler;
 
-import cn.dreampie.common.plugin.akka.Akka;
 import org.codehaus.plexus.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.plexus.build.incremental.BuildContext;
-import scala.concurrent.duration.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by wangrenhui on 2014/7/11.
@@ -22,7 +18,7 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
   private CoffeeCompiler coffeeCompiler;
   /**
    * The directory for compiled CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${coffeejs.outputDirectory}" default-value="${project.build.directory}"
    * required
    */
@@ -30,56 +26,56 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
 
   /**
    * When <code>true</code> the COFFEE compiler will compress the CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${coffeejs.compress}" default-value="false"
    */
   private boolean compress;
 
   /**
    * When <code>true</code> the plugin will watch for changes in COFFEE files and compile if it detects one.
-   *
+   * <p/>
    * parameter expression="${coffeejs.watch}" default-value="false"
    */
   protected boolean watch = false;
 
   /**
    * When <code>true</code> the plugin will watch for changes in COFFEE files and compile if it detects one.
-   *
+   * <p/>
    * parameter expression="${coffeejs.watchInterval}" default-value="1000"
    */
   private int watchInterval = 1000;
 
   /**
    * The character encoding the COFFEE compiler will use for writing the CSS stylesheets.
-   *
+   * <p/>
    * parameter expression="${coffeejs.encoding}" default-value="${project.build.sourceEncoding}"
    */
   private String encoding;
 
   /**
    * When <code>true</code> forces the COFFEE compiler to always compile the COFFEE sources. By default COFFEE sources are only compiled when modified (including imports) or the CSS stylesheet does not exists.
-   *
+   * <p/>
    * parameter expression="${coffeejs.force}" default-value="false"
    */
   private boolean force;
 
   /**
    * The location of the COFFEE JavasSript file.
-   *
+   * <p/>
    * parameter
    */
   private File coffeeJs;
 
   /**
    * The location of the NodeJS executable.
-   *
+   * <p/>
    * parameter
    */
   private String nodeExecutable;
 
   /**
    * The format of the output file names.
-   *
+   * <p/>
    * parameter
    */
   private String outputFileFormat;

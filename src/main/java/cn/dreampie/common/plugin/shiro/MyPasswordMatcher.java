@@ -1,7 +1,7 @@
 package cn.dreampie.common.plugin.shiro;
 
-import cn.dreampie.common.plugin.shiro.hasher.Hasher;
 import cn.dreampie.common.model.User;
+import cn.dreampie.common.plugin.shiro.hasher.Hasher;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.credential.PasswordMatcher;

@@ -8,10 +8,12 @@
  */
 package cn.dreampie.common.web.filter.gzip;
 
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public class GZIPResponseWrapper extends HttpServletResponseWrapper {
   protected HttpServletResponse origResponse = null;
@@ -36,7 +38,8 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
           stream.close();
         }
       }
-    } catch (IOException e) {}
+    } catch (IOException e) {
+    }
   }
 
   public void flushBuffer() throws IOException {
@@ -62,10 +65,11 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
       throw new IllegalStateException("getOutputStream() has already been called!");
     }
 
-   stream = createOutputStream();
-   writer = new PrintWriter(new OutputStreamWriter(stream, origResponse.getCharacterEncoding()));
-   return (writer);
+    stream = createOutputStream();
+    writer = new PrintWriter(new OutputStreamWriter(stream, origResponse.getCharacterEncoding()));
+    return (writer);
   }
 
-  public void setContentLength(int length) {}
+  public void setContentLength(int length) {
+  }
 }

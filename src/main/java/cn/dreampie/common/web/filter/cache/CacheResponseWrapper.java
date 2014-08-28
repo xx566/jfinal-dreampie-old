@@ -8,9 +8,13 @@
  */
 package cn.dreampie.common.web.filter.cache;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public class CacheResponseWrapper
     extends HttpServletResponseWrapper {
@@ -20,7 +24,7 @@ public class CacheResponseWrapper
   protected OutputStream cache = null;
 
   public CacheResponseWrapper(HttpServletResponse response,
-      OutputStream cache) {
+                              OutputStream cache) {
     super(response);
     origResponse = response;
     this.cache = cache;
@@ -39,7 +43,7 @@ public class CacheResponseWrapper
       throws IOException {
     if (writer != null) {
       throw new IllegalStateException(
-        "getWriter() has already been called!");
+          "getWriter() has already been called!");
     }
 
     if (stream == null)
@@ -54,11 +58,11 @@ public class CacheResponseWrapper
 
     if (stream != null) {
       throw new IllegalStateException(
-        "getOutputStream() has already been called!");
+          "getOutputStream() has already been called!");
     }
 
-   stream = createOutputStream();
-   writer = new PrintWriter(new OutputStreamWriter(stream, "UTF-8"));
-   return (writer);
+    stream = createOutputStream();
+    writer = new PrintWriter(new OutputStreamWriter(stream, "UTF-8"));
+    return (writer);
   }
 }

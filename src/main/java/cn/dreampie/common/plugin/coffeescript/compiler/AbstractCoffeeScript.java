@@ -17,7 +17,7 @@ public class AbstractCoffeeScript {
 
   /**
    * The source directory containing the COFFEE sources.
-   *
+   * <p/>
    * param expression="${coffeescript.sourceDirectory}" default-value="${project.basedir}/src/main/coffee"
    * required
    */
@@ -25,14 +25,14 @@ public class AbstractCoffeeScript {
 
   /**
    * List of files to include. Specified as fileset patterns which are relative to the source directory. Default value is: { "**\/*.coffee" }
-   *
+   * <p/>
    * param  include files
    */
   protected String[] includes = new String[]{"**/*.coffee"};
 
   /**
    * List of files to exclude. Specified as fileset patterns which are relative to the source directory.
-   *
+   * <p/>
    * param exclude  files
    */
   protected String[] excludes = new String[]{};
@@ -53,7 +53,7 @@ public class AbstractCoffeeScript {
   /**
    * Whether to skip plugin execution.
    * This makes the build more controllable from profiles.
-   *
+   * <p/>
    * param expression="${coffeescript.skip}" default-value="false"
    */
   protected boolean skip;

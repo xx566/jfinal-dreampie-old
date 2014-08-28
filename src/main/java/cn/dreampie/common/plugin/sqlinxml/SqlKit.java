@@ -16,7 +16,6 @@
 package cn.dreampie.common.plugin.sqlinxml;
 
 import cn.dreampie.common.util.JaxbKit;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jfinal.log.Logger;
 
@@ -49,7 +48,11 @@ public class SqlKit {
   static void init() {
     sqlMap = new HashMap<String, String>();
     //加载sql文件
-    loadFileList(SqlKit.class.getClassLoader().getResource("").getFile());
+    URL baseURL = SqlKit.class.getClassLoader().getResource("/sql");
+    if (baseURL == null) {
+      baseURL = SqlKit.class.getClassLoader().getResource("/");
+    }
+    loadFilePath(baseURL);
     LOG.debug("sqlMap" + sqlMap);
   }
 
@@ -60,26 +63,29 @@ public class SqlKit {
       if (!path.startsWith("/")) {
         path += "/" + path;
       }
-
       URL baseURL = SqlKit.class.getClassLoader().getResource(path);
-      if (baseURL != null) {
-        String protocol = baseURL.getProtocol();
-        String basePath = baseURL.getFile();
-        if ("jar".equals(protocol)) {
-          String[] pathurls = basePath.split("!/");
-          // 获取jar
-          try {
-            loadJarFileList(pathurls[0].replace("file:", ""), pathurls[1]);
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-        } else {
-          //加载sql文件
-          loadFileList(basePath);
-        }
-      }
+      loadFilePath(baseURL);
     }
     LOG.debug("sqlMap" + sqlMap);
+  }
+
+  private static void loadFilePath(URL baseURL) {
+    if (baseURL != null) {
+      String protocol = baseURL.getProtocol();
+      String basePath = baseURL.getFile();
+      if ("jar".equals(protocol)) {
+        String[] pathurls = basePath.split("!/");
+        // 获取jar
+        try {
+          loadJarFileList(pathurls[0].replace("file:", ""), pathurls[1]);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      } else {
+        //加载sql文件
+        loadFileList(basePath);
+      }
+    }
   }
 
   public static void loadFileList(String strPath) {

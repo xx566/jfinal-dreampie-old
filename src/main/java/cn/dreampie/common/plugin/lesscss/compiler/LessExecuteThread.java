@@ -1,13 +1,8 @@
 package cn.dreampie.common.plugin.lesscss.compiler;
 
-import cn.dreampie.common.plugin.coffeescript.compiler.CoffeeException;
-import cn.dreampie.common.plugin.coffeescript.compiler.CoffeeScriptCompiler;
-import com.jfinal.kit.PathKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.plexus.build.incremental.ThreadBuildContext;
 
-import java.io.File;
 import java.util.Observable;
 
 /**

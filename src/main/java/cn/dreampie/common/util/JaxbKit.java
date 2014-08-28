@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.stream.Stream;
 
 /**
  * Created by wangrenhui on 14/8/27.
@@ -23,7 +22,7 @@ public class JaxbKit {
   /**
    * string  object
    *
-   * @param src src
+   * @param src   src
    * @param clazz clazz
    * @return
    */

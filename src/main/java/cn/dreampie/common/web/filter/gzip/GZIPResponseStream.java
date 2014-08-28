@@ -11,10 +11,11 @@ package cn.dreampie.common.web.filter.gzip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.zip.GZIPOutputStream;
-import javax.servlet.*;
-import javax.servlet.http.*;
 
 public class GZIPResponseStream extends ServletOutputStream {
   private Logger logger = LoggerFactory.getLogger(getClass());
@@ -62,7 +63,7 @@ public class GZIPResponseStream extends ServletOutputStream {
     if (closed) {
       throw new IOException("Cannot write to a closed output stream");
     }
-    gzipstream.write((byte)b);
+    gzipstream.write((byte) b);
   }
 
   public void write(byte b[]) throws IOException {
@@ -80,7 +81,7 @@ public class GZIPResponseStream extends ServletOutputStream {
   public boolean closed() {
     return (this.closed);
   }
-  
+
   public void reset() {
     //noop
   }

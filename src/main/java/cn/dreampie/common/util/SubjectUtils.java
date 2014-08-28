@@ -2,8 +2,8 @@ package cn.dreampie.common.util;
 
 
 import cn.dreampie.common.config.AppConstants;
-import cn.dreampie.common.util.security.EncriptionUtils;
 import cn.dreampie.common.model.User;
+import cn.dreampie.common.util.security.EncriptionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -55,7 +55,7 @@ public class SubjectUtils {
       return null;
     else {
       T u = (T) user;
-      u.remove("password","hasher","salt");
+      u.remove("password", "hasher", "salt");
       u.removeNullValueAttrs();
       return (T) user;
     }

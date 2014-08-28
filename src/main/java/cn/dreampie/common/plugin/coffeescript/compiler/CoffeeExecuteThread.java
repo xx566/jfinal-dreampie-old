@@ -1,11 +1,8 @@
 package cn.dreampie.common.plugin.coffeescript.compiler;
 
-import com.jfinal.kit.PathKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.sonatype.plexus.build.incremental.ThreadBuildContext;
 
-import java.io.File;
 import java.util.Observable;
 
 /**
@@ -17,9 +14,9 @@ public class CoffeeExecuteThread extends Observable implements Runnable {
 
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
-  public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler,int restartInterval) {
+  public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler, int restartInterval) {
     this.coffeeScriptCompiler = coffeeScriptCompiler;
-    this.restartInterval=restartInterval;
+    this.restartInterval = restartInterval;
   }
 
   // 此方法一经调用，等待restartInterval时间之后可以通知观察者，在本例中是监听线程
