@@ -1,7 +1,7 @@
 dreampie
 ========
 
-dreampie.cn 支持我请在上角点 Star，thanks
+dreampie.cn 支持我请在右上角点 Star，thanks
 
 
 jfinal好用的插件正在开发，
