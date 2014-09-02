@@ -118,28 +118,8 @@ public class ShiroPlugin implements IPlugin {
         }
       }
     }
-    //加载数据库的url配置
-    //加载jdbc权限
-    Map<String, AuthzHandler> authzJdbcMaps = null;
-    if (jdbcAuthzService != null)
-      authzJdbcMaps = jdbcAuthzService.getJdbcAuthz();
-
-    //这里将map.entrySet()转换成list
-//    List<String> authzJdbcKeyLists = new ArrayList<String>(authzJdbcMaps.keySet());
-//    Collections.sort(authzJdbcKeyLists, new Comparator<String>() {
-//      public int compare(String k1, String k2) {
-//        return new Integer(k2.length()).compareTo(k1.length());
-//      }
-//    });
-//
-//    Collections.sort(Lists.newArrayList(authzJdbcMaps.keySet()), new Comparator<String>() {
-//      public int compare(String k1, String k2) {
-//        return new Integer(k2.length()).compareTo(k1.length());
-//      }
-//    });
-
     //注入到ShiroKit类中。ShiroKit类以单例模式运行。
-    ShiroKit.init(authzMaps, authzJdbcMaps);
+    ShiroKit.init(jdbcAuthzService,authzMaps);
     return true;
   }
 
