@@ -29,6 +29,10 @@ public class LessCssPlugin implements IPlugin {
     setLessCssCompiler("/lesscss/", "/style/", false, true);
   }
 
+  public LessCssPlugin(String in, String out) {
+    setLessCssCompiler(in, out, false, true);
+  }
+
   public LessCssPlugin(LessCssCompiler lessCssCompiler) {
     this.lessCssCompiler = lessCssCompiler;
   }
