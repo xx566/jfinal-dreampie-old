@@ -113,7 +113,7 @@ public class CoffeeCompiler {
 
   private void init() throws IOException {
     InputStream inputStream = null;
-    if (!FileUtils.toFile(coffeeJs).exists()) {
+    if (coffeeJs==null) {
       logger.info("coffee-script file not found");
       inputStream = this.getClass().getResourceAsStream("/lib/coffee-script-1.7.1.min.js");
     } else

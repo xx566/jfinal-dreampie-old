@@ -10,8 +10,7 @@ import java.util.Observable;
  */
 public class CoffeeExecuteThread extends Observable implements Runnable {
   private Logger logger = LoggerFactory.getLogger(getClass());
-  private int restartInterval = 10000;
-
+  private int restartInterval = 1000;
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
   public CoffeeExecuteThread(CoffeeScriptCompiler coffeeScriptCompiler, int restartInterval) {

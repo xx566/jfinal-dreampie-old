@@ -10,7 +10,7 @@ import java.util.Observable;
  */
 public class LessExecuteThread extends Observable implements Runnable {
   private Logger logger = LoggerFactory.getLogger(getClass());
-  private int restartInterval = 10000;
+  private int restartInterval = 1000;
 
   private LessCssCompiler lessCssCompiler;
 

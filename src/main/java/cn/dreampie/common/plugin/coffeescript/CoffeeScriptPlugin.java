@@ -16,21 +16,18 @@ import java.io.IOException;
 public class CoffeeScriptPlugin implements IPlugin {
   private Logger logger = LoggerFactory.getLogger(getClass());
   //restart thread  timeout
-  private int restartInterval = 10000;
+  private int restartInterval = 1000;
   private CoffeeScriptCompiler coffeeScriptCompiler;
 
   public CoffeeScriptPlugin() {
-    coffeeScriptCompiler = new CoffeeScriptCompiler();
-    coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
-    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/coffeescript/"));
-    coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/javascript/"));
-//        coffeeScriptCompiler.setForce(true);
-//        coffeeScriptCompiler.setCompress(true);
-    coffeeScriptCompiler.setCoffeeJs(new File(PathKit.getRootClassPath() + "/lib/coffee-script-1.7.1.min.js"));
-    coffeeScriptCompiler.setArgs("--bare");
-    coffeeScriptCompiler.setWatch(true);
+    setCoffeeScriptCompiler("/coffeescript/", "/javascript/", false, "--bare", true);
 
   }
+
+  public CoffeeScriptPlugin(String in, String out) {
+    setCoffeeScriptCompiler(in, out, false, "--bare", true);
+  }
+
 
   public CoffeeScriptPlugin(CoffeeScriptCompiler coffeeScriptCompiler) {
     this.coffeeScriptCompiler = coffeeScriptCompiler;
@@ -39,6 +36,18 @@ public class CoffeeScriptPlugin implements IPlugin {
   public CoffeeScriptPlugin(int restartInterval, CoffeeScriptCompiler coffeeScriptCompiler) {
     this.restartInterval = restartInterval;
     this.coffeeScriptCompiler = coffeeScriptCompiler;
+  }
+
+
+  private void setCoffeeScriptCompiler(String in, String out, boolean compress, String args, boolean watch) {
+    coffeeScriptCompiler = new CoffeeScriptCompiler();
+    coffeeScriptCompiler.setBuildContext(ThreadBuildContext.getContext());
+    coffeeScriptCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + in));
+    coffeeScriptCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + out));
+//        coffeeScriptCompiler.setForce(true);
+    coffeeScriptCompiler.setCompress(compress);
+    coffeeScriptCompiler.setArgs(args);
+    coffeeScriptCompiler.setWatch(watch);
   }
 
   @Override

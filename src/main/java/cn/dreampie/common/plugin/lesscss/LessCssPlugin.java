@@ -22,17 +22,11 @@ public class LessCssPlugin implements IPlugin {
 
   private Logger logger = LoggerFactory.getLogger(getClass());
   //restart thread  timeout
-  private int restartInterval = 10000;
+  private int restartInterval = 1000;
   private LessCssCompiler lessCssCompiler;
 
   public LessCssPlugin() {
-    lessCssCompiler = new LessCssCompiler();
-    lessCssCompiler.setBuildContext(ThreadBuildContext.getContext());
-    lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + "/lesscss/"));
-    lessCssCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + "/style/"));
-//        lessCssCompiler.setForce(true);
-//        lessCssCompiler.setCompress(true);
-    lessCssCompiler.setWatch(true);
+    setLessCssCompiler("/lesscss/", "/style/", false, true);
   }
 
   public LessCssPlugin(LessCssCompiler lessCssCompiler) {
@@ -42,6 +36,16 @@ public class LessCssPlugin implements IPlugin {
   public LessCssPlugin(int restartInterval, LessCssCompiler lessCssCompiler) {
     this.restartInterval = restartInterval;
     this.lessCssCompiler = lessCssCompiler;
+  }
+
+  private void setLessCssCompiler(String in, String out, boolean compress, boolean watch) {
+    lessCssCompiler = new LessCssCompiler();
+    lessCssCompiler.setBuildContext(ThreadBuildContext.getContext());
+    lessCssCompiler.setSourceDirectory(new File(PathKit.getWebRootPath() + in));
+    lessCssCompiler.setOutputDirectory(new File(PathKit.getWebRootPath() + out));
+//        lessCssCompiler.setForce(true);
+    lessCssCompiler.setCompress(compress);
+    lessCssCompiler.setWatch(watch);
   }
 
   @Override

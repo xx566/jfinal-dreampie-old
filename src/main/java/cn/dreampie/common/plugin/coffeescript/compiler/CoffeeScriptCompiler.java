@@ -84,6 +84,8 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
 
   private String[] args;
 
+  private long lastErrorModified = 0;
+
   /**
    * Execute the MOJO.
    *
@@ -185,7 +187,9 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
 
       try {
         CoffeeSource coffeeSource = new CoffeeSource(input);
-        if (force || !output.exists() || output.lastModified() < coffeeSource.getLastModifiedIncludingImports()) {
+        long coffeeLastModified = coffeeSource.getLastModifiedIncludingImports();
+        if ((force || !output.exists() || output.lastModified() < coffeeLastModified) && lastErrorModified < coffeeLastModified) {
+          lastErrorModified = coffeeLastModified;
           long compilationStarted = System.currentTimeMillis();
           logger.info("Compiling COFFEE source: " + file);
           if (coffeeCompiler instanceof CoffeeCompiler) {
@@ -304,5 +308,13 @@ public class CoffeeScriptCompiler extends AbstractCoffeeScript {
 
   public void setArgs(String... args) {
     this.args = args;
+  }
+
+  public long getLastErrorModified() {
+    return lastErrorModified;
+  }
+
+  public void setLastErrorModified(long lastErrorModified) {
+    this.lastErrorModified = lastErrorModified;
   }
 }

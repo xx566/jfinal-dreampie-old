@@ -86,6 +86,8 @@ public class LessCssCompiler extends AbstractLessCss {
 
   private static final String FILE_NAME_FORMAT_PARAMETER_REGEX = "\\{fileName\\}";
 
+  private long lastErrorModified = 0;
+
   /**
    * Execute the MOJO.
    *
@@ -188,7 +190,9 @@ public class LessCssCompiler extends AbstractLessCss {
 
         try {
           LessSource lessSource = new LessSource(input);
-          if (force || !output.exists() || output.lastModified() < lessSource.getLastModifiedIncludingImports()) {
+          long lessLastModified = lessSource.getLastModifiedIncludingImports();
+          if ((force || !output.exists() || output.lastModified() < lessLastModified) && lastErrorModified < lessLastModified) {
+            lastErrorModified = lessLastModified;
             long compilationStarted = System.currentTimeMillis();
             logger.info("Compiling LESS source: " + file + "...");
             if (lessCompiler instanceof LessCompiler) {
@@ -326,5 +330,13 @@ public class LessCssCompiler extends AbstractLessCss {
 
   public void setOutputFileFormat(String outputFileFormat) {
     this.outputFileFormat = outputFileFormat;
+  }
+
+  public long getLastErrorModified() {
+    return lastErrorModified;
+  }
+
+  public void setLastErrorModified(long lastErrorModified) {
+    this.lastErrorModified = lastErrorModified;
   }
 }
