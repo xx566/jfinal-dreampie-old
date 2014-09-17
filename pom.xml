@@ -54,6 +54,8 @@
     <jfinal.version>1.8</jfinal.version>
     <jfinal-ext.version>3.1.0</jfinal-ext.version>
     <joda.version>2.3</joda.version>
+    <!-- Java EE 7 -->
+    <javaee.api.version>7.0</javaee.api.version>
   </properties>
 
   <dependencies>
@@ -286,6 +288,12 @@
       <version>1.7.3</version>
     </dependency>
 
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${javaee.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
 
   <distributionManagement>
