@@ -20,7 +20,7 @@ maven引入方式：http://search.maven.org/ 输入jfinal-dreampie搜索:
 demo:(Angularjs前端+jfinal-dreampie插件):https://github.com/Dreampie/icedog,
 剥离框架前的源码:https://github.com/Dreampie/dreampie
 
-https://github.com/Dreampie?tab=repositories 目录下有多款插件：
+https://github.com/Dreampie?tab=repositories 目录下有多款插件，可以在maven里搜索到：
 
 cn.dreampie.jfinal-shiro     https://github.com/Dreampie/jfinal-shiro    shiro插件    
 
